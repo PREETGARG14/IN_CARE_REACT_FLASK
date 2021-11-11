@@ -14,3 +14,9 @@
     font-family: DFL-Italic;
     src: url("Assets/DFL-Italic.otf") format("opentype");
 }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"DFL";
+}
