@@ -1,0 +1,16 @@
+@font-face {
+    font-family: DFL;
+    src: url("Assets/DFL.otf") format("opentype");
+}
+@font-face {
+    font-family: DFL-Bold;
+    src: url("Assets/DFL-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: DFL-Light;
+    src: url("Assets/DFL-Light.otf") format("opentype");
+}
+@font-face {
+    font-family: DFL-Italic;
+    src: url("Assets/DFL-Italic.otf") format("opentype");
+}
