@@ -74,18 +74,22 @@ def market_page():
         return render_template('market.html', items=items, purchase_form=purchase_form, owned_items=owned_items, selling_form=selling_form) 
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/api/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data,
+        user_to_create = User(fullname=form.fullname.data,
                               email_address=form.email_address.data,
                               password_hash=form.password1.data)
+                              # uniq_id=form.uniq_id.data,
+                              # age=form.age.data,
+                              # gender=form.gender.data
+
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
-        flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('market_page'))
+        flash(f"Account created successfully! You are now logged in as {user_to_create.fullname}", category='success')
+        return redirect(url_for('user_home'))
     if form.errors != {}:  # If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(
@@ -94,35 +98,34 @@ def register_page():
     return render_template('register.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/api/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = User.query.filter_by(
-            username=form.username.data).first()
+        attempted_user = User.query.filter_by(username=form.username.data).first()
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(
                 f'Success! You are logged in as: {attempted_user.username}', category='success')
-            return redirect(url_for('market_page'))
+            return redirect(url_for('user_home'))
         else:
             flash('Username and password are not match! Please try again',
                   category='danger')
 
     return render_template('login.html', form=form)
 
-
-@app.route('/logout')
+@app.route('/api/logout')
 def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+
+@app.route('/api/doctor', methods=['GET', 'POST'])
 def admin_login_page():
     form = AdminLoginForm()
-    products =  db.session.query(Item).filter()
+#    products =  db.session.query(Item).filter()
 
     if form.validate_on_submit():
         # result = db.session.query(Admins).filter(Admins.email==email, Admins.password==password)
@@ -131,42 +134,42 @@ def admin_login_page():
         if (attempted_user):
         # login_user(attempted_user)
             # flash(f'Success! You are logged in as: {attempted_user.username}(Admin)', category='success')
-            return redirect(url_for('add_product_page' , products = products))
+            return redirect(url_for('patients_list' , products = products))
         else:
             flash('Username and password are not match! Please try again', category='danger')
 
     return render_template('adminlogin.html', form=form)
 
-@app.route('/admin/addproducts', methods=['GET', 'POST'])
-def add_product_page():
-    form = AdminAddProductForm()
-    products =  db.session.query(Item).filter()
-    print(products)
-    if form.validate_on_submit():
+# @app.route('/admin/addproducts', methods=['GET', 'POST'])
+# def add_product_page():
+#     form = AdminAddProductForm()
+#     products =  db.session.query(Item).filter()
+#     print(products)
+#     if form.validate_on_submit():
         
-        product_information = Item(name=form.name.data,
-                            price=form.price.data,
-                            barcode=form.barcode.data,
-                            description = form.description.data)
-        product_update = db.session.query(Item).filter_by(barcode= product_information.barcode).first()
-        if(product_update):
-            product_update.name = product_information.name
-            product_update.price = product_information.price
-            product_update.barcode = product_information.barcode
-            product_update.description = product_information.description
-            db.session.commit() 
-            print(product_update.name)
-        else:
-            db.session.add(product_information)
-            db.session.commit()
-            # login_user(user_to_create)
-            flash(f"Product {product_information.name} added successfully", category='success')
-            return redirect(url_for('add_product_page' , form=form , products = products))
-    if form.errors != {}: #If there are not errors from the validations
-        for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
+#         product_information = Item(name=form.name.data,
+#                             price=form.price.data,
+#                             barcode=form.barcode.data,
+#                             description = form.description.data)
+#         product_update = db.session.query(Item).filter_by(barcode= product_information.barcode).first()
+#         if(product_update):
+#             product_update.name = product_information.name
+#             product_update.price = product_information.price
+#             product_update.barcode = product_information.barcode
+#             product_update.description = product_information.description
+#             db.session.commit() 
+#             print(product_update.name)
+#         else:
+#             db.session.add(product_information)
+#             db.session.commit()
+#             # login_user(user_to_create)
+#             flash(f"Product {product_information.name} added successfully", category='success')
+#             return redirect(url_for('add_product_page' , form=form , products = products))
+#     if form.errors != {}: #If there are not errors from the validations
+#         for err_msg in form.errors.values():
+#             flash(f'There was an error with creating a user: {err_msg}', category='danger')
         
-    return render_template('adminpage.html', form=form , products = products)
+#     return render_template('adminpage.html', form=form , products = products)
 
 
 # decorator for verifying the JWT
