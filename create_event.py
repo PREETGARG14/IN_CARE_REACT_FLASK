@@ -13,7 +13,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def main():
+def createEvent():
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -69,11 +69,11 @@ def main():
       "calendarId": "primary",
       "conferenceDataVersion": 1,
       "end": {
-        'dateTime': '2022-1-28T17:00:00-07:00',
+        'dateTime': '2022-1-20T17:00:00-07:00',
         'timeZone': 'Asia/Kolkata'
       },
       "start": {
-        'dateTime': '2022-1-28T09:00:00-07:00',
+        'dateTime': '2022-1-20T09:00:00-07:00',
         'timeZone': 'Asia/Kolkata'
       },
       "conferenceData": {
@@ -92,8 +92,5 @@ def main():
       }
     event = service.events().insert(calendarId='primary', body=body).execute()
     print('Event created: %s' % (event.get('htmlLink')))
-
-
-
-if __name__ == '__main__':
-    main()
+    eventlink = event.get('htmlLink')
+    return eventlink
