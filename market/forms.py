@@ -1,17 +1,17 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField,HiddenField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from market.models import User
+from market.models import Patients
 
 
 class RegisterForm(FlaskForm):
     def validate_username(self, uniq_id_given):
-        user = User.query.filter_by(uniq_id=uniq_id_given.data).first()
+        user = Patients.query.filter_by(uniq_id=uniq_id_given.data).first()
         if user:
             raise ValidationError('Username already exists! Please try a different username')
 
     def validate_email_address(self, email_address_to_check):
-        email_address = User.query.filter_by(email_address=email_address_to_check.data).first()
+        email_address = Patients.query.filter_by(email_address=email_address_to_check.data).first()
         if email_address:
             raise ValidationError('Email Address already exists! Please try a different email address')
 

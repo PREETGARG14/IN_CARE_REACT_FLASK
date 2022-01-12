@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id)) 
+    return Patients.query.get(int(user_id)) 
 
 class Patients(db.Model, UserMixin):
     __tablename__ = 'patients'
@@ -116,21 +116,21 @@ class medSummary(db.Model):
     medNonDailyLowerUnit=db.Column(db.String(), nullable=True)
     medNonDailyUpperFrequency=db.Column(db.Integer(), nullable=True)
     medNonDailyUpperUnit=db.Column(db.String(), nullable=True)
-    medNonDailyDate=db.column(db.Date(), nullable=True)
-    medNonDailyDoW=db.column(db.String(length=9), nullable=True)
-    medNonDailyDoM=db.column(db.Integer(), nullable=True)
-    medNonDailyDoMLower=db.column(db.Integer(), nullable=True)
-    medNonDailyDoMUpper=db.column(db.Integer(), nullable=True)
-    medNonDailyTimingDescription=db.column(db.String(), nullable=True)
-    medNonDailyEventName=db.column(db.String(), nullable=True)
-    medNonDailyTimeOffset=db.column(db.DateTime(), nullable=True)
-    medNonDailyOn=db.column(db.Date(), nullable=True)
-    medNonDailyOff=db.column(db.Date(), nullable=True)
-    medNonDailyRepetitions=db.column(db.Integer(), nullable=True)
-    # Moving to exclusions from Summary
-    globalExclusion=db.Column(db.String(),nullable=True)
-    absenceStatement=db.Column(db.String(), nullable=True)
-    protocolUpdated=db.Column(db.String(), nullable=True)
+    # medNonDailyDate=db.column(db.DateTime(), nullable=True)
+    # medNonDailyDoW=db.column(db.String(length=9), nullable=True)
+    # medNonDailyDoM=db.column(db.Integer(), nullable=True)
+    # medNonDailyDoMLower=db.column(db.Integer(), nullable=True)
+    # medNonDailyDoMUpper=db.column(db.Integer(), nullable=True)
+    # medNonDailyTimingDescription=db.column(db.String(), nullable=True)
+    # medNonDailyEventName=db.column(db.String(), nullable=True)
+    # medNonDailyTimeOffset=db.column(db.DateTime(), nullable=True)
+    # medNonDailyOn=db.column(db.Date(), nullable=True)
+    # medNonDailyOff=db.column(db.Date(), nullable=True)
+    # medNonDailyRepetitions=db.column(db.Integer(), nullable=True)
+    # # Moving to exclusions from Summary
+    # globalExclusion=db.Column(db.String(),nullable=True)
+    # absenceStatement=db.Column(db.String(), nullable=True)
+    # protocolUpdated=db.Column(db.String(), nullable=True)
     
     
     
