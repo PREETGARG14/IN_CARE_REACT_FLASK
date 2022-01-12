@@ -3,14 +3,14 @@ from flask import Flask, redirect, url_for, render_template, request, flash
 from flask_mail import Mail, Message
 import datetime
 import os.path
-from create_event import createEvent
+from CreateMeet.create_event import createEvent
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from create_event import createEvent
+from CreateMeet.create_event import createEvent
 app = Flask(__name__)
 mail = Mail(app) # instantiate the mail class
 

@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import datetime
 import os.path
-
+from CreateMeet.zoomlink import createMeeting
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -35,7 +35,7 @@ def createEvent():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    
+    zoomlink = createMeeting()
     service = build('calendar', 'v3', credentials=creds)    
 
 #     event = {
@@ -68,6 +68,7 @@ def createEvent():
     body = {
       "calendarId": "primary",
       "conferenceDataVersion": 1,
+      'description': zoomlink,
       "end": {
         'dateTime': '2022-1-20T17:00:00-07:00',
         'timeZone': 'Asia/Kolkata'
@@ -85,6 +86,7 @@ def createEvent():
         }
       },
       'attendees': [
+    {'email': 'siddhukanu1@gmail.com'},
     {'email': 'siddhukanu1@gmail.com'},
     {'email': 'siddhukanu3@gmail.com'},
   ],
