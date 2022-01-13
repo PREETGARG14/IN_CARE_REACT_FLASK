@@ -1,0 +1,53 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+  </style>
+
+<div class="modal fade" id="Modal-MoreInfo-products-{{ item.id }}"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            {{ item.id }}
+          </h5>
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
+           
+            <br>
+            {{ form.problem.label() }}
+            {{ form.problem(class="form-control", value= item.problem ) }}
+
+            {{ form.body_site.label() }}
+            {{ form.body_site(class="form-control", value=item.body_site) }}
+
+            {{ form.dateTime.label() }}
+            {{ form.dateTime(class="form-control", value=item.dateTime) }}
+
+            {{ form.severity.label() }}
+            {{ form.severity(class="form-control", value=item.severity) }}
+
+            {{ form.lastUpdated.label() }}
+            {{ form.lastUpdated(class="form-control", value=item.last_updated) }}
+            <br>
+            {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
+
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  data-dismiss="modal">Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
