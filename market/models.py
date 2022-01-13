@@ -168,7 +168,7 @@ class Prescription(db.Model):
     doseSpecificTime=db.Column(db.Time())
     doseNamedTimeEvent=db.Column(db.String())
     doseExactTimingCritical=db.Column(db.Boolean())
-    doseAsCritical=db.Column(db.Boolean())
+    doseAsRequired=db.Column(db.Boolean())
     doseAsRequiredCriterion=db.Column(db.String())
     infusionAdminRateQ=db.Column(db.Float())
     infusionAdminRateUnit=db.Column(db.String())
