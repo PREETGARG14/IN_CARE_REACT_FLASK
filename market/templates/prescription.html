@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form>
+    <form name="prescription form" action='/api/prescriptionSuccessful' method="POST">
 
         <div class="aboveMainheading pt-2">
             <div style="padding-top: 5px;">
@@ -141,7 +141,7 @@
                                     <img src="category.svg" class="image">
                                     <span>Role</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <img src="t_n.svg" class="image">
-                                    <select name="status" id="status">
+                                    <select name="roleStatus" id="status">
                                         <option value="active">Therauputic</option>
                                         <option value="stopped">Electrolyte</option>
                                         <option value="neverActive">Toxic</option>
@@ -218,7 +218,7 @@
                                                     placeholder="0..1 >=0 >=0 >=0">
 
 
-                                                <select name="status" id="status">
+                                                <select name="frequencyUnit" id="status">
                                                     <option value="active">1/d</option>
                                                     <option value="stopped">1/min</option>
                                                     <option value="neverActive">1/hr</option>
@@ -231,7 +231,7 @@
                                                     placeholder="0..1 >=0 >=0 >=0">
 
 
-                                                <select name="status" id="status">
+                                                <select name="frequencyLowerUnit" id="status">
                                                     <option value="active">1/d</option>
                                                     <option value="stopped">1/min</option>
                                                     <option value="neverActive">1/hr</option>
@@ -241,7 +241,7 @@
                                                 <input type="text" name="frequencyUpper" id="frequencyUpper"
                                                     placeholder="0..1 >=0 >=0 >=0">
 
-                                                <select name="status" id="status">
+                                                <select name="frequencyUpperUnit" id="status">
                                                     <option value="active">1/d</option>
                                                     <option value="stopped">1/min</option>
                                                     <option value="neverActive">1/hr</option>
@@ -276,7 +276,7 @@
                                                 <input type="text" name="nte" id="nte">&nbsp;&nbsp;
                                                 <span>or</span>
                                                 <img src="t_n.svg" class="image">
-                                                <select name="status" id="status">
+                                                <select name="nte2" id="status">
                                                     <option value="active">immediately</option>
                                                     <option value="stopped">in the morning</option>
                                                     <option value="neverActive">at night</option>
@@ -310,7 +310,7 @@
                                             <span>Infusion administration rate</span> &nbsp;&nbsp;
                                             <img src="q.svg" class="image">
                                             <input type="text" name="iar" id="iar" placeholder="0..1 >=0 >=0 >=0">
-                                            <select name="status" id="status">
+                                            <select name="iarUnit" id="status">
                                                 <option value="active">1/d</option>
                                                 <option value="stopped">1/min</option>
                                                 <option value="neverActive">1/hr</option>
@@ -339,14 +339,14 @@
                                     <span>Direction duration</span> &nbsp;&nbsp;
 
                                     <img class="image" src="t.svg">
-                                    <select name="status" id="status">
+                                    <select name="directionDuration id="status">
                                         <option value="active">Indefinate</option>
                                         <option value="stopped">Indefinate does not continue</option>
                                     </select>&nbsp;&nbsp;
                                     <span>or</span>&nbsp;&nbsp;
 
                                     <img class="image" src="hourglass.svg">
-                                    <input type="text" name="directionDuration" id="directionDuration"
+                                    <input type="text" name="directionDuration2" id="directionDuration"
                                         placeholder=">=PT0S">
                                 </div>
 
@@ -368,7 +368,7 @@
                                             <span>Specific date</span> &nbsp;&nbsp;
                                             <span style="color: #C0C0C0;">[0..*]</span>
                                             <input type="date" name="specificDate" id="specificDate">
-                                            <input type="time">
+                                            <input type="time" name="specficTime">
                                         </div>
 
                                         <div style="padding-top: 5px;">
@@ -383,7 +383,7 @@
                                             <img class="image" src='one.svg'>
                                             <span>Specific day of month</span>
                                             <span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
-                                            <input type="text" name="specificDayofweek" id="specificDayofweek"
+                                            <input type="text" name="specificDayofmonth" id="specificDayofweek"
                                                 placeholder="1..31">
                                         </div>
 
@@ -404,7 +404,7 @@
                                                     <img class="image" src='hourglass.svg'>
                                                     <span>Start Interval</span>&nbsp;&nbsp;
 
-                                                    <input type="text" name="specificDayofweek" id="specificDayofweek"
+                                                    <input type="text" name="eventStartInterval" id="specificDayofweek"
                                                         placeholder="Y M W D">
                                                 </div>
 
@@ -504,14 +504,14 @@
                                         <img src="clipboard.svg" class="image">
                                         <span>Date Discontinued</span>&nbsp;&nbsp;
                                         <input type="date" id="dateDiscontinued" name="dateDiscontinued">
-                                        <input type="time" id="dateDiscontinued" name="dateDiscontinued">
+                                        <input type="time" id="timeDiscontinued" name="timeDiscontinued">
                                     </div>
 
                                     <div style="padding-top: 5px;">
                                         <img src="clipboard.svg" class="image">
                                         <span>Date Written</span>&nbsp;&nbsp;
                                         <input type="date" id="dateWritten" name="dateWritten">
-                                        <input type="time" id="dateWritten" name="dateWritten">
+                                        <input type="time" id="timeWritten" name="timeWritten>
                                     </div>
 
                                 </div>
@@ -534,7 +534,7 @@
                                         <img src="clipboard.svg" class="image">
                                         <span>validityPeriod</span>&nbsp;&nbsp;
                                         <input type="date" id="validityPeriod" name="validityPeriod">
-                                        <input type="time" id="validityPeriod" name="validityPeriod">
+                                        <input type="time" id="validityPeriodTime" name="validityPeriod">
                                     </div>
 
                                 </div>
@@ -575,7 +575,7 @@
                                                 <div style="padding-top: 5px;">
                                                     <img src="t.svg" class="image">
                                                     <span>Units</span>&nbsp;&nbsp;
-                                                    <input type="text" name="dispenseInstructions"
+                                                    <input type="text" name="dispenseUnits"
                                                         id="dispenseInstructions">
                                                 </div>
 
@@ -605,6 +605,10 @@
                                     <input type="text" name="identifier" id="identifier">
                                 </div>
                             </div>
+                            <hr>
+                            <div class="Button">
+                                <center><input type="submit" class="btn btn-dark mt-4 mb-4"></center>
+                            </div>
 
                         </div>
 
@@ -614,6 +618,9 @@
             </div>
         </div>
 
+        <div>
+            
+        </div>
 
 
     </form>
