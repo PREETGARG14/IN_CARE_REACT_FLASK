@@ -175,38 +175,11 @@ def add_product_page():
 @app.route('/admin/<int:page_id>' , methods = ['GET'])
 def edit_details(page_id):
     form = AdminAddPatientForm()
-    past_history = past_history_of_illness.query.filter_by(user_id = current_user.get_id())
-    patient =  db.session.query(Patient).filter()
-    # print(products)
-    if form.validate_on_submit():
-        
-        patient_information = past_history_of_illness(problem=form.problem.data,
-                            body_site=form.body_site.data,
-                            dateTime=form.dateTime.data,
-                            severity= form.Severity.data,
-                            lastUpdated = form.lastUpdated.data)
-        patient_update = db.session.query(past_history_of_illness).filter_by().first()
-        if(patient_update):
-            patient_update.problem = patient_information.problem
-            patient_update.body_site = patient_information.body_site
-            patient_update.dateTime = patient_information.dateTime
-            patient_update.severity = patient_information.severity
-            patient_update.last_updated = patient_information.last_updated
-            db.session.commit() 
-            # print(product_update.name)
-        else:
-            db.session.add(patient_information)
-            db.session.commit()
-            # login_user(user_to_create)
-            flash(f"Product {patient_information.name} added successfully", category='success')
-            return redirect(url_for('add_product_page' , form=form , products = patient))
-    if form.errors != {}: #If there are not errors from the validations
-        for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
-    past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
+    if request.method == "GET":
+        past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
         # print(current_user.get_id())
-    past_history = past_history_of_illness.query.filter_by(user_id = page_id)
-    return render_template('edit_details.html', past_history = past_history , form = form)
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        return render_template('edit_details.html', past_history = past_history , form = form)
         
 
 # decorator for verifying the JWT
@@ -237,10 +210,10 @@ def token_required(f):
 	return decorated
 
 
-@app.route('/admin/edit', methods=['GET', 'POST'])
-def edit_patient_page():
+@app.route('/admin/<int:page_id>', methods=['GET', 'POST'])
+def edit_patient_page(page_id):
     form = AdminAddPatientForm()
-    past_history = past_history_of_illness.query.filter_by(user_id = current_user.get_id())
+    past_history = past_history_of_illness.query.filter_by(user_id = page_id)
     patient =  db.session.query(Patient).filter()
     # print(products)
     if form.validate_on_submit():
@@ -248,8 +221,8 @@ def edit_patient_page():
         patient_information = past_history_of_illness(problem=form.problem.data,
                             body_site=form.body_site.data,
                             dateTime=form.dateTime.data,
-                            severity= form.Severity.data,
-                            lastUpdated = form.lastUpdated.data)
+                            severity= form.severity.data,
+                            last_updated = form.last_updated.data)
         patient_update = db.session.query(past_history_of_illness).filter_by().first()
         if(patient_update):
             patient_update.problem = patient_information.problem
@@ -268,4 +241,6 @@ def edit_patient_page():
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
+    return render_template('edit_details.html', past_history = past_history , form = form)
+
       

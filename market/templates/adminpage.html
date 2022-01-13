@@ -28,7 +28,7 @@
                        <td>{{ product.email_address }}</td>
                        <td>{{ product.id }}</td>
                        <td>
-                        <a class="btn btn-outline btn-info" href="{{ url_for('edit_details' , page_id = product.id )}}">Edit</a>
+                        <a class="btn btn-outline btn-info" href="{{ url_for('edit_patient_page' , page_id = product.id )}}">Edit</a>
                         <button class="btn btn-outline btn-success" data-toggle="modal"
                             data-target="#{{ product.id }}">Delete</button>
                     </td>

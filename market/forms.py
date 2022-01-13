@@ -1,6 +1,6 @@
 from xmlrpc.client import DateTime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,HiddenField , DateTimeLocalField
+from wtforms import StringField, PasswordField, SubmitField,HiddenField , DateTimeLocalField , DateField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models import Patient
 
@@ -37,9 +37,9 @@ class SellItemForm(FlaskForm):
 class AdminAddPatientForm(FlaskForm):
     problem = StringField(label='Problem:', validators=[DataRequired()])
     body_site = StringField(label='Body Site:', validators=[DataRequired()])
-    dateTime = DateTimeLocalField(label='dateTime', validators=[DataRequired()])
+    dateTime = DateField(label='dateTime', format='%Y-%m-%d',validators=[DataRequired()])
     severity = StringField(label='Severity:', validators=[DataRequired()])
-    lastUpdated = DateTimeLocalField(label='lastUpdated' , validators=[DataRequired()])
+    last_updated = DateField(label='lastUpdated' , validators=[DataRequired()])
     submit = SubmitField(label='Add Products')
 class AdminLoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
