@@ -100,7 +100,7 @@
                                     <div style="padding-top: 5px;">
                                         <img src="t.svg" class="image">
                                         <span>Form</span> <span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
-                                        <input type="text" id="form" name="form">
+                                        <input type="text" id="ingredientForm" name="ingredientForm">
                                     </div>
 
                                     <div style="padding-top: 5px;">
@@ -112,19 +112,19 @@
                                     <div style="padding-top: 5px;">
                                         <img src="q.svg" class="image">
                                         <span>Strength</span>&nbsp;&nbsp;
-                                        <input type="text" id="strength" name="strength">
+                                        <input type="text" id="ingredientstrength" name="ingredientStrength">
                                     </div>
 
                                     <div style="padding-top: 5px;">
                                         <img src="t.svg" class="image">
                                         <span>Strength Unit</span>&nbsp;&nbsp;
-                                        <input type="text" id="strengthUnit" name="strengthUnit">
+                                        <input type="text" id="strengthUnit" name="ingredientStrengthUnit">
                                     </div>
 
                                     <div style="padding-top: 5px;">
                                         <img src="t.svg" class="image">
                                         <span>Description</span>&nbsp;&nbsp;
-                                        <input type="text" id="description" name="description">
+                                        <input type="text" id="medicationDescription" name="medicationDescription">
                                     </div>
                                 </div>
 
@@ -139,7 +139,16 @@
 
                                 <div style="padding-top: 5px;">
                                     <img src="category.svg" class="image">
-                                    <span>Role</span>&nbsp;&nbsp;
+                                    <span>Role</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img src="t_n.svg" class="image">
+                                    <select name="status" id="status">
+                                        <option value="active">Therauputic</option>
+                                        <option value="stopped">Electrolyte</option>
+                                        <option value="neverActive">Toxic</option>
+                                        <option value="completed">Diluent</option>
+                                        <option value="completed">Coloring</option>
+                                        <option value="completed">Influent</option>
+                                    </select>
                                     <img src="t.svg" class="image">
                                     <input type="text" id="role" name="role" placeholder=">=0">
                                 </div>
@@ -184,9 +193,9 @@
                                         <span>or</span> &nbsp;&nbsp;
                                         <img class="image" src="lower.svg">
                                         <span>Lower:</span>
-                                        <input type="text" name="doseAmount" id="doseAmount" placeholder=">=0">
+                                        <input type="text" name="doseAmountLower" id="doseAmountLower" placeholder=">=0">
                                         <span>Upper:</span>
-                                        <input type="text" name="doseAmount" id="doseAmount" placeholder=">=0">
+                                        <input type="text" name="doseAmountUpper" id="doseAmountUpper" placeholder=">=0">
                                     </div>
 
                                     <div style="padding-top: 5px;">
@@ -202,6 +211,46 @@
                                         <div class="dose-content">
 
                                             <div style="padding-top: 5px;">
+                                                <img class="image" src='category.svg'>
+                                                <span>frequency</span> &nbsp;&nbsp;
+                                                <img class="image" src="q.svg">
+                                                <input type="text" name="frequency" id="frequency"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+
+                                                <select name="status" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                                <span>or</span> &nbsp;&nbsp;
+                                                <img class="image" src="lower.svg">
+                                                <span>Lower:</span>
+                                                <input type="text" name="frequencyLower" id="frequencyLower"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+
+                                                <select name="status" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                                <span>Upper:</span>
+                                                <input type="text" name="frequencyUpper" id="frequencyUpper"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+                                                <select name="status" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div style="padding-top: 5px;">
                                                 <img class="image" src='hourglass.svg'>
                                                 <span>Interval</span> &nbsp;&nbsp;
                                                 <input type="text" name="interval" id="interval">
@@ -212,7 +261,7 @@
                                                 <span>Specific Time</span><span
                                                     style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
                                                 <img src="clock.svg" class="image">
-                                                <input type="time" name="time" id="time">&nbsp;&nbsp;
+                                                <input type="time" name="st" id="st">&nbsp;&nbsp;
                                                 <span> or </span> &nbsp;&nbsp;
                                                 <img src="lower.svg" class="image">
                                                 <span> Lower: Upper:</span>
@@ -224,7 +273,15 @@
                                                 <span>Named Time Event</span><span
                                                     style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
                                                 <img src="t.svg" class="image">
-                                                <input type="text" name="interval" id="interval">&nbsp;&nbsp;
+                                                <input type="text" name="nte" id="nte">&nbsp;&nbsp;
+                                                <span>or</span>
+                                                <img src="t_n.svg" class="image">
+                                                <select name="status" id="status">
+                                                    <option value="active">immediately</option>
+                                                    <option value="stopped">in the morning</option>
+                                                    <option value="neverActive">at night</option>
+                                                    <option value="completed">in the morning/at night</option>
+                                                </select>
                                             </div>
 
                                             <div style="padding-top: 5px;">
@@ -237,13 +294,13 @@
                                             <div style="padding-top: 5px;">
                                                 <img src="tick.svg" class="image">
                                                 <span>As required</span>&nbsp;&nbsp;
-                                                <input type="checkbox" name="required" id="required">&nbsp;&nbsp;
+                                                <input type="checkbox" name="asRequired" id="asRequired">&nbsp;&nbsp;
                                             </div>
 
                                             <div style="padding-top: 5px;">
                                                 <img src="t.svg" class="image">
                                                 <span>As required criterion</span>&nbsp;&nbsp;
-                                                <input type="text" name="required" id="required">&nbsp;&nbsp;
+                                                <input type="text" name="requiredCriterion" id="requiredCriterion">&nbsp;&nbsp;
                                             </div>
 
                                         </div>
@@ -251,8 +308,17 @@
                                         <div style="padding-top: 5px;">
                                             <img class="image" src='category.svg'>
                                             <span>Infusion administration rate</span> &nbsp;&nbsp;
+                                            <img src="q.svg" class="image">
+                                            <input type="text" name="iar" id="iar" placeholder="0..1 >=0 >=0 >=0">
+                                            <select name="status" id="status">
+                                                <option value="active">1/d</option>
+                                                <option value="stopped">1/min</option>
+                                                <option value="neverActive">1/hr</option>
+                                                <option value="completed">1/s</option>
+                                            </select> &nbsp;&nbsp;
+                                            <span>or</span>&nbsp;&nbsp;
                                             <img class="image" src="t.svg">
-                                            <input type="text" name="administration" id="administration">
+                                            <input type="text" name="iar1" id="iar1">
                                         </div>
 
                                         <div style="padding-top: 5px;">
@@ -271,6 +337,14 @@
                                 <div style="padding-top: 5px;">
                                     <img class="image" src='category.svg'>
                                     <span>Direction duration</span> &nbsp;&nbsp;
+
+                                    <img class="image" src="t.svg">
+                                    <select name="status" id="status">
+                                        <option value="active">Indefinate</option>
+                                        <option value="stopped">Indefinate does not continue</option>
+                                    </select>&nbsp;&nbsp;
+                                    <span>or</span>&nbsp;&nbsp;
+
                                     <img class="image" src="hourglass.svg">
                                     <input type="text" name="directionDuration" id="directionDuration"
                                         placeholder=">=PT0S">
@@ -368,7 +442,7 @@
                                         <div style="padding-top: 5px;">
                                             <img src="q.svg" class="image">
                                             <span>Maximum Amount dose unit</span>&nbsp;&nbsp;
-                                            <input type="text" id="maximumAmount" name="maximumAmount">
+                                            <input type="text" id="maximumAmountDoseUnit" name="maximumAmountDoseUnit">
                                         </div>
 
                                         <div style="padding-top: 5px;">
@@ -383,7 +457,7 @@
                                     <div style="padding-top: 5px;">
                                         <img src="t.svg" class="image">
                                         <span>Override reason</span>&nbsp;&nbsp;
-                                        <input type="text" id="allowedPeriod" name="allowedPeriod">
+                                        <input type="text" id="overrideReason" name="overrideReason">
                                     </div>
 
                                 </div>
@@ -533,14 +607,14 @@
                             </div>
 
                         </div>
-                       
+
                     </div>
-                  
+
                 </div>
             </div>
         </div>
 
-        
+
 
     </form>
 </body>
