@@ -51,6 +51,30 @@
             </tbody>
         </table>
     </div>
+    <div class="modal-body">
+        <form method="POST" class="form-register" style="color:white">
+          {{ form.hidden_tag() }}
+         
+          <br>
+          {{ form.problem.label() }}
+          {{ form.problem(class="form-control", value= "Problem" ) }}
+
+          {{ form.body_site.label() }}
+          {{ form.body_site(class="form-control", value="Body_Site") }}
+
+          {{ form.dateTime.label() }}
+          {{ form.dateTime(class="form-control", value="dateTime") }}
+
+          {{ form.severity.label() }}
+          {{ form.severity(class="form-control", value="severity") }}
+
+          {{ form.last_updated.label() }}
+          {{ form.last_updated(class="form-control", value="last_updated") }}
+          <br>
+          {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
+
+      </form>
+      </div>
     <!-- <div class="col-4">
         <h2>Owned Items</h2>
         <p>Click on return this item to put an item back on the Market</p>

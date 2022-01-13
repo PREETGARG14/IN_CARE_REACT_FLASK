@@ -222,8 +222,9 @@ def edit_patient_page(page_id):
                             body_site=form.body_site.data,
                             dateTime=form.dateTime.data,
                             severity= form.severity.data,
-                            last_updated = form.last_updated.data)
-        patient_update = db.session.query(past_history_of_illness).filter_by().first()
+                            last_updated = form.last_updated.data ,
+                            user_id = page_id)
+        patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
         if(patient_update):
             patient_update.problem = patient_information.problem
             patient_update.body_site = patient_information.body_site
@@ -236,8 +237,8 @@ def edit_patient_page(page_id):
             db.session.add(patient_information)
             db.session.commit()
             # login_user(user_to_create)
-            flash(f"Product {patient_information.name} added successfully", category='success')
-            return redirect(url_for('add_product_page' , form=form , products = patient))
+            flash(f"Product {patient_information.id} added successfully", category='success')
+            return redirect(url_for('edit_patient_page' ,page_id = page_id ,form=form , products = patient))
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
