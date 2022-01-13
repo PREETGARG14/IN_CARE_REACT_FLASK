@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+body{
+	background-color: lightblue;
+}
+
+.scrolling-active{
+	background-color: lightseagreen;
+}
+
+.anchor:hover{
+	text-decoration: none;
+	color: black;
+}
+.anchor{
+	text-decoration: none;
+	color: black;
+}
+
+.card{
+	box-shadow: -1px 15px 30px -10px rgb(0, 0, 0);
+}
+
+.navbar{
+	font-weight: bold;
+	font-family: "Lato", sans-serif;
+	padding: 20px 50px 20px 50px;
+}
+
+.navbar-brand{
+	color: black;
+	font-family: "Merriweather", sans-serif;
+}
+
+.nav-link{
+	color: black !important;
+}
+.nav-link:hover{
+	color: white !important;
+}
+
+.card-wr-bg:hover{
+	background-color: #f4dd97;
+	cursor: pointer;
+	transition: all 1s ease;
+    transform: scale(1.04);
+}
+.card-s-bg:hover{
+	background-color: #8bdfb8;
+	cursor: pointer;
+	transition: all 1s ease;
+    transform: scale(1.04);
+}
+.card-d-bg:hover{
+	background-color: #f07a85;
+	cursor: pointer;
+	transition: all 1s ease;
+    transform: scale(1.04);
+	text-decoration: none;
+	color: black;
+}
+.card-footer{
+	justify-content:space-around;
+	text-align: center;
+	display: flex;
+	padding: 0px!important;
+}
+.card-footer div{
+	flex-grow: 1 !important;
+	border-right: 1px solid #dbdbdb;
+	padding: 10px 0;
+}
+.card-footer div:last-child{
+border-right: none;	
+}
