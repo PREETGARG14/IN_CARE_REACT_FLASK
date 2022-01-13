@@ -1,7 +1,7 @@
 from flask import flash
 from market import app
 from flask import render_template, redirect, url_for,request , jsonify
-from market.models import Patients,Doctor
+from market.models import Patients,Doctor,Prescription
 from market.forms import RegisterForm, LoginForm,AdminLoginForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user
@@ -239,6 +239,96 @@ def doctor():
                 "message":"Invalid password provided"
                 }
             return jsonify(result)
+
+@app.route("/api/prescribe", methods=["GET", "POST"])
+def add_prescription1():
+    return render_template("prescribe.html")
+
+@app.route("/api/prescribe2", methods=["GET", "POST"])
+def add_prescription():
+   if request.json['pi'] is not None:
+       prescriptionID=request.json['pi']
+   else:
+       prescriptionID="Test009"
+   medItem=request.json['Medication item']
+   prepSubstanceName=request.json['Name']
+   prepForm=request.json['Form']
+   prepStrength=request.json['strength']
+   prepStrengthUnit=request.json['strengthUnit']
+   diluentAmount=request.json['numerator']
+   diluentUnit=request.json['numeratorUnit']
+   ingredientSubstanceName=request.json['substanceName']
+   ingredientForm=request.json['ingredientForm']
+   ingredientCategory=request.json['category']
+   ingredientStrength=request.json['ingredientstrength']
+   ingredientStrengthUnit=request.json['strengthUnit']
+   ingredientDescription=request.json['medicationDescription']
+   ingredientAmount=request.json['ingredient-amount']
+   ingredientAmountUnit=request.json['ingredient-amountUnit']
+   ingredientRole=request.json['roleStatus']
+   ingredientRole2=request.json['role']
+   medDescription=request.json['description']
+   medRoute=request.json['route']
+   medDosageInstructions=request.json['dosageInstructions']
+   doseAmount=request.json['doseAmount']
+   doseAmountLower=request.json['doseAmountLower']
+   doseAmountUpper=request.json['doseAmountUpper']
+   doseUnit=request.json['doseUnit']
+   doseTimingFreq=request.json['frequency']
+   doseTimingFreqUnit=request.json['frequencyUnit']
+   doseTimingFreqLower=request.json['frequencyLower']
+   doseTimingFreqLowerUnit=request.json['frequencyLowerUnit']
+   doseTimingFreqUpper=request.json['frequencyUpper']
+   doseTimingFreqUpperUnit=request.json['frequencyUpperUnit']
+   doseTimingInterval=request.json['interval']
+   doseSpecificTime=request.json['st']
+   doseNamedTimeEvent=request.json['nte']
+   doseNamedTimeEvent2=request.json['nte2']
+   doseExactTimingCritical=request.json['timeCritical']
+   doseAsRequired=request.json['asRequired']
+   doseAsRequiredCriterion=request.json['requiredcriterion']
+   infusionAdminRateQ=request.json['iar']
+   infusionAdminRateUnit=request.json['iarUnit']
+   infusionAdminRateT=request.json['iar1']
+   doseAdminDuration=request.json['administration']
+   doseDirectionDuration1=request.json['directionDuration']
+   doseDirectionDuration2=request.json['directionDuration2']
+   directionRepetitionInterval=request.json['repetitionInterval']
+   directionSpecificDate=request.json['specificDate']
+   directionSpecificTime=request.json['specificTime']
+   directionSpecificDoW=request.json['specificDayofweek']
+   directionSpecificDoM=request.json['specificdayofmonth']
+   directionEventName=request.json['eventName']
+   directionEventStartInterval=request.json['eventStartInterval']
+   safetyMaxAmount=request.json['maximumAmount']
+   safetyMaxAmountUnit=request.json['maximumAmountDoseUnit']
+   safetyAllowedPeriod=request.json['allowedPeriod']
+   overrideReason=request.json['overrideReason']
+   orderAdditionalInstructions=request.json['additionalInstructions']
+   orderReason=request.json['reason']
+   courseStatus=request.json['status']
+   courseDiscontinuedDate=request.json['dateDiscontinued']
+   courseDiscontinuedTime=request.json['timeDiscontinued']
+   courseWrittenDate=request.json['dateWritten']
+   courseWrittenTime=request.json['timeWritten']
+   authNumberofRepeatsAllowed=request.json['nora']
+   authValidityPeriodDate=request.json['validityPeriod']
+   authValidityPeriodTime=request.json['validityPeriodTime']
+   dispenseInstruction=request.json['dispenseInstructions']
+   dispenseAmountDescription=request.json['amountDescription']
+   dispenseAmount=request.json['amountindispense']
+   dispenseAmountUnits=request.json['dispenseUnits']
+   dispenseDurationofSupply=request.json['dos']
+   orderComment=request.json['comment']
+   orderID=request.json['identifier']
+
+   prescription=Prescription(prescriptionID=prescriptionID,medItem=medItem,prepSubstanceName=prepSubstanceName,prepForm=prepForm,prepStrength=prepStrength,prepStrengthUnit=prepStrengthUnit,diluentAmount=diluentAmount,diluentUnit=diluentUnit,ingredientSubstanceName=ingredientSubstanceName,ingredientForm=ingredientForm,ingredientCategory=ingredientCategory,ingredientStrength=ingredientStrength,ingredientStrengthUnit=ingredientStrengthUnit,ingredientDescription=ingredientDescription,ingredientAmount=ingredientAmount,ingredientAmountUnit=ingredientAmountUnit,ingredientRole=ingredientRole,ingredientRole2=ingredientRole2,medDescription=medDescription,medRoute=medRoute,medDosageInstructions=medDosageInstructions,doseAmount=doseAmount,doseAmountLower=doseAmountLower,doseAmountUpper=doseAmountUpper,doseNamedTimeEvent2=doseNamedTimeEvent2,doseUnit=doseUnit,doseTimingFreq=doseTimingFreq,doseTimingFreqUnit=doseTimingFreqUnit,doseTimingFreqLower=doseTimingFreqLower,doseTimingFreqLowerUnit=doseTimingFreqLowerUnit,doseTimingFreqUpper=doseTimingFreqUpper,doseTimingFreqUpperUnit=doseTimingFreqUpperUnit,doseTimingInterval=doseTimingInterval,doseSpecificTime=doseSpecificTime,doseNamedTimeEvent=doseNamedTimeEvent,doseExactTimingCritical=doseExactTimingCritical,doseAsRequired=doseAsRequired,doseAsRequiredCriterion=doseAsRequiredCriterion,infusionAdminRateQ=infusionAdminRateQ,infusionAdminRateUnit=infusionAdminRateUnit,infusionAdminRateT=infusionAdminRateT,doseAdminDuration=doseAdminDuration,doseDirectionDuration1=doseDirectionDuration1,doseDirectionDuration2=doseDirectionDuration2,directionRepetitionInterval=directionRepetitionInterval,directionSpecificDate=directionSpecificDate,directionSpecificTime=directionSpecificTime,directionSpecificDoW=directionSpecificDoW,directionSpecificDoM=directionSpecificDoM,directionEventName=directionEventName,directionEventStartInterval=directionEventStartInterval,safetyMaxAmount=safetyMaxAmount,safetyMaxAmountUnit=safetyMaxAmountUnit,safetyAllowedPeriod=safetyAllowedPeriod,overrideReason=overrideReason,orderAdditionalInstructions=orderAdditionalInstructions,orderReason=orderReason,courseStatus=courseStatus,courseDiscontinuedDate=courseDiscontinuedDate,courseDiscontinuedTime=courseDiscontinuedTime,courseWrittenDate=courseWrittenDate,courseWrittenTime=courseWrittenTime,authNumberofRepeatsAllowed=authNumberofRepeatsAllowed,authValidityPeriodDate=authValidityPeriodDate,authValidityPeriodTime=authValidityPeriodTime,dispenseInstruction=dispenseInstruction,dispenseAmountDescription=dispenseAmountDescription,dispenseAmount=dispenseAmount,dispenseAmountUnits=dispenseAmountUnits,dispenseDurationofSupply=dispenseDurationofSupply,orderComment=orderComment,orderID=orderID)    
+   db.session.add(prescription)
+   db.session.commit()
+   result={
+          "pi":prescriptionID,
+   }
+   return jsonify(result)
 # @app.route('/admin/addproducts', methods=['GET', 'POST'])
 # def add_product_page():
 #     form = AdminAddProductForm()
