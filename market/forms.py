@@ -19,7 +19,7 @@ class RegisterForm(FlaskForm):
     email_address = StringField(label='Email Address:', validators=[Email(), DataRequired()])
     password1 = PasswordField(label='Password:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirm Password:', validators=[EqualTo('password1'), DataRequired()])
-    # uniq_id = StringField(label='Unique Id:', validators=[Length(min=8, max=30), DataRequired()])
+    uniq_id = StringField(label='Unique Id:', validators=[Length(min=8, max=30), DataRequired()])
 #    age = StringField(label='Age:', validators=[Length(min=1, max=2), DataRequired()])
     submit = SubmitField(label='Create Account')
 

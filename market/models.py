@@ -12,7 +12,7 @@ class Patients(db.Model, UserMixin):
     fullname = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=600), nullable=False)
-    # uniq_id = db.Column(db.String(length=30), nullable=False, unique=True)
+    uniq_id = db.Column(db.String(length=30), nullable=False, unique=True)
     # age = db.Column(db.Integer(), nullable=False, default=0)
     # Gender = db.Column(db.String(length=6), nullable=False, unique=True)
 

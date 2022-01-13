@@ -37,7 +37,7 @@ def cards():
 @app.route("/")
 @app.route('/home')
 def home_page():
-    return render_template('home.html')
+    return render_template('abc.html')
 
 
 # @app.route('/market', methods=['GET', 'POST'])
@@ -80,8 +80,8 @@ def register_page():
     if form.validate_on_submit():
         user_to_create = Patients(fullname=form.fullname.data,
                               email_address=form.email_address.data,
-                              password_hash=form.password1.data)
-                              # uniq_id=form.uniq_id.data,
+                              password_hash=form.password1.data,
+                              uniq_id=form.uniq_id.data)
                               # age=form.age.data,
                               # gender=form.gender.data
 
@@ -89,25 +89,39 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.fullname}", category='success')
-        return redirect(url_for('user_home'))
+        # return redirect(url_for('user_home'))
+        result={
+        "status":"unsuccessful",
+        "uniq_id":{user_to_create.uniq_id}
+        }
+        return jsonify(result)
     if form.errors != {}:  # If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(
                 f'There was an error with creating a user: {err_msg}', category='danger')
 
-    return render_template('register.html', form=form)
-
+    # return render_template('register.html', form=form)
+    result={
+        "status":"unsuccessful"
+    }
+    return jsonify(result)
 
 @app.route('/api/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = Patients.query.filter_by(username=form.username.data).first()
+        attempted_user = Patients.query.filter_by(uniq_id=form.uniq_id.data).first()
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(
-                f'Success! You are logged in as: {attempted_user.username}', category='success')
-            return redirect(url_for('user_home'))
+                f'Success! You are logged in as: {attempted_user.fullname}', category='success')
+            # return redirect(url_for('home_page'))
+            id={attempted_user.uniq_id}
+            result={
+                    "status":"successful",
+                    "uniq_id":str(id)
+                    }
+            return jsonify(result)
         else:
             flash('Username and password are not match! Please try again',
                   category='danger')
@@ -139,6 +153,30 @@ def admin_login_page():
             flash('Username and password are not match! Please try again', category='danger')
 
     return render_template('adminlogin.html', form=form)
+
+
+
+
+
+# Rest API
+@app.route("/api/login2", methods=['GET','POST'])
+def login():
+    uniq_id=request.json['uniq_id']
+    password=request.json['password']
+    attempted_user = Patients.query.filter_by(uniq_id=uniq_id).first()
+    if attempted_user and attempted_user.check_password_correction(attempted_password=password):
+        login_user(attempted_user)
+        result={
+                "status":"successful",
+                "uniq_id":str(uniq_id)
+                }
+        return jsonify(result)
+    else:
+        result={
+                "status":"unsuccessful",
+                "uniq_id":uniq_id
+                }
+        return jsonify(result)
 
 # @app.route('/admin/addproducts', methods=['GET', 'POST'])
 # def add_product_page():
