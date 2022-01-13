@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+.aboveMainheading{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 160%;
+    color: #555555;
+    height: 30px;
+}
+.mainHeading{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 160%;
+    color: #555555;
+    background-color: #E0E0E0;
+    height: 30px;
+    padding-top: 15px;
+}
+
+.innerHeading{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 160%;
+    color: #555555;
+    height: 30px;
+    margin: 10px 0px 0px 10px;
+    padding-top: 3px;
+}
+
+.content{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 160%;
+    color: #555555;
+    height: 30px;
+    margin: 10px 0px 0px 10px;
+    padding-top: 3px;
+}
+
+.image{
+    height: 20px;
+}
+
+.medication-content{
+    padding-left: 15px;
+}
+
+.diluent-content{
+    padding-left: 15px;
+}
+
+.medication-content{
+    padding-left: 15px;
+}
+
+.ingredient-content{
+    padding-left: 15px;
+}
+
+.dose-content{
+    padding-left: 15px;
+}
+
+.direction-repetition-content{
+    padding-left: 15px;
+}
+
+.specific-event-content{
+    padding-left: 15px;
+}
+
+.medication-safety-content{
+    padding-left: 15px;
+}
+
+.order-details-content{
+    padding-left: 15px;
+}
+
+.authorization-details-content{
+    padding-left: 15px;
+}
+
+.dispense-directions-content{
+    padding-left: 15px;
+}

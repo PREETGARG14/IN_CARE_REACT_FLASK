@@ -203,7 +203,8 @@ class Prescription(db.Model):
     dispenseAmountUnits=db.Column(db.String())
     dispenseDurationofSupply=db.Column(db.String())
     orderComment=db.Column(db.String())
-    orderID=db.Column(db.String(), unique=True)
+    user_id=db.Column(db.Integer(),db.ForeignKey('Patients.uniq_id'))
+    user=db.relationship('Patients  ',backref='prescriptions')  
     
     
     
