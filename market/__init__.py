@@ -1,9 +1,10 @@
 from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_cors import CORS
 from flask_login import LoginManager
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY']='d8c054f87c3a6142b8aea948'
