@@ -168,7 +168,7 @@ def login():
         login_user(attempted_user)
         result={
                 "status":"successful",
-                "uniq_id":str(uniq_id)
+                "uniq_id":uniq_id
                 }
         return jsonify(result)
     else:
@@ -177,7 +177,68 @@ def login():
                 "uniq_id":uniq_id
                 }
         return jsonify(result)
+    
+    
+@app.route('/api/register2', methods=['GET', 'POST'])
+def register():
+    uniq_id=request.json['uniq_id']
+    attempted_user = Patients.query.filter_by(uniq_id=uniq_id).first()
+    if attempted_user is not None:
+        result={
+        "status":"unsuccessful",
+        "uniq_id":uniq_id,
+        "message":"The user already exists"
+        }
+        return jsonify(result)
+    
+    else:
+        password=request.json['password']
+        fullname=request.json['fullname']
+        email_address=request.json['email_address']
+        user_to_create = Patients(fullname,email_address,password,uniq_id)
+        # age=form.age.data,
+        # gender=form.gender.data
 
+        db.session.add(user_to_create)
+        db.session.commit()
+        login_user(user_to_create)
+        # flash(f"Account created successfully! You are now logged in as {user_to_create.fullname}", category='success')
+        # return redirect(url_for('user_home'))
+        result={
+            "status":"successful",
+            "uniq_id":uniq_id
+            }
+        return jsonify(result)
+    
+@app.route('/api/doctor2', methods=['GET', 'POST'])
+def doctor():
+    email_address=request.json['email_address']
+    attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
+    if attempted_doctor is None:
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"The doctor does not exist"
+        }
+        return jsonify(result)
+    
+    else:
+        password=request.json['password']
+        # fullname=request.json['fullname']
+        if attempted_doctor.check_password_correction(attempted_password=password):
+            login_user(attempted_doctor)
+            result={
+                "status":"successful",
+                "email_address":email_address
+                }
+            return jsonify(result)
+        else:
+            result={
+                "status":"unsuccessful",
+                "email_address":email_address,
+                "message":"Invalid password provided"
+                }
+            return jsonify(result)
 # @app.route('/admin/addproducts', methods=['GET', 'POST'])
 # def add_product_page():
 #     form = AdminAddProductForm()

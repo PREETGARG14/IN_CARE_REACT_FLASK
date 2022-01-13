@@ -16,6 +16,12 @@ class Patients(db.Model, UserMixin):
     # age = db.Column(db.Integer(), nullable=False, default=0)
     # Gender = db.Column(db.String(length=6), nullable=False, unique=True)
 
+    def __init__(self,fullname,email_address,password,uniq_id):
+        self.fullname=fullname
+        self.email_address=email_address
+        self.password_hash=password
+        self.uniq_id=uniq_id
+        
     @property
     def password(self):
         return self.password
@@ -33,7 +39,13 @@ class Doctor(db.Model, UserMixin):
     fullname = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-
+    
+        # def __init__(self,fullname,email_address,password):
+        #     self.fullname=fullname
+        #     self.email_address=email_address
+        #     self.password_hash=password
+    def check_password_correction(self, attempted_password):
+        return (self.password_hash, attempted_password)
 
 # class Item(db.Model):
 #     id = db.Column(db.Integer(), primary_key=True)
