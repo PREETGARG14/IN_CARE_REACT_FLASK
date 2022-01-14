@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {useNavigate} from 'react-router-dom'
 import Axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,8 +16,9 @@ import Container from '@mui/material/Container';
 import { PasswordOutlined } from '@mui/icons-material';
 
 
-const Login = ({loggedIn}) => {
+const Login = ({loggedIn,setLoggedIn}) => {
   console.log(loggedIn)
+  const history = useNavigate();
 
   const [password,setPassword]=useState();
   const [uniqId,setUniqId]=useState();
@@ -28,7 +30,17 @@ const Login = ({loggedIn}) => {
       password:password
     }
     console.log(data)
-    Axios.post('http://127.0.0.1:5000/api/login2',data).then((res)=>console.log(res.data))
+    Axios.post('http://127.0.0.1:5000/api/login2',data).
+    then((res)=>{
+      setLoggedIn(true)
+      history('/dashboard');
+      
+
+    
+    }).
+    catch((err)=>{
+      console.log(err)
+    })
   };
 
   return (

@@ -9,19 +9,22 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Immunisation from './components/Immunisation';
 import Diagnosis from './components/Diagnosis';
+import ProtectedRoutes from './utils/ProtectedRoutes';
 
 
 function App() {
   const [loggedIn,setLoggedIn]=useState(false);
   return (
     <Router>
-    <Header/>
+    <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
     <main className='py-3'>      
         <Routes>
         <Route path='/' exact element={<Homepage/>}/>
-        <Route path='/login' element={<Login loggedIn={loggedIn}/>} exact />
+        <Route path='/login' element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>} exact />
         <Route path='/signup' element={<Signup/>} exact />
-        <Route path='/dashboard' element={<Dashboard/>} exact />
+        <Route path='/dashboard' element={<ProtectedRoutes auth={loggedIn}>
+                                            <Dashboard/> 
+                                            </ProtectedRoutes>} />
         <Route path='/immunisation' element={<Immunisation/>} exact />
         <Route path='/diagnosis' element={<Diagnosis/>} exact />
         </Routes>
@@ -30,5 +33,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
