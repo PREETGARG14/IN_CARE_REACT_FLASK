@@ -391,7 +391,7 @@ def edit_patient_page(page_id):
                             severity= request.json['severity'],
                             last_updated = request.json['last_updated'],
                             user_id = page_id)
-        patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
+        patient_update = db.session.query(past_history_of_illness).filter_by(id =request.json['id']).first()
         if(patient_update):
             patient_update.problem = patient_information.problem
             patient_update.body_site = patient_information.body_site
@@ -493,7 +493,7 @@ def edit_immunisation_page(page_id):
                             target_site=request.json['target_site'],
                             sequence_no= request.json['sequence_no'],
                             user_id=page_id)
-        immunisation_update = db.session.query(immunisation).filter_by(id = immunisation.id).first()
+        immunisation_update = db.session.query(immunisation).filter_by(id = request.json['id']).first()
         if(immunisation_update):
             immunisation_update.immunisation_item = immunisationjson.immunisation_item
             immunisation_update.route = immunisationjson.route
