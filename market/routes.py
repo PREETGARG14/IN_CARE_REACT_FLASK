@@ -170,7 +170,8 @@ def login():
         login_user(attempted_user)
         result={
                 "status":"successful",
-                "username":username
+                "username":username,
+                "id":attempted_user.id
                 }
         return jsonify(result)
     else:
