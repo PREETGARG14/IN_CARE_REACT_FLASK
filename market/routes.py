@@ -2,7 +2,7 @@ import re
 from flask import flash, json
 from market import app
 from flask import render_template, redirect, url_for,request , jsonify
-from market.models import Patients,Doctor,Prescription,past_history_of_illness
+from market.models import Patients,Doctor,Prescription,past_history_of_illness, immunisation
 from market.forms import RegisterForm, LoginForm,AdminLoginForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user
@@ -333,44 +333,22 @@ def add_prescription(user_id):
    }
    return jsonify(result)
 
+@app.route('/admin/<int:page_id>' , methods = ['GET'])
+def edit_details(page_id):
+    if request.method == "GET":
+        patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        past = json.dumps([r.as_dict() for r in past_history])
+        immune=json.dumps([rs.as_dict() for rs in patient_immunisation_table])
+        return (past+immune)
+
+
 @app.route("/api/prescribe3/<int:pid>", methods=["GET"])
 def get_prescription(pid):
         prescriptions = Prescription.query.filter_by(userID = pid)
         s = json.dumps([r.as_dict() for r in prescriptions])
         return s
         
-
-# @app.route('/admin/addproducts', methods=['GET', 'POST'])
-# def add_product_page():
-#     form = AdminAddProductForm()
-#     products =  db.session.query(Item).filter()
-#     print(products)
-#     if form.validate_on_submit():
-        
-#         product_information = Item(name=form.name.data,
-#                             price=form.price.data,
-#                             barcode=form.barcode.data,
-#                             description = form.description.data)
-#         product_update = db.session.query(Item).filter_by(barcode= product_information.barcode).first()
-#         if(product_update):
-#             product_update.name = product_information.name
-#             product_update.price = product_information.price
-#             product_update.barcode = product_information.barcode
-#             product_update.description = product_information.description
-#             db.session.commit() 
-#             print(product_update.name)
-#         else:
-#             db.session.add(product_information)
-#             db.session.commit()
-#             # login_user(user_to_create)
-#             flash(f"Product {product_information.name} added successfully", category='success')
-#             return redirect(url_for('add_product_page' , form=form , products = products))
-#     if form.errors != {}: #If there are not errors from the validations
-#         for err_msg in form.errors.values():
-#             flash(f'There was an error with creating a user: {err_msg}', category='danger')
-        
-#     return render_template('adminpage.html', form=form , products = products)
-
 
 # decorator for verifying the JWT
 def token_required(f):
@@ -400,11 +378,12 @@ def token_required(f):
 	return decorated
 
 
-@app.route('/api/admin/<int:page_id>', methods=['GET', 'POST'])
+@app.route('/api/admin/past/<int:page_id>', methods=['GET', 'POST'])
 @login_required
 def edit_patient_page(page_id):
     if request.method == 'POST':
         past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        immune=immunisation.query.filter_by(user_id=page_id)
         patient =  db.session.query(Patients).filter()
         patient_information = past_history_of_illness(problem=request.json['problem'],
                             body_site=request.json['body_site'],
@@ -412,7 +391,6 @@ def edit_patient_page(page_id):
                             severity= request.json['severity'],
                             last_updated = request.json['last_updated'],
                             user_id = page_id)
-
         patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
         if(patient_update):
             patient_update.problem = patient_information.problem
@@ -444,3 +422,102 @@ def edit_patient_page(page_id):
 #         return obj.isoformat()
 #     elif isinstance(obj, decimal.Decimal):
 #         return float(obj)
+
+# @app.route('/admin/<int:page_id>', methods=['GET', 'POST'])
+# def edit_patient_page(page_id):
+#     # form = AdminAddPatientForm()
+#     past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+#     patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+#     patient =  db.session.query(Patient).filter()
+#     # form2 = AdminEditImmunisation()
+#     # print(products)
+#     if form.validate_on_submit():
+        
+#         patient_information = past_history_of_illness(problem=form.problem.data,
+#                             body_site=form.body_site.data,
+#                             dateTime=form.dateTime.data,
+#                             severity= form.severity.data,
+#                             last_updated = form.last_updated.data ,
+#                             user_id = page_id)
+        
+#         patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
+#         if(patient_update):
+#             patient_update.problem = patient_information.problem
+#             patient_update.body_site = patient_information.body_site
+#             patient_update.dateTime = patient_information.dateTime
+#             patient_update.severity = patient_information.severity
+#             patient_update.last_updated = patient_information.last_updated
+#             db.session.commit() 
+#             # print(product_update.name)
+#         # if(patient_immunisation_update):
+#         #     patient_immunisation_update.immunisation_item = patient_immunisation.immunisation_item
+#         #     patient_immunisation_update.route = patient_immunisation.route
+#         #     patient_immunisation_update.target_site = patient_immunisation.target_site
+#         #     patient_immunisation_update.sequence_no = patient_immunisation.sequence_no
+#         #     db.session.commit()
+#         else:
+#             db.session.add(patient_information)
+#             db.session.commit()
+#             # login_user(user_to_create)
+#             flash(f"Product {patient_information.id} added successfully", category='success')
+#         return redirect(url_for('edit_patient_page' ,page_id = page_id ,form=form , products = patient))
+#     if form2.validate_on_submit():
+#         patient_immunisation = immunisation(immunisation_item = form2.immunisation_item.data,
+#                                             route = form2.route.data,
+#                                             target_site = form2.target_site.data,
+#                                             sequence_no = form2.sequence_no.data,
+#                                             user_id = page_id)
+#         patient_immunisation_update = db.session.query(immunisation).filter_by(id =  patient_immunisation.id).first()
+#         if(patient_immunisation_update):
+#             patient_immunisation_update.immunisation_item = patient_immunisation.immunisation_item
+#             patient_immunisation_update.route = patient_immunisation.route
+#             patient_immunisation_update.target_site = patient_immunisation.target_site
+#             patient_immunisation_update.sequence_no = patient_immunisation.sequence_no
+#             db.session.commit()  
+#         else:
+#             db.session.add(patient_immunisation)
+#             db.session.commit()
+#             # login_user(user_to_create)
+#             flash(f"Product {patient_immunisation.id} added successfully", category='success')
+#     return redirect(url_for('edit_patient_page' ,page_id = page_id ,form=form , products = patient))
+
+#immunisation route
+@app.route('/api/admin/immunisation/<int:page_id>', methods=['GET', 'POST'])
+@login_required
+def edit_immunisation_page(page_id):
+    if request.method == 'POST':
+        immune=immunisation.query.filter_by(user_id=page_id)
+        patient =  db.session.query(Patients).filter()
+        immunisationjson = immunisation(immunisation_item=request.json['immunisation_item'],
+                            route=request.json['route'],
+                            target_site=request.json['target_site'],
+                            sequence_no= request.json['sequence_no'],
+                            user_id=page_id)
+        immunisation_update = db.session.query(immunisation).filter_by(id = immunisation.id).first()
+        if(immunisation_update):
+            immunisation_update.immunisation_item = immunisationjson.immunisation_item
+            immunisation_update.route = immunisationjson.route
+            immunisation_update.target_site = immunisationjson.target_site
+            immunisation_update.sequence_no = immunisationjson.sequence_no
+            immunisation_update.user_id= immunisationjson.user_id
+            db.session.commit() 
+            # print(product_update.name)
+            result={
+                "status":"successful",
+                "page_id":page_id,
+                "immunisation_item":immunisationjson.immunisation_item,
+                "user_id":immunisationjson.user_id
+            }
+            return jsonify(result)
+            
+        else:
+            db.session.add(immunisationjson)
+            db.session.commit()
+            # login_user(user_to_create)
+            result={
+                "status":"successful",
+                "page_id":page_id,
+                "immunisation_item":immunisationjson.immunisation_item,
+                "user_id":immunisationjson.user_id
+            }
+            return jsonify(result)
