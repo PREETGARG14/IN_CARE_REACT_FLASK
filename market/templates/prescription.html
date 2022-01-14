@@ -4,7 +4,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="style2.css" rel="stylesheet">
+    <link href="{{url_for('static', filename = 'style2.css')}}" rel="stylesheet">
     <title>Document</title>
 </head>
 
@@ -225,7 +225,7 @@
                                                     <option value="completed">1/s</option>
                                                 </select>
                                                 <span>or</span> &nbsp;&nbsp;
-                                                <img class="image" src="lower.svg">
+                                                <img class="image" src="{{url_for('static',filename = 'lower.svg')}}">
                                                 <span>Lower:</span>
                                                 <input type="text" name="frequencyLower" id="frequencyLower"
                                                     placeholder="0..1 >=0 >=0 >=0">
@@ -260,10 +260,10 @@
                                                 <img src="{{url_for('static',filename = 'category.svg')}}" class="image">
                                                 <span>Specific Time</span><span
                                                     style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
-                                                <img src="clock.svg" class="image">
+                                                <img src="{{url_for('static',filename = 'clock.svg')}}" class="image">
                                                 <input type="time" name="st" id="st">&nbsp;&nbsp;
                                                 <span> or </span> &nbsp;&nbsp;
-                                                <img src="lower.svg" class="image">
+                                                <img src="{{url_for('static',filename = 'lower.svg')}}" class="image">
                                                 <span> Lower: Upper:</span>
 
                                             </div>
@@ -275,7 +275,7 @@
                                                 <img src="{{url_for('static',filename = 't.svg')}}" class="image">
                                                 <input type="text" name="nte" id="nte">&nbsp;&nbsp;
                                                 <span>or</span>
-                                                <img src="t_n.svg" class="image">
+                                                <img src="{{url_for('static',filename = 't_n.svg')}}" class="image">
                                                 <select name="nte2" id="status">
                                                     <option value="active">immediately</option>
                                                     <option value="stopped">in the morning</option>
@@ -394,7 +394,7 @@
                                             <div class="specific-event-content">
 
                                                 <div style="padding-top: 5px;">
-                                                    <img class="image" src='t.svg'>
+                                                    <img class="image" src="{{url_for('static',filename = 't.svg')}}">
                                                     <span>Event Name</span>&nbsp;&nbsp;
 
                                                     <input type="text" name="eventName" id="eventName">

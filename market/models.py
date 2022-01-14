@@ -133,7 +133,7 @@ class Doctor(db.Model, UserMixin):
     
 class Prescription(db.Model):
     __tablename__='prescriptions'
-    pid=db.Column(db.String(), primary_key=True)
+    pid=db.Column(db.Integer(), primary_key=True)
     medItem=db.Column(db.String())
     prepSubstanceName=db.Column(db.String())
     prepForm=db.Column(db.String())
@@ -205,7 +205,7 @@ class Prescription(db.Model):
     dispenseDurationofSupply=db.Column(db.String())
     orderComment=db.Column(db.String())
     orderID=db.Column(db.String())
-    # user_id=db.Column(db.String(),db.ForeignKey('patients.uniq_id'))
-    # user=db.relationship('Patients',backref='prescriptions')  
+    userID=db.Column(db.String, db.ForeignKey('patients.email_address'))
+    user=db.relationship('patients',backref='prescriptions')  
 db.create_all()
 db.session.commit()
