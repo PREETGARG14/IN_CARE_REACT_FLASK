@@ -1,7 +1,6 @@
 import React from 'react'
 import { Avatar, Typography ,TextField,Button,Container,Box,FormControl,InputLabel,Select,MenuItem} from '@mui/material';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 
 const Diagnosis = () => {
     const handleSubmit=()=>{
@@ -40,6 +39,17 @@ const Diagnosis = () => {
               label="Body site"
               name="Body site"
             /> 
+            <TextField
+         id="datetime-local"
+         label="Date/time of abatement"
+         type="datetime-local"
+         defaultValue="2017-05-24T10:30"
+         fullWidth
+         margin="normal"
+         InputLabelProps={{
+           shrink: true,
+         }}
+      />
        <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Severity</InputLabel>
         <Select
@@ -51,6 +61,28 @@ const Diagnosis = () => {
           <MenuItem value='moderate'>moderate</MenuItem>
           <MenuItem value='severe'>Severe</MenuItem>
         </Select>
+        <TextField
+         id="datetime-local"
+         label="Date/time of abatement"
+         type="datetime-local"
+         defaultValue="2017-05-24T10:30"
+         fullWidth
+         margin="normal"
+         InputLabelProps={{
+           shrink: true,
+         }}
+      />
+      <TextField
+         id="datetime-local"
+         label="Last updated"
+         type="datetime-local"
+         defaultValue="2017-05-24T10:30"
+         fullWidth
+         margin="normal"
+         InputLabelProps={{
+           shrink: true,
+         }}
+      />
       </FormControl>       
             <Button
               type="submit"
