@@ -24,6 +24,9 @@
             {{ form.hidden_tag() }}
            
             <br>
+            {{ form.id.label()}}
+            {{form.id(class="form-control" , value = item.id)}}
+
             {{ form.problem.label() }}
             {{ form.problem(class="form-control", value= item.problem ) }}
 

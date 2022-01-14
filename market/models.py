@@ -76,6 +76,15 @@ class past_history_of_illness(db.Model , UserMixin):
     user_id=db.Column(db.Integer(),db.ForeignKey('patient.id'))
     user=db.relationship('Patient',backref='past_history')   
 
+class immunisation(db.Model , UserMixin):
+    __tablename__='immunisation'
+    id=db.Column(db.Integer(), primary_key=True)
+    immunisation_item = db.Column(db.String(length=30), nullable=False)
+    route=db.Column(db.String(length=30), nullable=False)
+    target_site = db.Column(db.String(length=30), nullable = False)
+    sequence_no = db.Column(db.Integer(), nullable=False)
+    user_id=db.Column(db.Integer(),db.ForeignKey('patient.id'))
+    user=db.relationship('Patient',backref='immunisation')
 
     
 db.create_all()

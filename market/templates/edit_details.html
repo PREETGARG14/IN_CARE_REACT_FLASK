@@ -50,6 +50,44 @@
                 {% endfor %}
             </tbody>
         </table>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">ID</th>
+                    <th scope="col">immunisation_item</th>
+                    <th scope="col">route</th>
+                    <th scope="col">target_site</th>
+                    <th scope="col">sequence_no</th>
+                    <th scope="col">User Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in immunisation %}
+                {% include 'includes/edit_admin_immunisation.html' %}
+                {}
+                <!-- this is JIJNA SYNTAX  is a template which help to write logic of python programming in html -->
+                <tr>
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.immunisation_item }}</td>
+                    <td>{{ item.route }}</td>
+                    <td>{{item.target_site}}</td>
+                    <td>{{ item.sequence_no }}</td>
+                    <td>{{item.user_id}}</td>
+                    <td><button class="btn btn-outline btn-info" data-toggle="modal"
+                        data-target="#Modal-MoreInfo-products-{{ item.id }}">Edit</button>
+                    </td>
+                    <!-- <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal"
+                            data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal"
+                            data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase this Item</button>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <div class="modal-body">
         <form method="POST" class="form-register" style="color:white">

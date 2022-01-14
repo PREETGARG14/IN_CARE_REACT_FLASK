@@ -1,8 +1,8 @@
 from xmlrpc.client import DateTime
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,HiddenField , DateTimeLocalField , DateField
+from wtforms import StringField, PasswordField, SubmitField,HiddenField , DateTimeLocalField , DateField , IntegerField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from market.models import Patient
+from market.models import Patient, immunisation
 
 
 class RegisterForm(FlaskForm):
@@ -35,6 +35,7 @@ class SellItemForm(FlaskForm):
 
 
 class AdminAddPatientForm(FlaskForm):
+    id = IntegerField(label='id' , render_kw={'readonly': True})
     problem = StringField(label='Problem:', validators=[DataRequired()])
     body_site = StringField(label='Body Site:', validators=[DataRequired()])
     dateTime = DateField(label='dateTime', format='%Y-%m-%d',validators=[DataRequired()])
@@ -45,3 +46,11 @@ class AdminLoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
+
+class AdminEditImmunisation(FlaskForm):
+    id = IntegerField(label='id' , render_kw={'readonly': True})
+    immunisation_item = StringField(label='Immunisation Item:', validators=[DataRequired()])
+    route = StringField(label='Route', validators=[DataRequired()])
+    target_site =   StringField(label='Target SIte',validators=[DataRequired()])
+    sequence_no = StringField(label='Sequence', validators=[DataRequired()])
+    submit = SubmitField(label='Add Products')

@@ -1,0 +1,48 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+  </style>
+
+<div class="modal fade" id="Modal-MoreInfo-products-{{ item.id }}"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            {{ item.id }}
+          </h5>
+        </div>
+        <div class="modal-body">
+          <form method="POST" class="form-register" style="color:white">
+            {{ form2.hidden_tag() }}
+    
+            {{ form2.id.label()}}
+            {{form2.id(class="form-control" , value = item.id)}}
+
+            {{ form2.immunisation_item.label() }}
+            {{ form2.immunisation_item(class="form-control", value= item.immunisation_item ) }}
+
+            {{ form2.route.label() }}
+            {{ form2.route(class="form-control", value=item.route) }}
+
+            {{ form2.target_site.label() }}
+            {{ form2.target_site(class="form-control", value=item.target_site) }}
+
+            {{ form2.sequence_no.label() }}
+            {{ form2.sequence_no(class="form-control", value=item.sequence_no) }}
+            <br>
+            {{ form2.submit(class="btn btn-lg btn-block btn-primary",label="Update IMMUNISATION") }}
+
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  data-dismiss="modal">Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
