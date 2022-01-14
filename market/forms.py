@@ -5,8 +5,8 @@ from market.models import Patients
 
 
 class RegisterForm(FlaskForm):
-    def validate_username(self, uniq_id_given):
-        user = Patients.query.filter_by(uniq_id=uniq_id_given.data).first()
+    def validate_username(self, username_given):
+        user = Patients.query.filter_by(username=username_given.data).first()
         if user:
             raise ValidationError('Username already exists! Please try a different username')
 
@@ -19,16 +19,16 @@ class RegisterForm(FlaskForm):
     email_address = StringField(label='Email Address:', validators=[Email(), DataRequired()])
     password1 = PasswordField(label='Password:', validators=[Length(min=6), DataRequired()])
     password2 = PasswordField(label='Confirm Password:', validators=[EqualTo('password1'), DataRequired()])
-    uniq_id = StringField(label='Unique Id:', validators=[Length(min=8, max=30), DataRequired()])
+    username = StringField(label='Username:', validators=[Length(min=8, max=30), DataRequired()])
 #    age = StringField(label='Age:', validators=[Length(min=1, max=2), DataRequired()])
     submit = SubmitField(label='Create Account')
 
 class LoginForm(FlaskForm):
-    uniq_id = StringField(label='Unique Id:', validators=[DataRequired()])
+    username = StringField(label='Unique Id:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Login')
 
 class AdminLoginForm(FlaskForm):
-    uniq_id = StringField(label='Unique Id:', validators=[DataRequired()])
+    username = StringField(label='Unique Id:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')

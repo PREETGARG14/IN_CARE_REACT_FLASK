@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from market import db,login_manager
 
 from flask_login import UserMixin
@@ -6,21 +7,25 @@ from flask_login import UserMixin
 def load_user(user_id):
     return Patients.query.get(int(user_id)) 
 
+class Model():
+    def as_dict(self):
+        return { c.name: getattr(self, c.name) for c in self.__table__.columns }
+
 class Patients(db.Model, UserMixin):
     __tablename__ = 'patients'
     id = db.Column(db.Integer(), primary_key=True)
     fullname = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=600), nullable=False)
-    uniq_id = db.Column(db.String(length=30), nullable=False, unique=True)
+    username = db.Column(db.String(length=30), nullable=False, unique=True)
     # age = db.Column(db.Integer(), nullable=False, default=0)
     # Gender = db.Column(db.String(length=6), nullable=False, unique=True)
 
-    def __init__(self,fullname,email_address,password,uniq_id):
+    def __init__(self,fullname,email_address,password,username):
         self.fullname=fullname
         self.email_address=email_address
         self.password_hash=password
-        self.uniq_id=uniq_id
+        self.username=username
         
     @property
     def password(self):
@@ -144,7 +149,7 @@ class medSummary(db.Model):
     # absenceStatement=db.Column(db.String(), nullable=True)
     # protocolUpdated=db.Column(db.String(), nullable=True)
     
-class Prescription(db.Model):
+class Prescription(db.Model,Model):
     __tablename__='prescriptions'
     prescriptionID=db.Column(db.String(), primary_key=True)
     medItem=db.Column(db.String())
@@ -218,8 +223,25 @@ class Prescription(db.Model):
     dispenseDurationofSupply=db.Column(db.String())
     orderComment=db.Column(db.String())
     orderID=db.Column(db.String())
-    # user_id=db.Column(db.Integer(),db.ForeignKey('patients.uniq_id'))
+    userID=db.Column(db.Integer(),db.ForeignKey('patients.id'))
+    user=db.relationship('Patients',backref='prescriptions')
+
+
+
+class past_history_of_illness(db.Model , UserMixin, Model):
+    __tablename__='past_history'
+    id=db.Column(db.Integer(), primary_key=True)
+    problem = db.Column(db.String(length=30), nullable=False)
+    body_site=db.Column(db.String(length=30), nullable=False)
+    dateTime = db.Column(db.String(), nullable = False)
+    severity = db.Column(db.String(length=30), nullable=False)
+    last_updated=db.Column(db.String(), nullable = False)
+    user_id=db.Column(db.Integer(),db.ForeignKey('patients.id'))
+    user=db.relationship('Patients',backref='past_history')   
     
+
+
+
 
 db.create_all()
 db.session.commit()

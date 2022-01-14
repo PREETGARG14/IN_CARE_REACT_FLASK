@@ -1,7 +1,8 @@
-from flask import flash
+import re
+from flask import flash, json
 from market import app
 from flask import render_template, redirect, url_for,request , jsonify
-from market.models import Patients,Doctor,Prescription
+from market.models import Patients,Doctor,Prescription,past_history_of_illness
 from market.forms import RegisterForm, LoginForm,AdminLoginForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user
@@ -10,6 +11,7 @@ from functools import wraps
 # from processor import chatbot_response
 # imports for PyJWT authentication
 import jwt
+
 
 app.config['SECRET_KEY'] = 'keyissecured12123'
 token = ""
@@ -81,7 +83,7 @@ def register_page():
         user_to_create = Patients(fullname=form.fullname.data,
                               email_address=form.email_address.data,
                               password_hash=form.password1.data,
-                              uniq_id=form.uniq_id.data)
+                              username=form.username.data)
                               # age=form.age.data,
                               # gender=form.gender.data
 
@@ -92,7 +94,7 @@ def register_page():
         # return redirect(url_for('user_home'))
         result={
         "status":"unsuccessful",
-        "uniq_id":{user_to_create.uniq_id}
+        "username":{user_to_create.username}
         }
         return jsonify(result)
     if form.errors != {}:  # If there are not errors from the validations
@@ -110,16 +112,16 @@ def register_page():
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = Patients.query.filter_by(uniq_id=form.uniq_id.data).first()
+        attempted_user = Patients.query.filter_by(username=form.username.data).first()
         if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
             login_user(attempted_user)
             flash(
                 f'Success! You are logged in as: {attempted_user.fullname}', category='success')
             # return redirect(url_for('home_page'))
-            id={attempted_user.uniq_id}
+            id={attempted_user.username}
             result={
                     "status":"successful",
-                    "uniq_id":str(id)
+                    "username":str(id)
                     }
             return jsonify(result)
         else:
@@ -161,32 +163,32 @@ def admin_login_page():
 # Rest API
 @app.route("/api/login2", methods=['GET','POST'])
 def login():
-    uniq_id=request.json['uniq_id']
+    username=request.json['username']
     password=request.json['password']
-    attempted_user = Patients.query.filter_by(uniq_id=uniq_id).first()
+    attempted_user = Patients.query.filter_by(username=username).first()
     if attempted_user and attempted_user.check_password_correction(attempted_password=password):
         login_user(attempted_user)
         result={
                 "status":"successful",
-                "uniq_id":uniq_id
+                "username":username
                 }
         return jsonify(result)
     else:
         result={
                 "status":"unsuccessful",
-                "uniq_id":uniq_id
+                "username":username
                 }
         return jsonify(result)
     
     
 @app.route('/api/register2', methods=['GET', 'POST'])
 def register():
-    uniq_id=request.json['uniq_id']
-    attempted_user = Patients.query.filter_by(uniq_id=uniq_id).first()
+    username=request.json['username']
+    attempted_user = Patients.query.filter_by(username=username).first()
     if attempted_user is not None:
         result={
         "status":"unsuccessful",
-        "uniq_id":uniq_id,
+        "username":username,
         "message":"The user already exists"
         }
         return jsonify(result)
@@ -195,7 +197,7 @@ def register():
         password=request.json['password']
         fullname=request.json['fullname']
         email_address=request.json['email_address']
-        user_to_create = Patients(fullname,email_address,password,uniq_id)
+        user_to_create = Patients(fullname,email_address,password,username)
         # age=form.age.data,
         # gender=form.gender.data
 
@@ -206,7 +208,7 @@ def register():
         # return redirect(url_for('user_home'))
         result={
             "status":"successful",
-            "uniq_id":uniq_id
+            "username":username
             }
         return jsonify(result)
     
@@ -244,8 +246,8 @@ def doctor():
 def add_prescription1():
     return render_template("prescribe.html")
 
-@app.route("/api/prescribe2", methods=["GET", "POST"])
-def add_prescription():
+@app.route("/api/prescribe2/<int:user_id>", methods=["GET", "POST"])
+def add_prescription(user_id):
    if request.json['pi'] is not None:
        prescriptionID=request.json['pi']
    else:
@@ -321,14 +323,22 @@ def add_prescription():
    dispenseDurationofSupply=request.json['dos']
    orderComment=request.json['comment']
    orderID=request.json['identifier']
-
-   prescription=Prescription(prescriptionID=prescriptionID,medItem=medItem,prepSubstanceName=prepSubstanceName,prepForm=prepForm,prepStrength=prepStrength,prepStrengthUnit=prepStrengthUnit,diluentAmount=diluentAmount,diluentUnit=diluentUnit,ingredientSubstanceName=ingredientSubstanceName,ingredientForm=ingredientForm,ingredientCategory=ingredientCategory,ingredientStrength=ingredientStrength,ingredientStrengthUnit=ingredientStrengthUnit,ingredientDescription=ingredientDescription,ingredientAmount=ingredientAmount,ingredientAmountUnit=ingredientAmountUnit,ingredientRole=ingredientRole,ingredientRole2=ingredientRole2,medDescription=medDescription,medRoute=medRoute,medDosageInstructions=medDosageInstructions,doseAmount=doseAmount,doseAmountLower=doseAmountLower,doseAmountUpper=doseAmountUpper,doseNamedTimeEvent2=doseNamedTimeEvent2,doseUnit=doseUnit,doseTimingFreq=doseTimingFreq,doseTimingFreqUnit=doseTimingFreqUnit,doseTimingFreqLower=doseTimingFreqLower,doseTimingFreqLowerUnit=doseTimingFreqLowerUnit,doseTimingFreqUpper=doseTimingFreqUpper,doseTimingFreqUpperUnit=doseTimingFreqUpperUnit,doseTimingInterval=doseTimingInterval,doseSpecificTime=doseSpecificTime,doseNamedTimeEvent=doseNamedTimeEvent,doseExactTimingCritical=doseExactTimingCritical,doseAsRequired=doseAsRequired,doseAsRequiredCriterion=doseAsRequiredCriterion,infusionAdminRateQ=infusionAdminRateQ,infusionAdminRateUnit=infusionAdminRateUnit,infusionAdminRateT=infusionAdminRateT,doseAdminDuration=doseAdminDuration,doseDirectionDuration1=doseDirectionDuration1,doseDirectionDuration2=doseDirectionDuration2,directionRepetitionInterval=directionRepetitionInterval,directionSpecificDate=directionSpecificDate,directionSpecificTime=directionSpecificTime,directionSpecificDoW=directionSpecificDoW,directionSpecificDoM=directionSpecificDoM,directionEventName=directionEventName,directionEventStartInterval=directionEventStartInterval,safetyMaxAmount=safetyMaxAmount,safetyMaxAmountUnit=safetyMaxAmountUnit,safetyAllowedPeriod=safetyAllowedPeriod,overrideReason=overrideReason,orderAdditionalInstructions=orderAdditionalInstructions,orderReason=orderReason,courseStatus=courseStatus,courseDiscontinuedDate=courseDiscontinuedDate,courseDiscontinuedTime=courseDiscontinuedTime,courseWrittenDate=courseWrittenDate,courseWrittenTime=courseWrittenTime,authNumberofRepeatsAllowed=authNumberofRepeatsAllowed,authValidityPeriodDate=authValidityPeriodDate,authValidityPeriodTime=authValidityPeriodTime,dispenseInstruction=dispenseInstruction,dispenseAmountDescription=dispenseAmountDescription,dispenseAmount=dispenseAmount,dispenseAmountUnits=dispenseAmountUnits,dispenseDurationofSupply=dispenseDurationofSupply,orderComment=orderComment,orderID=orderID)    
+   userID=user_id
+   prescription=Prescription(prescriptionID=prescriptionID,medItem=medItem,prepSubstanceName=prepSubstanceName,prepForm=prepForm,prepStrength=prepStrength,prepStrengthUnit=prepStrengthUnit,diluentAmount=diluentAmount,diluentUnit=diluentUnit,ingredientSubstanceName=ingredientSubstanceName,ingredientForm=ingredientForm,ingredientCategory=ingredientCategory,ingredientStrength=ingredientStrength,ingredientStrengthUnit=ingredientStrengthUnit,ingredientDescription=ingredientDescription,ingredientAmount=ingredientAmount,ingredientAmountUnit=ingredientAmountUnit,ingredientRole=ingredientRole,ingredientRole2=ingredientRole2,medDescription=medDescription,medRoute=medRoute,medDosageInstructions=medDosageInstructions,doseAmount=doseAmount,doseAmountLower=doseAmountLower,doseAmountUpper=doseAmountUpper,doseNamedTimeEvent2=doseNamedTimeEvent2,doseUnit=doseUnit,doseTimingFreq=doseTimingFreq,doseTimingFreqUnit=doseTimingFreqUnit,doseTimingFreqLower=doseTimingFreqLower,doseTimingFreqLowerUnit=doseTimingFreqLowerUnit,doseTimingFreqUpper=doseTimingFreqUpper,doseTimingFreqUpperUnit=doseTimingFreqUpperUnit,doseTimingInterval=doseTimingInterval,doseSpecificTime=doseSpecificTime,doseNamedTimeEvent=doseNamedTimeEvent,doseExactTimingCritical=doseExactTimingCritical,doseAsRequired=doseAsRequired,doseAsRequiredCriterion=doseAsRequiredCriterion,infusionAdminRateQ=infusionAdminRateQ,infusionAdminRateUnit=infusionAdminRateUnit,infusionAdminRateT=infusionAdminRateT,doseAdminDuration=doseAdminDuration,doseDirectionDuration1=doseDirectionDuration1,doseDirectionDuration2=doseDirectionDuration2,directionRepetitionInterval=directionRepetitionInterval,directionSpecificDate=directionSpecificDate,directionSpecificTime=directionSpecificTime,directionSpecificDoW=directionSpecificDoW,directionSpecificDoM=directionSpecificDoM,directionEventName=directionEventName,directionEventStartInterval=directionEventStartInterval,safetyMaxAmount=safetyMaxAmount,safetyMaxAmountUnit=safetyMaxAmountUnit,safetyAllowedPeriod=safetyAllowedPeriod,overrideReason=overrideReason,orderAdditionalInstructions=orderAdditionalInstructions,orderReason=orderReason,courseStatus=courseStatus,courseDiscontinuedDate=courseDiscontinuedDate,courseDiscontinuedTime=courseDiscontinuedTime,courseWrittenDate=courseWrittenDate,courseWrittenTime=courseWrittenTime,authNumberofRepeatsAllowed=authNumberofRepeatsAllowed,authValidityPeriodDate=authValidityPeriodDate,authValidityPeriodTime=authValidityPeriodTime,dispenseInstruction=dispenseInstruction,dispenseAmountDescription=dispenseAmountDescription,dispenseAmount=dispenseAmount,dispenseAmountUnits=dispenseAmountUnits,dispenseDurationofSupply=dispenseDurationofSupply,orderComment=orderComment,orderID=orderID,userID=userID)    
    db.session.add(prescription)
    db.session.commit()
    result={
           "pi":prescriptionID,
    }
    return jsonify(result)
+
+@app.route("/api/prescribe3/<int:pid>", methods=["GET"])
+def get_prescription(pid):
+        prescriptions = Prescription.query.filter_by(userID = pid)
+        s = json.dumps([r.as_dict() for r in prescriptions])
+        return s
+        
+
 # @app.route('/admin/addproducts', methods=['GET', 'POST'])
 # def add_product_page():
 #     form = AdminAddProductForm()
@@ -387,3 +397,49 @@ def token_required(f):
 		return f(current_user, *args, **kwargs)
 
 	return decorated
+
+
+@app.route('/api/admin/<int:page_id>', methods=['GET', 'POST'])
+@login_required
+def edit_patient_page(page_id):
+    if request.method == 'POST':
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        patient =  db.session.query(Patients).filter()
+        patient_information = past_history_of_illness(problem=request.json['problem'],
+                            body_site=request.json['body_site'],
+                            dateTime=request.json['dateTime'],
+                            severity= request.json['severity'],
+                            last_updated = request.json['last_updated'],
+                            user_id = page_id)
+
+        patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
+        if(patient_update):
+            patient_update.problem = patient_information.problem
+            patient_update.body_site = patient_information.body_site
+            patient_update.dateTime = patient_information.dateTime
+            patient_update.severity = patient_information.severity
+            patient_update.last_updated = patient_information.last_updated
+            db.session.commit() 
+            # print(product_update.name)
+        else:
+            db.session.add(patient_information)
+            db.session.commit()
+            # login_user(user_to_create)
+            result={
+                "status":"successful",
+                "page_id":page_id
+            }
+            return jsonify(result)
+    
+    else:
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        s = json.dumps([r.as_dict() for r in past_history])
+        # , default=alchemyencoder
+        return s
+        
+# def alchemyencoder(obj):
+#     """JSON encoder function for SQLAlchemy special classes."""
+#     if isinstance(obj, datetime.date):
+#         return obj.isoformat()
+#     elif isinstance(obj, decimal.Decimal):
+#         return float(obj)
