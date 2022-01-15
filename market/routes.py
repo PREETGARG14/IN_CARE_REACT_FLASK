@@ -400,6 +400,11 @@ def edit_patient_page(page_id):
             patient_update.severity = patient_information.severity
             patient_update.last_updated = patient_information.last_updated
             db.session.commit() 
+            result={
+                "status":"successful",
+                "page_id":page_id
+            }
+            return jsonify(result)
             # print(product_update.name)
         else:
             db.session.add(patient_information)
