@@ -493,8 +493,9 @@ def edit_immunisation_page(page_id):
                             target_site=request.json['target_site'],
                             sequence_no= request.json['sequence_no'],
                             user_id=page_id)
-        immunisation_update = db.session.query(immunisation).filter_by(id = request.json['id']).first()
-        if(immunisation_update):
+        jsondata=request.json
+        if "id" in jsondata:
+            immunisation_update = db.session.query(immunisation).filter_by(id = request.json['id']).first()
             immunisation_update.immunisation_item = immunisationjson.immunisation_item
             immunisation_update.route = immunisationjson.route
             immunisation_update.target_site = immunisationjson.target_site
@@ -521,3 +522,11 @@ def edit_immunisation_page(page_id):
                 "user_id":immunisationjson.user_id
             }
             return jsonify(result)
+        
+        
+@app.route('/test', methods=['GET', 'POST'])
+def testin():
+    jsondata=request.json
+    if "id" in jsondata:
+        return jsonify(request.json["id"])
+    return jsonify(jsondata)
