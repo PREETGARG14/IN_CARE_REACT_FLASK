@@ -391,8 +391,9 @@ def edit_patient_page(page_id):
                             severity= request.json['severity'],
                             last_updated = request.json['last_updated'],
                             user_id = page_id)
-        patient_update = db.session.query(past_history_of_illness).filter_by(id =request.json['id']).first()
-        if(patient_update):
+        jsondata=request.json
+        if "id" in jsondata:
+            patient_update = db.session.query(past_history_of_illness).filter_by(id =request.json['id']).first()
             patient_update.problem = patient_information.problem
             patient_update.body_site = patient_information.body_site
             patient_update.dateTime = patient_information.dateTime
