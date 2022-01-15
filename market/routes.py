@@ -2,12 +2,15 @@ from crypt import methods
 from flask import flash
 from market import app
 from flask import render_template, redirect, url_for,request , jsonify
+from market.CreateMeet.create_event import createEvent
 from market.models import Patient,AdminUser, immunisation, past_history_of_illness
 from market.forms import AdminEditImmunisation, RegisterForm, LoginForm,PurchaseItemForm,SellItemForm,AdminLoginForm, AdminAddPatientForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user , login_manager
 from market.processor import chatbot_response
 from functools import wraps
+from flask_mail import Mail, Message
+
 # from processor import chatbot_response
 # imports for PyJWT authentication
 import jwt
@@ -15,6 +18,7 @@ import jwt
 app.config['SECRET_KEY'] = 'keyissecured12123'
 token = ""
 patientid = 0
+mail = Mail(app) # instantiate the mail class
 
 @app.route('/index', methods=["GET", "POST"])
 def index():
@@ -273,4 +277,14 @@ def edit_patient_page(page_id):
     
     return render_template('edit_details.html', past_history = past_history , immunisation = patient_immunisation_table , form = form , form2 = form2)
 
-      
+@app.route("/schedule")
+def indexone():
+    eventlink = createEvent()
+    msg = Message(
+				'Hello',
+				sender =('Sid From InCare','siddhukanu3@gmail.com'),
+				recipients = ['siddhukanu1@gmail.com']
+			)
+    msg.html = render_template('email.html' , eventlink = eventlink)
+    mail.send(msg)
+    return 'Sent'  
