@@ -530,9 +530,9 @@ def edit_immunisation_page(page_id):
             return jsonify(result)
         
         
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/api/admin/users', methods=['GET', 'POST'])
 def testin():
-    jsondata=request.json
-    if "id" in jsondata:
-        return jsonify(request.json["id"])
-    return jsonify(jsondata)
+    patients=Patients.query
+    patientsJson = json.dumps([r.as_dict() for r in patients])
+    return patientsJson
+

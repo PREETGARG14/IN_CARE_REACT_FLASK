@@ -11,10 +11,10 @@ class Model():
     def as_dict(self):
         return { c.name: getattr(self, c.name) for c in self.__table__.columns }
 
-class Patients(db.Model, UserMixin):
+class Patients(db.Model, UserMixin,Model):
     __tablename__ = 'patients'
     id = db.Column(db.Integer(), primary_key=True)
-    fullname = db.Column(db.String(length=30), nullable=False, unique=True)
+    fullname = db.Column(db.String(length=30), nullable=False, unique=False)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=600), nullable=False)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
