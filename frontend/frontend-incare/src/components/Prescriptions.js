@@ -1,6 +1,5 @@
 import Button from '@restart/ui/esm/Button';
 import React,{useState} from 'react'
-import {data} from '../utils/data'
 import { nanoid } from 'nanoid';
 import { initialstate } from '../utils/InitialState';
 import Axios from 'axios'

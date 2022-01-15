@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import Immunisation from './components/Immunisation';
 import Diagnosis from './components/Diagnosis';
 import ProtectedRoutes from './utils/ProtectedRoutes';
+import Prescriptions from './components/Prescriptions';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                                             </ProtectedRoutes>} />
         <Route path='/immunisation' element={<Immunisation/>} exact />
         <Route path='/diagnosis' element={<Diagnosis/>} exact />
+        <Route path='/presciption' element={<Prescriptions/>} exact /> 
         </Routes>
     </main>
     <Footer/>
