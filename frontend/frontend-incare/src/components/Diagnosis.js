@@ -3,7 +3,7 @@ import { Avatar, Typography ,TextField,Button,Container,Box,FormControl,InputLab
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Axios from 'axios';
 
-const Diagnosis = () => {
+const Diagnosis = ({userId}) => {
    const [problem,setProblem]=useState();
    const [bodySite,setBodySite]=useState();
    const [dateTime,setDateTime]=useState(new Date());
@@ -18,7 +18,7 @@ const Diagnosis = () => {
         "dateTime":dateTime,
         "last_updated":lastUpdated
       }
-      Axios.post('http://127.0.0.1:5000/api/admin/past/1',data).then((res)=>{
+      Axios.post(`http://127.0.0.1:5000/api/admin/past/${userId}`,data).then((res)=>{
         console.log(res.data)
       }).catch((err)=>{
         console.log(err)

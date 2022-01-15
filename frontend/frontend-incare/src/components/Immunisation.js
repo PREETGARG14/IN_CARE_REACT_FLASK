@@ -5,7 +5,7 @@ import { Avatar, Typography ,TextField,Grid,Button} from '@mui/material';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import Axios from 'axios'
 
-const Immunisation = () => {
+const Immunisation = ({userId}) => {
   const [immunisationItem,setImmunisationItem]=useState();
   const [route,setRoute]=useState();
   const [targetsite,setTargetSite]=useState();
@@ -19,7 +19,7 @@ const Immunisation = () => {
           "target_site":targetsite,
           "sequence_no":seqnumber
         }
-        Axios.post('http://127.0.0.1:5000/api/admin/immunisation/1',data).then((res=>{
+        Axios.post(`http://127.0.0.1:5000/api/admin/immunisation/${userId}`,data).then((res=>{
           console.log(res)
         })).catch((err)=>{
           console.log(err)

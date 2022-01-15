@@ -16,23 +16,24 @@ import Container from '@mui/material/Container';
 import { PasswordOutlined } from '@mui/icons-material';
 
 
-const Login = ({setUserDetailStatus}) => {
+const Doctorlogin = ({loggedIn,setLoggedIn}) => {
+  console.log(loggedIn)
   const history = useNavigate();
 
   const [password,setPassword]=useState();
-  const [userName,setUserName]=useState();
+  const [email,setEmail]=useState();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let data={
-      username:userName,
+      email_address:email,
       password:password
     }
     console.log(data)
-    Axios.post('http://127.0.0.1:5000/api/login2',data).
+    Axios.post('http://127.0.0.1:5000/api/doctor2',data).
     then((res)=>{
-      setUserDetailStatus(true)
-      history('/userdetailcard');
+      setLoggedIn(true)
+      history('/dashboard');
     }).
     catch((err)=>{
       console.log(err)
@@ -54,7 +55,7 @@ const Login = ({setUserDetailStatus}) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in as a Patient
+            Log in as a Doctor
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -62,9 +63,9 @@ const Login = ({setUserDetailStatus}) => {
               required
               fullWidth
               id="uniqId"
-              label="User name"
+              label="Email address"
               name="uniqId"
-              onChange={(e)=>setUserName(e.target.value)}
+              onChange={(e)=>setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -88,22 +89,10 @@ const Login = ({setUserDetailStatus}) => {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2" >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
   );
 }
 
-export default Login;
+export default Doctorlogin;

@@ -1,4 +1,5 @@
 import  React,{useState} from 'react';
+import { useNavigate } from 'react-router';
 import Axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -21,17 +22,21 @@ export default function SignUp() {
   const [lastName, setLastName] = useState();
   const [email,setEmail]=useState();
   const [password,setPassword]=useState();
-  const [uniqId,setUniqId]=useState();
+  const [userName,setUserName]=useState();
+  const history = useNavigate();
 
   const handleSubmit = (event) => {
       event.preventDefault();
+
       let data={
-        uniq_id:uniqId,
+        username:userName,
         password:password,
         fullname:firstName+" "+lastName,
         email_address:email
     }
-      Axios.post('http://127.0.0.1:5000/api/register2',data).then((res)=>console.log(res.data)).
+      Axios.post('http://127.0.0.1:5000/api/register2',data).then((res)=>{
+        history('/login')
+      }).
       catch((err)=>console.log(err))
 
   };
@@ -42,14 +47,14 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
@@ -82,9 +87,9 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="uniq_id"
-                  label="Unique ID"
+                  label="UserName"
                   name="uniq_id"
-                  onChange={(e)=>setUniqId(e.target.value)}
+                  onChange={(e)=>setUserName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

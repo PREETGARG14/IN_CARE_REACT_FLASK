@@ -6,7 +6,7 @@ import Axios from 'axios'
 
 import { Container } from '@mui/material'
 
-export default function Prescriptions() {
+export default function Prescriptions({userId}) {
     const [details,setDetails]=useState(initialstate)
 
 
@@ -14,7 +14,7 @@ export default function Prescriptions() {
         const newDetails = {...details,"pi":nanoid()}
         e.preventDefault();
         console.log(details)
-        Axios.post('http://127.0.0.1:5000/api/prescribe2/1',newDetails).then((res)=>{
+        Axios.post(`http://127.0.0.1:5000/api/prescribe2/${userId}`,newDetails).then((res)=>{
             console.log(res.data)
         })
     }

@@ -11,24 +11,42 @@ import Immunisation from './components/Immunisation';
 import Diagnosis from './components/Diagnosis';
 import ProtectedRoutes from './utils/ProtectedRoutes';
 import Prescriptions from './components/Prescriptions';
+import Doctorlogin from './components/Doctorlogin';
+import Cards from './components/Cards'
+import UserDetailCard from './components/UserDetailCard';
 
 
 function App() {
   const [loggedIn,setLoggedIn]=useState(false);
+  const [userId,setUserId]=useState();
+  const [userDetailStatus,setUserDetailStatus]=useState(false)
   return (
     <Router>
-    <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+    <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} userDetailStatus={userDetailStatus} setUserDetailStatus={setUserDetailStatus}/>
     <main className='py-3'>      
         <Routes>
         <Route path='/' exact element={<Homepage/>}/>
-        <Route path='/login' element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>} exact />
+        <Route path='/login' element={<Login setUserDetailStatus={setUserDetailStatus}/>} exact />
+        <Route path='/doctorlogin' element={<Doctorlogin loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>} exact />
         <Route path='/signup' element={<Signup/>} exact />
         <Route path='/dashboard' element={<ProtectedRoutes auth={loggedIn}>
-                                            <Dashboard/> 
-                                            </ProtectedRoutes>} />
-        <Route path='/immunisation' element={<Immunisation/>} exact />
-        <Route path='/diagnosis' element={<Diagnosis/>} exact />
-        <Route path='/presciption' element={<Prescriptions/>} exact /> 
+                                            <Dashboard userId={userId} setUserId={setUserId}/> 
+                                            </ProtectedRoutes>}/>
+        <Route path='/immunisation' element={<ProtectedRoutes auth={loggedIn}>
+                                            <Immunisation userId={userId}/> 
+                                            </ProtectedRoutes>}/>   
+        <Route path='/diagnosis' element={<ProtectedRoutes auth={loggedIn}>
+                                            <Diagnosis userId={userId}/> 
+                                            </ProtectedRoutes>}/>  
+        <Route path='/presciption' element={<ProtectedRoutes auth={loggedIn}>
+                                            <Prescriptions userId={userId}/> 
+                                            </ProtectedRoutes>}/>    
+        <Route path='/cards' element={<ProtectedRoutes auth={loggedIn}>
+                                            <Cards userId={userId} setUserId={setUserId}/> 
+                                            </ProtectedRoutes>}/>
+        <Route path='/userdetailcard' element={<ProtectedRoutes auth={userDetailStatus}>
+                                            <UserDetailCard /> 
+                                            </ProtectedRoutes>}/>
         </Routes>
     </main>
     <Footer/>
