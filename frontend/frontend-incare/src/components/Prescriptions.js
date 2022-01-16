@@ -3,11 +3,19 @@ import React,{useState} from 'react'
 import { nanoid } from 'nanoid';
 import { initialstate } from '../utils/InitialState';
 import Axios from 'axios'
-
 import { Container } from '@mui/material'
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert'
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 export default function Prescriptions({userId}) {
     const [details,setDetails]=useState(initialstate)
+    const [open, setOpen] = useState(false);
 
 
     const handleClick=(e)=>{
@@ -15,9 +23,15 @@ export default function Prescriptions({userId}) {
         e.preventDefault();
         console.log(details)
         Axios.post(`http://127.0.0.1:5000/api/prescribe2/${userId}`,newDetails).then((res)=>{
-            console.log(res.data)
+            setOpen(true)
         })
     }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
     return (
         <form>
         <div className="aboveMainheading pt-2" >
@@ -639,6 +653,11 @@ export default function Prescriptions({userId}) {
                         <div className="Button">
                             <center><Button type="button" className="btn btn-dark mt-4 mb-4" onClick={handleClick}>Submit</Button></center>
                         </div>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                            submitted
+                          </Alert>
+                        </Snackbar>
 
                     </div >
 

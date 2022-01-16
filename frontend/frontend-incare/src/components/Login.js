@@ -31,9 +31,11 @@ const Login = ({setUserDetailStatus,setPatientId}) => {
     console.log(data)
     Axios.post('http://127.0.0.1:5000/api/login2',data).
     then((res)=>{
+      if(res.data.status === 'successful'){
       setUserDetailStatus(true)
       setPatientId(res.data.id);
       history('/userdetailcard');
+      }
     }).
     catch((err)=>{
       console.log(err)
