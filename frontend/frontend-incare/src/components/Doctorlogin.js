@@ -32,8 +32,10 @@ const Doctorlogin = ({loggedIn,setLoggedIn}) => {
     console.log(data)
     Axios.post('http://127.0.0.1:5000/api/doctor2',data).
     then((res)=>{
+      if(res.data.status === 'successful'){
       setLoggedIn(true)
       history('/dashboard');
+      }
     }).
     catch((err)=>{
       console.log(err)
