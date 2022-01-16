@@ -546,7 +546,7 @@ def testin():
 
 @app.route("/api/schedule",methods=['GET','POST'])
 def indexone():
-    email = json["email"]
+    email = request.json["email"]
     eventlink = createEvent(email)
     msg = Message(
 				'Hello',
