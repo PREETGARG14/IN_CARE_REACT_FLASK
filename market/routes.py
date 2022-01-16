@@ -529,6 +529,11 @@ def edit_immunisation_page(page_id):
             }
             return jsonify(result)
         
+    else:
+        pimmune = immunisation.query.filter_by(user_id = page_id)
+        s = json.dumps([r.as_dict() for r in pimmune])
+        return s
+        
         
 @app.route('/api/admin/users', methods=['GET', 'POST'])
 def testin():
