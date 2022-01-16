@@ -32,7 +32,7 @@ meetingdetails = {"topic": "The title of your zoom meeting",
 # send a request with headers including 
 # a token and meeting details
 def createMeeting():
-    headers = {'authorization': 'Bearer %s' % 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IlY5UzRvaUVVUTR5eFl5RzRONFRmX0EiLCJleHAiOjE2NDIxOTMxODEsImlhdCI6MTY0MjE4Nzc4MX0.u-tO5x_XvjiLA_QJcK1L-pgfvwjIcxn5kcgqV3WsfMY',
+    headers = {'authorization': 'Bearer %s' % 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IlY5UzRvaUVVUTR5eFl5RzRONFRmX0EiLCJleHAiOjE2NDIyMzUzNzMsImlhdCI6MTY0MjIyOTk3M30.kXRaH88gfrp6L9kAx4pq8tNOEcb2z4ua5zhi_LiUA38',
                'content-type': 'application/json'}
     r = requests.post(
         f'https://api.zoom.us/v2/users/me/meetings', 

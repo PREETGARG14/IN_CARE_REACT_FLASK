@@ -4,14 +4,24 @@ Market Page
 {% endblock %}
 
 {% block content %}
+<script>
+    function myfunction()
+{
+    if (document.getElementById("displaytable").style.display === "none")
+        document.getElementById("displaytable").style.display="block";
+    else
+        document.getElementById("displaytable").style.display="none";
+}
+</script>
 
-<div class="row" style="margin-top:20px; margin-left:20px">
+
+<div class="row" style="margin-top:20px; margin-left:20px" id="tab1">
     <div class="col-8">
-        <h2>Available items on the Market</h2>
-        <p>Click on one of the items to start buying</p>
-        <br>
+        <h1>PatientHistory Table</h1>
+    </div>
+    </div>    
         <!-- <p>{{items}} </p> -->
-        <table class="table table-hover table-dark">
+        <table class="table table-hover tabledesing" id="table1">
             <thead>
                 <tr>
                     <!-- Your Columns HERE -->
@@ -46,7 +56,100 @@ Market Page
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+        <div class="row" style="margin-top:20px; margin-left:20px" id="tab2">
+            <div class="col-8">
+                <h1>PatientImmunisation Table</h1>
+            </div>
+            </div> 
+        <table class="table table-hover tabledesing" id="table2">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">immunisation_item</th>
+                    <th scope="col">route</th>
+                    <th scope="col">target_site</th>
+                    <th scope="col">sequence_no</th>
+                    <th scope="col">User Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in immunisation %}
+                <!-- this is JIJNA SYNTAX  is a template which help to write logic of python programming in html -->
+                <tr>
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.immunisation_item }}</td>
+                    <td>{{ item.route }}</td>
+                    <td>{{item.target_site}}</td>
+                    <td>{{ item.sequence_no }}</td>
+                    <td>{{item.user_id}}</td>
+                   
+                    <!-- <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal"
+                            data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal"
+                            data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase this Item</button>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row" style="margin-top:20px; margin-left:20px" id="tab3">
+            <div class="col-8">
+                <h1>PatientPrescription Table</h1>
+            </div>
+            </div> 
+        <table class="table table-hover tabledesing" id="table3">
+            
+           <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">medicinename</th>
+                    <th scope="col">substancename</th>
+                    <th scope="col">medicinetype</th>
+                    <th scope="col">dosagestrength</th>
+                    <th scope="col">unitstrength</th>
+                    <th scope="col">methoddosage</th>
+                    <th scope="col">instructiondosage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in prescription %}
+                <!-- this is JIJNA SYNTAX  is a template which help to write logic of python programming in html -->
+                <tr>
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.medicinename }}</td>
+                    <td>{{ item.substancename }}</td>
+                    <td>{{item.medicinetype}}</td>
+                    <td>{{ item.dosagestrength }}</td>
+                    <td>{{ item.unitstrength }}</td>
+                    <td>{{ item.methoddosage }}</td>
+                    <td>{{ item.instructiondosage }}</td>
+                    <td>{{item.user_id}}</td>
+                   
+                    <!-- <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal"
+                            data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal"
+                            data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase this Item</button>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+  <script>
+      var button1 = document.getElementById(tab1);
+      button.onclick = function() {
+    var div = document.getElementById('table1');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+    else {
+        div.style.display = 'block';
+    }
+};
+  </script>
     <!-- <div class="col-4">
         <h2>Owned Items</h2>
         <p>Click on return this item to put an item back on the Market</p>

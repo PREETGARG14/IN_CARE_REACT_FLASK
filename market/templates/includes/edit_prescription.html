@@ -1,0 +1,57 @@
+<style>
+    .modal-content {
+      background-color: #212121
+    }
+  </style>
+
+<div class="modal fade" id="Modal-MoreInfo-products-{{ item.id }}"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            {{ item.id }}
+          </h5>
+        </div>
+        <div class="modal-body">
+          <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
+         
+                <br>
+                {{ form.id.label()}}
+             {{form.id(class="form-control" , value = item.id)}}
+                {{ form.medicinename.label() }}
+                {{ form.medicinename(class="form-control", value= item.medicinename ) }}
+      
+                {{ form.substancename.label() }}
+                {{ form.substancename(class="form-control", value=item.substancename) }}
+      
+                {{ form.medicinetype.label() }}
+                {{ form.medicinetype(class="form-control", value=item.medicinetype) }}
+      
+                {{ form.dosagestrength.label() }}
+                {{ form.dosagestrength(class="form-control", value=item.dosagestrength) }}
+                
+                {{ form.unitstrength.label() }}
+                {{ form.unitstrength(class="form-control", value=item.unitstrength) }}
+                {{ form.methoddosage.label() }}
+                {{ form.methoddosage(class="form-control", value=item.methoddosage) }}
+                {{ form.instructiondosage.label() }}
+                {{ form.instructiondosage(class="form-control", value=item.instructiondosage) }}
+      
+                
+                <br>
+                {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
+
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  data-dismiss="modal">Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

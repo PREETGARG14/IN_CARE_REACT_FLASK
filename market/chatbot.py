@@ -16,7 +16,7 @@ words=[]
 classes = []
 documents = []
 ignore_words = ['?', '!']
-data_file = open('job_intents.json', encoding='utf-8').read()
+data_file = open('market/job_intents.json', encoding='utf-8').read()
 intents = json.loads(data_file)
 
 

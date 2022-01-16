@@ -1,4 +1,5 @@
-from sqlalchemy.orm import backref, relationship
+from crypt import methods
+from sqlalchemy.orm import backref
 from market import db,login_manager
 
 from flask_login import UserMixin
@@ -85,6 +86,19 @@ class immunisation(db.Model , UserMixin):
     sequence_no = db.Column(db.Integer(), nullable=False)
     user_id=db.Column(db.Integer(),db.ForeignKey('patient.id'))
     user=db.relationship('Patient',backref='immunisation')
+
+class prescription(db.Model , UserMixin):
+    __tablename__ = 'precription'
+    id = db.Column(db.Integer() , primary_key = True)
+    medicinename = db.Column(db.String(length=30), nullable=False)
+    substancename = db.Column(db.String(length=30), nullable=False)
+    medicinetype = db.Column(db.String(length=30), nullable=False)
+    dosagestrength = db.Column(db.String(length=30), nullable=False)
+    unitstrength = db.Column(db.String(length=30), nullable=False)
+    methoddosage = db.Column(db.String(length=30), nullable=False)
+    instructiondosage = db.Column(db.String(length=30), nullable=False)
+    user_id=db.Column(db.Integer(),db.ForeignKey('patient.id'))
+    user=db.relationship('Patient',backref='prescription')
 
     
 db.create_all()

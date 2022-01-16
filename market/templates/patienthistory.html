@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}
+    Admin Login
+{% endblock %}
+
+{% block content %}
+<div style="margin-top:20px; margin-left:20px">
+    <div class="col-8">
+        <h2>{{ page_id }}</h2>
+        <!-- <button class="btn btn-outline btn-info" href="{{url_for('indexone' , page_id = page_id)}}">Scheduke</button> -->
+        <br>
+        <!-- <p>{{items}} </p> -->
+        <table class="table table-striped tabledesing">
+            <h1>PatientHistory Table</h1>
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Problem</th>
+                    <th scope="col">Body Site</th>
+                    <th scope="col">DateTime</th>
+                    <th scope="col">Severity</th>
+                    <th scope="col">last_updated</th>
+                    <th scope="col">User Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in past_history %}
+                {% include 'includes/edit_admin_products.html' %}
+                <!-- this is JIJNA SYNTAX  is a template which help to write logic of python programming in html -->
+                <tr>
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.problem }}</td>
+                    <td>{{ item.body_site }}</td>
+                    <td>{{item.dateTime}}</td>
+                    <td>{{ item.severity }}</td>
+                    <td>{{item.last_updated}}</td>
+                    <td>{{item.user_id}}</td>
+                    <td><button class="btn btn-outline btn-info" data-toggle="modal"
+                        data-target="#Modal-MoreInfo-products-{{ item.id }}">Edit</button>
+                    </td>
+                    <!-- <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal"
+                            data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal"
+                            data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase this Item</button>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        </div>
+        <div class="modal-body">
+            <form method="POST" class="form-register" style="color:white; width: 50%; margin-left: 25%;">
+              {{ form.hidden_tag() }}
+             
+              <br>
+              {{ form.problem.label() }}
+              {{ form.problem(class="form-control", value= "Problem" ) }}
+    
+              {{ form.body_site.label() }}
+              {{ form.body_site(class="form-control", value="Body_Site") }}
+    
+              {{ form.dateTime.label() }}
+              {{ form.dateTime(class="form-control", value="dateTime") }}
+    
+              {{ form.severity.label() }}
+              {{ form.severity(class="form-control", value="severity") }}
+    
+              {{ form.last_updated.label() }}
+              {{ form.last_updated(class="form-control", value="last_updated") }}
+              <br>
+              {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
+    
+          </form>
+          </div>
+{% endblock %}

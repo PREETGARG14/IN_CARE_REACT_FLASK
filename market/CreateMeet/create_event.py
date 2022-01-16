@@ -7,14 +7,16 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from market.models import Patient,AdminUser, immunisation, past_history_of_illness
+from market.forms import AdminEditImmunisation, RegisterForm, LoginForm,PurchaseItemForm,SellItemForm,AdminLoginForm, AdminAddPatientForm
+from market import db
 from market.CreateMeet.zoomlink import createMeeting
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def createEvent():
+def createEvent(page_id):
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -66,6 +68,8 @@ def createEvent():
 #     ],
 #   },
 # }
+    patient_update = db.session.query(Patient).filter_by(id = page_id).first()
+
     body = {
       "calendarId": "primary",
       "conferenceDataVersion": 1,
@@ -87,8 +91,7 @@ def createEvent():
         }
       },
       'attendees': [
-    {'email': 'siddhukanu1@gmail.com'},
-    {'email': 'siddhukanu1@gmail.com'},
+    {'email': patient_update.email_address},
     {'email': 'siddhukanu3@gmail.com'},
   ],
       "summary": "Appointment has been booked"

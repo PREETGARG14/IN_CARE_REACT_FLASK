@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}
+    Admin Login
+{% endblock %}
+
+{% block content %}
+<div style="margin-top:20px; margin-left:20px">
+    <div class="col-8">
+        <!-- <button class="btn btn-outline btn-info" href="{{url_for('indexone' , page_id = page_id)}}">Scheduke</button> -->
+        <br>
+        <table class="table table-hover tabledesing">
+            
+            <span><h1>PatientPrescription Table</h1></span>
+           <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">medicinename</th>
+                    <th scope="col">substancename</th>
+                    <th scope="col">medicinetype</th>
+                    <th scope="col">dosagestrength</th>
+                    <th scope="col">unitstrength</th>
+                    <th scope="col">methoddosage</th>
+                    <th scope="col">instructiondosage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                {% for item in prescription %}
+                {% include 'includes/edit_prescription.html' %}
+                <!-- this is JIJNA SYNTAX  is a template which help to write logic of python programming in html -->
+                <tr>
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.medicinename }}</td>
+                    <td>{{ item.substancename }}</td>
+                    <td>{{item.medicinetype}}</td>
+                    <td>{{ item.dosagestrength }}</td>
+                    <td>{{ item.unitstrength }}</td>
+                    <td>{{ item.methoddosage }}</td>
+                    <td>{{ item.instructiondosage }}</td>
+                    <td>{{item.user_id}}</td>
+                    <td><button class="btn btn-outline btn-info" data-toggle="modal"
+                        data-target="#Modal-MoreInfo-products-{{ item.id }}">Edit</button>
+                    </td>
+                    <!-- <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal"
+                            data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        <button class="btn btn-outline btn-success" data-toggle="modal"
+                            data-target="#Modal-PurchaseConfirm-{{ item.id }}">Purchase this Item</button>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        </div>
+        
+        <div class="modal-body" style="color: white;">
+            <form method="POST" class="form-register" style="color:white; width: 50%; margin-left: 25%;">
+                {{ form.hidden_tag() }}
+         
+                <br>
+                {{ form.medicinename.label() }}
+                {{ form.medicinename(class="form-control", placeholder= "medicinename" ,value="") }}
+      
+                {{ form.substancename.label() }}
+                {{ form.substancename(class="form-control", placeholder="substancename",value="") }}
+      
+                {{ form.medicinetype.label() }}
+                {{ form.medicinetype(class="form-control", placeholder="medicinetype",value="") }}
+      
+                {{ form.dosagestrength.label() }}
+                {{ form.dosagestrength(class="form-control", placeholder="dosagestrength",value="") }}
+                
+                {{ form.unitstrength.label() }}
+                {{ form.unitstrength(class="form-control", placeholder="unitstrength",value="") }}
+                {{ form.methoddosage.label() }}
+                {{ form.methoddosage(class="form-control", placeholder="methoddosage",value="") }}
+                {{ form.instructiondosage.label() }}
+                {{ form.instructiondosage(class="form-control", placeholder="instructiondosage",value=""  ) }}
+      
+                
+                <br>
+                {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
+      
+          </form>
+          </div>
+          
+{% endblock %}

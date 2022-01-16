@@ -6,30 +6,53 @@
 {% block content %}
 <body class="text-center">
     <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
-            {{ form.hidden_tag() }}
-            <img class="mb-4" src="{{url_for('static', filename='2chaileli.png')}}" alt="CHAI LELO">
-            <h1 class="h3 mb-3 font-weight-normal">
-                Admin Login
-            </h1>
-            <br>
-            {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name") }}
-
-            {{ form.password.label() }}
-            {{ form.password(class="form-control", placeholder="Password") }}
-
-            <br>
-
-
-            <!-- <div class="checkbox mb-3">
-               <h6>Do not have an account?</h6>
-               <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
-            </div> -->
-
-            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
-
-        </form>
+        <div class="screen">
+            <div class="screen__content">
+                
+                <form class="login" method="post">
+                    <h2>In-Care</h2>
+                    {{ form.hidden_tag() }}
+                    <div class="login__field">
+                        <i class="login__icon fas fa-user"></i>
+                        {{ form.username(class="login__input", placeholder="User Name") }}
+    
+                    </div>
+                    <div class="login__field">
+                        <i class="login__icon fas fa-lock"></i>
+                        {{ form.password(class="login__input", placeholder="Password") }}
+                    </div>
+                    <button class="button login__submit">
+                        <span class="button__text">Log In Now</span>
+                        <i class="button__icon fas fa-chevron-right"></i>
+                        {{ form.submit(class="button__text") }}
+                    </button>				
+                </form>
+            
+            </div>
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>		
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>		
+        </div>
     </div>
 </body>
 {% endblock %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+      
+
+</body>
+</html>
+

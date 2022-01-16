@@ -3,8 +3,8 @@ from flask import flash
 from market import app
 from flask import render_template, redirect, url_for,request , jsonify
 from market.CreateMeet.create_event import createEvent
-from market.models import Patient,AdminUser, immunisation, past_history_of_illness
-from market.forms import AdminEditImmunisation, RegisterForm, LoginForm,PurchaseItemForm,SellItemForm,AdminLoginForm, AdminAddPatientForm
+from market.models import Patient,AdminUser, immunisation, past_history_of_illness, prescription
+from market.forms import AdminEditImmunisation, AdminEditPrescription, RegisterForm, LoginForm,PurchaseItemForm,SellItemForm,AdminLoginForm, AdminAddPatientForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user , login_manager
 from market.processor import chatbot_response
@@ -77,7 +77,9 @@ def market_page():
         past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
         print(current_user.get_id())
         past_history = past_history_of_illness.query.filter_by(user_id = current_user.get_id())
-        return render_template('market.html', past_history = past_history) 
+        immunisation_data = immunisation.query.filter_by(user_id = current_user.get_id())
+        prescription_data = prescription.query.filter_by(user_id = current_user.get_id())
+        return render_template('market.html', past_history = past_history , immunisation = immunisation_data , prescription = prescription_data) 
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -176,6 +178,138 @@ def add_product_page():
     #         flash(f'There was an error with creating a user: {err_msg}', category='danger')
         
     return render_template('adminpage.html', products = products , past_history = past_history)
+@app.route('/admin/<int:page_id>/PatientHistory' , methods = ['GET'])
+def PatientHistory(page_id):
+    form = AdminAddPatientForm()
+    form2 = AdminEditImmunisation()
+    form3 = AdminEditPrescription()
+    if request.method == "GET":
+        patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+        patien_prescription = prescription.query.filter_by(user_id = page_id)
+        past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
+        # print(current_user.get_id())
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        return render_template('patienthistory.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table , page_id = page_id , form3 = form3 , prescription = patien_prescription)
+
+@app.route('/admin/<int:page_id>/PatientHistory' , methods = ['POST'])
+def PatientHistoryEdit(page_id):
+    form = AdminAddPatientForm()
+    past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+    patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+    patient =  db.session.query(Patient).filter()
+    form2 = AdminEditImmunisation()
+    # print(products)
+    if form.validate_on_submit():
+        
+        patient_information = past_history_of_illness(
+                            id = form.id.data,
+                            problem=form.problem.data,
+                            body_site=form.body_site.data,
+                            dateTime=form.dateTime.data,
+                            severity= form.severity.data,
+                            last_updated = form.last_updated.data ,
+                            user_id = page_id)
+        print(patient_information.id)
+        patient_update = db.session.query(past_history_of_illness).filter_by(id = patient_information.id).first()
+        if(patient_update):
+            patient_update.problem = patient_information.problem
+            patient_update.body_site = patient_information.body_site
+            patient_update.dateTime = patient_information.dateTime
+            patient_update.severity = patient_information.severity
+            patient_update.last_updated = patient_information.last_updated
+            db.session.commit()
+        else:
+            db.session.add(patient_information)
+            db.session.commit()
+            # login_user(user_to_create)
+            flash(f"Product {patient_information.id} added successfully", category='success')
+            return redirect(url_for('PatientHistoryEdit' ,page_id = page_id ,form=form , products = patient))
+    return render_template('patienthistory.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table , page_id = page_id)
+
+@app.route('/admin/<int:page_id>/PatientImmunisation' , methods = ['GET'])
+def PatientImmunisation(page_id):
+    form = AdminAddPatientForm()
+    form2 = AdminEditImmunisation()
+    if request.method == "GET":
+        patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+
+        past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
+        # print(current_user.get_id())
+        past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+        return render_template('patientimmunisation.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table , page_id = page_id)
+
+@app.route('/admin/<int:page_id>/PatientImmunisation' , methods = ['POST'])
+def PatientImmunisationEdit(page_id):
+    form = AdminAddPatientForm()
+    past_history = past_history_of_illness.query.filter_by(user_id = page_id)
+    patient_immunisation_table = immunisation.query.filter_by(user_id = page_id)
+    patient =  db.session.query(Patient).filter()
+    form2 = AdminEditImmunisation()
+    # print(products)
+    if form2.validate_on_submit():
+        patient_immunisation = immunisation(id = form2.id.data,
+                                            immunisation_item = form2.immunisation_item.data,
+                                            route = form2.route.data,
+                                            target_site = form2.target_site.data,
+                                            sequence_no = form2.sequence_no.data,
+                                            user_id = page_id)
+        patient_immunisation_update = db.session.query(immunisation).filter_by(id =  patient_immunisation.id).first()
+        if(patient_immunisation_update):
+            patient_immunisation_update.immunisation_item = patient_immunisation.immunisation_item
+            patient_immunisation_update.route = patient_immunisation.route
+            patient_immunisation_update.target_site = patient_immunisation.target_site
+            patient_immunisation_update.sequence_no = patient_immunisation.sequence_no
+            db.session.commit()  
+        else:
+            db.session.add(patient_immunisation)
+            db.session.commit()
+            # login_user(user_to_create)
+            flash(f"Product {patient_immunisation.id} added successfully", category='success')
+    return render_template('patientimmunisation.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table , page_id = page_id)
+
+@app.route('/admin/<int:page_id>/PatientPrescription' , methods = ['GET'])
+def PatientPrescription(page_id):
+     form = AdminEditPrescription()
+     prescription_data = prescription.query.filter_by(user_id = page_id)
+     if request.method == "GET":
+         return render_template('prescription.html' , prescription = prescription_data , page_id = page_id , form = form)
+
+@app.route('/admin/<int:page_id>/PatientPrescription' , methods = ['POST'])
+def PatientPrescriptionEdit(page_id):
+    form = AdminEditPrescription()
+    prescription_data = prescription.query.filter_by(user_id = page_id)
+    
+    # print(products)
+    if form.validate_on_submit():
+        prescription_value = prescription(id = form.id.data,
+                                            medicinename = form.medicinename.data,
+                                            substancename = form.substancename.data,
+                                            medicinetype = form.medicinetype.data,
+                                            dosagestrength = form.dosagestrength.data,
+                                            unitstrength = form.unitstrength.data,
+                                            methoddosage = form.methoddosage.data,
+                                            instructiondosage = form.instructiondosage.data,
+
+                                            user_id = page_id)
+        patient_precription_update = db.session.query(prescription).filter_by(id =  prescription_value.id).first()
+        if(patient_precription_update):
+            patient_precription_update.medicinename = prescription_value.medicinename
+            patient_precription_update.substancename = prescription_value.substancename
+            patient_precription_update.medicinetype = prescription_value.medicinetype
+            patient_precription_update.dosagestrength = prescription_value.dosagestrength
+            patient_precription_update.unitstrength = prescription_value.unitstrength
+            patient_precription_update.methoddosage = prescription_value.methoddosage
+            patient_precription_update.instructiondosage = prescription_value.instructiondosage
+
+            db.session.commit()  
+        else:
+            db.session.add(prescription_value)
+            db.session.commit()
+            # login_user(user_to_create)
+            flash(f"Product {prescription_value.id} added successfully", category='success')
+    return render_template('prescription.html', prescription = prescription_data , form = form , page_id = page_id)
+
+    
 @app.route('/admin/<int:page_id>' , methods = ['GET'])
 def edit_details(page_id):
     form = AdminAddPatientForm()
@@ -186,8 +320,8 @@ def edit_details(page_id):
         past_hist=past_history_of_illness.query.order_by(past_history_of_illness.id.asc())
         # print(current_user.get_id())
         past_history = past_history_of_illness.query.filter_by(user_id = page_id)
-        return render_template('edit_details.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table)
-        
+        return render_template('cardsfile.html', past_history = past_history , form = form , form2 = form2, immunisation = patient_immunisation_table , page_id = page_id)
+
 @app.login_manager.unauthorized_handler     # In unauthorized_handler we have a callback URL 
 def unauthorized_callback():            # In call back url we can specify where we want to 
        return redirect(url_for('admin_login_page'))
@@ -275,15 +409,17 @@ def edit_patient_page(page_id):
             # login_user(user_to_create)
             flash(f"Product {patient_immunisation.id} added successfully", category='success')
     
-    return render_template('edit_details.html', past_history = past_history , immunisation = patient_immunisation_table , form = form , form2 = form2)
+    return render_template('edit_details.html', past_history = past_history ,page_id = page_id ,immunisation = patient_immunisation_table , form = form , form2 = form2)
 
-@app.route("/schedule")
-def indexone():
-    eventlink = createEvent()
+@app.route("/admin/<int:page_id>/schedule")
+def indexone(page_id):
+    patient_information = db.session.query(Patient).filter_by(id = page_id).first()
+
+    eventlink = createEvent(page_id)
     msg = Message(
 				'Hello',
 				sender =('Sid From InCare','siddhukanu3@gmail.com'),
-				recipients = ['siddhukanu1@gmail.com']
+				recipients = [patient_information.email_address]
 			)
     msg.html = render_template('email.html' , eventlink = eventlink)
     mail.send(msg)

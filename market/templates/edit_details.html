@@ -8,7 +8,8 @@
 <div class="row" style="margin-top:20px; margin-left:20px">
     <div class="col-8">
         <h2>Available items on the Market</h2>
-        <p>Click on one of the items to start buying</p>
+        <h2>{{ page_id }}</h2>
+        <button class="btn btn-outline btn-info" href="{{url_for('indexone' , page_id = page_id)}}">Scheduke</button>
         <br>
         <!-- <p>{{items}} </p> -->
         <table class="table table-hover table-dark">
@@ -94,20 +95,19 @@
           {{ form.hidden_tag() }}
          
           <br>
-          {{ form.problem.label() }}
-          {{ form.problem(class="form-control", value= "Problem" ) }}
+          {{ form.immunisation_item.label() }}
+          {{ form.immunisation_item(class="form-control", placeholder= "immunisation_item" ) }}
 
-          {{ form.body_site.label() }}
-          {{ form.body_site(class="form-control", value="Body_Site") }}
+          {{ form.route.label() }}
+          {{ form.route(class="form-control", placeholder="route") }}
 
-          {{ form.dateTime.label() }}
-          {{ form.dateTime(class="form-control", value="dateTime") }}
+          {{ form.target_site.label() }}
+          {{ form.target_site(class="form-control", placeholder="target_site") }}
 
-          {{ form.severity.label() }}
-          {{ form.severity(class="form-control", value="severity") }}
+          {{ form.sequence_no.label() }}
+          {{ form.sequence_no(class="form-control", placeholder="sequence_no") }}
 
-          {{ form.last_updated.label() }}
-          {{ form.last_updated(class="form-control", value="last_updated") }}
+          
           <br>
           {{ form.submit(class="btn btn-lg btn-block btn-primary",label="Update Product") }}
 

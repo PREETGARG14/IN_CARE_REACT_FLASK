@@ -45,7 +45,7 @@ class AdminAddPatientForm(FlaskForm):
 class AdminLoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
-    submit = SubmitField(label='Sign in')
+    submit = SubmitField(label='')
 
 class AdminEditImmunisation(FlaskForm):
     id = IntegerField(label='id' , render_kw={'readonly': True})
@@ -53,4 +53,15 @@ class AdminEditImmunisation(FlaskForm):
     route = StringField(label='Route', validators=[DataRequired()])
     target_site =   StringField(label='Target SIte',validators=[DataRequired()])
     sequence_no = StringField(label='Sequence', validators=[DataRequired()])
+    submit = SubmitField(label='Add Products')
+
+class AdminEditPrescription(FlaskForm):
+    id = IntegerField(label='id' , render_kw={'readonly': True})
+    medicinename = StringField(label='Medicine Name', validators=[DataRequired()])
+    substancename = StringField(label='SUbstance Name', validators=[DataRequired()])
+    medicinetype = StringField(label='Medicine Type', validators=[DataRequired()])
+    dosagestrength = StringField(label='DOsage Strength', validators=[DataRequired()])
+    unitstrength = StringField(label='Unit Strength', validators=[DataRequired()])
+    methoddosage = StringField(label='DOsage Methoda', validators=[DataRequired()])
+    instructiondosage = StringField(label='Dosage Interuction', validators=[DataRequired()])
     submit = SubmitField(label='Add Products')
