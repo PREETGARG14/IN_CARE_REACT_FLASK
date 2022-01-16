@@ -2,19 +2,20 @@ import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom'
 import React from 'react'
 
-const UserDetailCard = ({userId,setUserID}) => {
+const UserDetailCard = ({userId,setUserID,setPatientId,patientId}) => {
+    console.log(patientId)
     const history = useNavigate();
     const handlePrescribe =(e)=>{
         e.preventDefault();
-        history('/presciption');
+        history('/showprescriptions');
     }
     const handleImmunisation =(e)=>{
         e.preventDefault();
-        history('/immunisation');
+        history('/showimmunisation');
     }
     const handleProblem =(e)=>{
         e.preventDefault();
-        history('/diagnosis');
+        history('/showpastproblem');
     }
   return (
   <div style={{backgroundColor:"lightblue"}}>

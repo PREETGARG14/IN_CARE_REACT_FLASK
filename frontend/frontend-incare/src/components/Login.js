@@ -16,7 +16,7 @@ import Container from '@mui/material/Container';
 import { PasswordOutlined } from '@mui/icons-material';
 
 
-const Login = ({setUserDetailStatus}) => {
+const Login = ({setUserDetailStatus,setPatientId}) => {
   const history = useNavigate();
 
   const [password,setPassword]=useState();
@@ -32,6 +32,7 @@ const Login = ({setUserDetailStatus}) => {
     Axios.post('http://127.0.0.1:5000/api/login2',data).
     then((res)=>{
       setUserDetailStatus(true)
+      setPatientId(res.data.id);
       history('/userdetailcard');
     }).
     catch((err)=>{
