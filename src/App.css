@@ -1,0 +1,90 @@
+body{
+  background-color: #f4f4f4;;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.fs-24 {
+  font-size: 1.5rem !important;
+}
+
+.navbar{
+  background-color: #f4f4f4; 
+  font-weight: bold;font-family:'Lato', sans-serif;	
+  padding: 10px 50px 10px 50px;
+  text-transform: uppercase;
+}
+
+.bg-white{
+  overflow-x: hidden;
+}
+
+.navbar-brand{
+	color: black;
+	font-family: "Merriweather", sans-serif;
+  font-weight: bolder;
+}
+
+
+
+.nav-link{
+	color: black !important;
+}
+
+
+.nav-link:hover{
+	color: green !important;
+}
+
+li{
+  font-weight: bolder;
+}
+
+h5{
+  font-weight: 900;
+}
+
+.image{
+  padding-top: 35px;
+  width: 80%;
+}
+
+h3{
+  opacity: 0.8;
+}
+
+.section-image{
+  right:0; 
+  max-width: 700px;
+}
+
+.col1{
+  padding: 100px 60px 30px 70px;
+}
+
+.p1{
+  font-size: 3em !important;
+  line-height: 56px;
+  letter-spacing: -1px;
+}
+
+.p2{
+  font-size: 1.25rem !important;
+   line-height: 32px;
+   color: #595959;
+}
+
+.footer{
+  background-color: #383838;
+  height: 40%;
+}
+
+.copyright{
+  color: white !important;
+  font-family: 'Roboto';
+  font-size: 14px !important;
+  line-height: 20px;
+  font-weight: bolder;
+}
