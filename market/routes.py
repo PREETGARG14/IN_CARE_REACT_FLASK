@@ -544,7 +544,7 @@ def testin():
     patientsJson = json.dumps([r.as_dict() for r in patients])
     return patientsJson
 
-@app.route("/api/schedule")
+@app.route("/api/schedule",methods=['GET','POST'])
 def indexone():
     email = json["email"]
     eventlink = createEvent(email)
@@ -556,7 +556,10 @@ def indexone():
     msg.html = render_template('email.html' , eventlink = eventlink)
     mail.send(msg)
     flash(f"Meeting link has been sent")
-    result = {"status":"sent"}
+    result = {
+	    "status":"sent",
+	    "eventLink":eventlink
+    		}
     return jsonify(result)
 
 
