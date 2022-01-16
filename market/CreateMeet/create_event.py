@@ -16,7 +16,7 @@ from market.CreateMeet.zoomlink import createMeeting
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def createEvent(page_id):
+def createEvent(email):
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -68,7 +68,7 @@ def createEvent(page_id):
 #     ],
 #   },
 # }
-    patient_update = db.session.query(Patient).filter_by(id = page_id).first()
+    
 
     body = {
       "calendarId": "primary",
@@ -91,7 +91,7 @@ def createEvent(page_id):
         }
       },
       'attendees': [
-    {'email': patient_update.email_address},
+    {'email': email},
     {'email': 'siddhukanu3@gmail.com'},
   ],
       "summary": "Appointment has been booked"
