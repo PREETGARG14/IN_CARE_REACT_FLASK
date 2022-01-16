@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="style2.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <form name="prescription form" action='/api/prescribe2' method="POST">
+
+        <div class="aboveMainheading pt-2">
+            <div style="padding-top: 5px;">
+                <img src="id.svg" class="image">
+                <span>Prescription identifier</span>&nbsp;&nbsp;
+                <input type="text" name="pi" id="pi">
+            </div>
+        </div>
+        <hr>
+        <div class="mainHeading pt-1">
+            <img class="image" src="arrow.svg">
+            <span> Medication order </span>
+            <span style="color: #C0C0C0;font-weight: bold;">[0..*]</span>
+
+            <div class="innerHeading">
+                <img class="image" src="aty.svg" style="padding-left: 5px;">
+                <span> Order </span>
+                <span style="color: #C0C0C0;font-weight: bold;">[0..*]</span>
+                <div class="content">
+
+                    <div>
+                        <img class="image" src="item.svg">
+                        <span> Medication Item</span> <span
+                            style="color: #C0C0C0;font-weight: bold;">[1..1]</span>&nbsp;&nbsp;
+                        <input type="text" id="Medication item" name="Medication item">
+
+                    </div>
+
+                    <div class="medication">
+                        <img class="image" src="medication.svg">
+                        <span>Preparation</span>
+
+                        <div class="medication-content">
+                            <div>
+                                <img class="image" src="item.svg">
+                                <span>Substance Name </span> &nbsp;&nbsp;
+                                <input type="text" id="Name" name="Name">
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img class="image" src="item.svg">
+                                <span> Form </span> <span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                                <input type="text" id="Form" name="Form">
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img class="image" src="q.svg">
+                                <span> Strength </span> &nbsp;&nbsp;
+                                <input type="text" id="strength" name="strength">
+                                <input type="text" id="strengthUnit" name="strengthUnit" placeholder="Unit">
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img class="image" src="medication.svg">
+                                <span> Diluent </span>
+
+                                <div class="diluent-content">
+                                    <div>
+                                        <img src="q.svg" class="image">
+                                        <span>Diluent Amount</span>
+                                        &nbsp;&nbsp;
+                                        <input type="text" id="numerator" name="numerator" placeholder=">=0">
+                                        &nbsp;&nbsp;
+                                        <input type="text" id="numeratorUnit" name="numeratorUnit" placeholder="unit">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img src="medication.svg" class="image">
+                                <span>Ingredient </span>
+                                <span style="color: #C0C0C0;">[0..*]</span>
+                                &nbsp;&nbsp;
+
+                                <div class="ingredient-content">
+                                    <div style="padding-top: 5px;">
+                                        <img src="medication.svg" class="image">
+                                        <span>Ingredient substance</span>
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span> Substance name</span>&nbsp;&nbsp;
+                                        <input type="text" id="substanceName" name="substanceName">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span>Form</span> <span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                                        <input type="text" id="ingredientForm" name="ingredientForm">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span>Category</span>&nbsp;&nbsp;
+                                        <input type="text" id="category" name="category">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="q.svg" class="image">
+                                        <span>Strength</span>&nbsp;&nbsp;
+                                        <input type="text" id="ingredientstrength" name="ingredientStrength">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span>Strength Unit</span>&nbsp;&nbsp;
+                                        <input type="text" id="strengthUnit" name="ingredientStrengthUnit">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span>Description</span>&nbsp;&nbsp;
+                                        <input type="text" id="medicationDescription" name="medicationDescription">
+                                    </div>
+                                </div>
+
+                                <div style="padding-top: 5px;">
+                                    <img src="q.svg" class="image">
+                                    <span>Ingredient Amount</span>&nbsp;&nbsp;
+                                    <input type="text" id="ingredient-amount" name="ingredient-amount"
+                                        placeholder=">=0">
+                                    <input type="text" id="ingredient-amountUnit" name="ingredient-amountUnit"
+                                        placeholder="Unit">
+                                </div>
+
+                                <div style="padding-top: 5px;">
+                                    <img src="category.svg" class="image">
+                                    <span>Role</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img src="t_n.svg" class="image">
+                                    <select name="roleStatus" id="status">
+                                        <option value="active">Therauputic</option>
+                                        <option value="stopped">Electrolyte</option>
+                                        <option value="neverActive">Toxic</option>
+                                        <option value="completed">Diluent</option>
+                                        <option value="completed">Coloring</option>
+                                        <option value="completed">Influent</option>
+                                    </select>
+                                    <img src="t.svg" class="image">
+                                    <input type="text" id="role" name="role" placeholder=">=0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding-top: 5px;">
+                            <img src="t.svg" class="image">
+                            <span>Description</span>&nbsp;&nbsp;
+                            <input type="text" id="description" name="description">
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 5px;">
+                        <img src="t.svg" class="image">
+                        <span>Route</span><span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                        <input type="text" id="route" name="route">
+                    </div>
+
+                    <div style="padding-top: 5px;">
+                        <img src="t.svg" class="image">
+                        <span>dosageInstructions</span>&nbsp;&nbsp;
+                        <input type="text" id="dosageInstructions" name="dosageInstructions">
+                    </div>
+
+                    <div style="padding-top: 5px;">
+                        <img src="medication.svg" class="image">
+                        <span>Dose Direction</span><span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+
+                        <div class="dose-content">
+
+                            <div style="padding-top: 5px;">
+                                <img src="medication.svg" class="image">
+                                <span>Dose Pattern</span><span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+
+                                <div class="dose-content">
+                                    <div style="padding-top: 5px;">
+                                        <img class="image" src='category.svg'>
+                                        <span>Dose amount</span> &nbsp;&nbsp;
+                                        <img class="image" src="q.svg">
+                                        <input type="text" name="doseAmount" id="doseAmount" placeholder=">=0">
+                                        <span>or</span> &nbsp;&nbsp;
+                                        <img class="image" src="lower.svg">
+                                        <span>Lower:</span>
+                                        <input type="text" name="doseAmountLower" id="doseAmountLower" placeholder=">=0">
+                                        <span>Upper:</span>
+                                        <input type="text" name="doseAmountUpper" id="doseAmountUpper" placeholder=">=0">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img class="image" src='t.svg'>
+                                        <span>Dose Unit</span> &nbsp;&nbsp;
+                                        <input type="text" name="doseUnit" id="doseUnit">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img class="image" src='medication.svg'>
+                                        <span>Dose timimg</span> &nbsp;&nbsp;
+
+                                        <div class="dose-content">
+
+                                            <div style="padding-top: 5px;">
+                                                <img class="image" src='category.svg'>
+                                                <span>frequency</span> &nbsp;&nbsp;
+                                                <img class="image" src="q.svg">
+                                                <input type="text" name="frequency" id="frequency"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+
+                                                <select name="frequencyUnit" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                                <span>or</span> &nbsp;&nbsp;
+                                                <img class="image" src="lower.svg">
+                                                <span>Lower:</span>
+                                                <input type="text" name="frequencyLower" id="frequencyLower"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+
+                                                <select name="frequencyLowerUnit" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                                <span>Upper:</span>
+                                                <input type="text" name="frequencyUpper" id="frequencyUpper"
+                                                    placeholder="0..1 >=0 >=0 >=0">
+
+                                                <select name="frequencyUpperUnit" id="status">
+                                                    <option value="active">1/d</option>
+                                                    <option value="stopped">1/min</option>
+                                                    <option value="neverActive">1/hr</option>
+                                                    <option value="completed">1/s</option>
+                                                </select>
+                                            </div>
+
+
+                                            <div style="padding-top: 5px;">
+                                                <img class="image" src='hourglass.svg'>
+                                                <span>Interval</span> &nbsp;&nbsp;
+                                                <input type="text" name="interval" id="interval">
+                                            </div>
+
+                                            <div style="padding-top: 5px;">
+                                                <img src="category.svg" class="image">
+                                                <span>Specific Time</span><span
+                                                    style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                                                <img src="clock.svg" class="image">
+                                                <input type="time" name="st" id="st">&nbsp;&nbsp;
+                                                <span> or </span> &nbsp;&nbsp;
+                                                <img src="lower.svg" class="image">
+                                                <span> Lower: Upper:</span>
+
+                                            </div>
+
+                                            <div style="padding-top: 5px;">
+                                                <img src="category.svg" class="image">
+                                                <span>Named Time Event</span><span
+                                                    style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                                                <img src="t.svg" class="image">
+                                                <input type="text" name="nte" id="nte">&nbsp;&nbsp;
+                                                <span>or</span>
+                                                <img src="t_n.svg" class="image">
+                                                <select name="nte2" id="status">
+                                                    <option value="active">immediately</option>
+                                                    <option value="stopped">in the morning</option>
+                                                    <option value="neverActive">at night</option>
+                                                    <option value="completed">in the morning/at night</option>
+                                                </select>
+                                            </div>
+
+                                            <div style="padding-top: 5px;">
+                                                <img src="tick.svg" class="image">
+                                                <span>Exact Time Critical</span>&nbsp;&nbsp;
+                                                <input type="checkbox" name="timeCritical"
+                                                    id="timeCritical">&nbsp;&nbsp;
+                                            </div>
+
+                                            <div style="padding-top: 5px;">
+                                                <img src="tick.svg" class="image">
+                                                <span>As required</span>&nbsp;&nbsp;
+                                                <input type="checkbox" name="asRequired" id="asRequired">&nbsp;&nbsp;
+                                            </div>
+
+                                            <div style="padding-top: 5px;">
+                                                <img src="t.svg" class="image">
+                                                <span>As required criterion</span>&nbsp;&nbsp;
+                                                <input type="text" name="requiredCriterion" id="requiredCriterion">&nbsp;&nbsp;
+                                            </div>
+
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='category.svg'>
+                                            <span>Infusion administration rate</span> &nbsp;&nbsp;
+                                            <img src="q.svg" class="image">
+                                            <input type="text" name="iar" id="iar" placeholder="0..1 >=0 >=0 >=0">
+                                            <select name="iarUnit" id="status">
+                                                <option value="active">1/d</option>
+                                                <option value="stopped">1/min</option>
+                                                <option value="neverActive">1/hr</option>
+                                                <option value="completed">1/s</option>
+                                            </select> &nbsp;&nbsp;
+                                            <span>or</span>&nbsp;&nbsp;
+                                            <img class="image" src="t.svg">
+                                            <input type="text" name="iar1" id="iar1">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='hourglass.svg'>
+                                            <span>Dose administration duration</span> &nbsp;&nbsp;
+                                            <img class="image" src="t.svg">
+                                            <input type="text" name="administration" id="administration"
+                                                placeholder=">=PT0H  D H M S">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div style="padding-top: 5px;">
+                                    <img class="image" src='category.svg'>
+                                    <span>Direction duration</span> &nbsp;&nbsp;
+
+                                    <img class="image" src="t.svg">
+                                    <select name="directionDuration id="status">
+                                        <option value="active">Indefinate</option>
+                                        <option value="stopped">Indefinate does not continue</option>
+                                    </select>&nbsp;&nbsp;
+                                    <span>or</span>&nbsp;&nbsp;
+
+                                    <img class="image" src="hourglass.svg">
+                                    <input type="text" name="directionDuration2" id="directionDuration"
+                                        placeholder=">=PT0S">
+                                </div>
+
+                                <div style="padding-top: 5px;">
+                                    <img class="image" src='medication.svg'>
+                                    <span>Direction repetition</span> &nbsp;&nbsp;
+
+                                    <div class="direction-repetition-content">
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='hourglass.svg'>
+                                            <span>Repitition Interval</span> &nbsp;&nbsp;
+                                            <input type="text" name="repetitionInterval" id="repetitionInterval"
+                                                placeholder=">=POW   Y M W D">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='clipboard.svg'>
+                                            <span>Specific date</span> &nbsp;&nbsp;
+                                            <span style="color: #C0C0C0;">[0..*]</span>
+                                            <input type="date" name="specificDate" id="specificDate">
+                                            <input type="time" name="specficTime">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='one.svg'>
+                                            <span>Specific day of week</span>
+                                            <span style="color: #C0C0C0;">[0..*]</span> &nbsp;&nbsp;
+                                            <input type="text" name="specificDayofweek" id="specificDayofweek"
+                                                placeholder="0..6">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='one.svg'>
+                                            <span>Specific day of month</span>
+                                            <span style="color: #C0C0C0;">[0..*]</span>&nbsp;&nbsp;
+                                            <input type="text" name="specificDayofmonth" id="specificDayofweek"
+                                                placeholder="1..31">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img class="image" src='medication.svg'>
+                                            <span>Specific Event</span> &nbsp;&nbsp;
+
+                                            <div class="specific-event-content">
+
+                                                <div style="padding-top: 5px;">
+                                                    <img class="image" src='t.svg'>
+                                                    <span>Event Name</span>&nbsp;&nbsp;
+
+                                                    <input type="text" name="eventName" id="eventName">
+                                                </div>
+
+                                                <div style="padding-top: 5px;">
+                                                    <img class="image" src='hourglass.svg'>
+                                                    <span>Start Interval</span>&nbsp;&nbsp;
+
+                                                    <input type="text" name="eventStartInterval" id="specificDayofweek"
+                                                        placeholder="Y M W D">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div style="padding-top: 5px;">
+
+                            <img src="medication.svg" class="image">
+                            <span>Medication safety</span>
+
+                            <div class="medication-safety-content">
+                                <div style="padding-top: 5px;">
+                                    <img src="medication.svg" class="image">
+                                    <span>maxDosePerPeriod</span>
+
+                                    <div class="medication-safety-content">
+                                        <div style="padding-top: 5px;">
+                                            <img src="q.svg" class="image">
+                                            <span>Maximum Amount</span>&nbsp;&nbsp;
+                                            <input type="text" id="maximumAmount" name="maximumAmount"
+                                                placeholder=">=0">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img src="q.svg" class="image">
+                                            <span>Maximum Amount dose unit</span>&nbsp;&nbsp;
+                                            <input type="text" id="maximumAmountDoseUnit" name="maximumAmountDoseUnit">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img src="hourglass.svg" class="image">
+                                            <span>Allowed Period</span>&nbsp;&nbsp;
+                                            <input type="text" id="allowedPeriod" name="allowedPeriod"
+                                                placeholder=">=PTOS">
+                                        </div>
+
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <span>Override reason</span>&nbsp;&nbsp;
+                                        <input type="text" id="overrideReason" name="overrideReason">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div style="padding-top: 5px;">
+                                <img src="t.svg" class="image">
+                                <span>additional Instructions</span>&nbsp;&nbsp;
+                                <input type="text" id="additionalInstructions" name="additionalInstructions">
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img src="t.svg" class="image">
+                                <span>reason</span>&nbsp;&nbsp;
+                                <input type="text" id="reason" name="reason">
+                            </div>
+
+                            <div style="padding-top: 5px;">
+                                <img src="medication.svg" class="image">
+                                <span>Order Details</span>&nbsp;&nbsp;
+
+                                <div class="order-details-content">
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="medication.svg" class="image">
+                                        <span>Course Summary</span>&nbsp;&nbsp;
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="t.svg" class="image">
+                                        <label for="status">Status</label>&nbsp;&nbsp;
+
+                                        <select name="status" id="status">
+                                            <option value="active">Active</option>
+                                            <option value="stopped">Stopped</option>
+                                            <option value="neverActive">Never Active</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="clipboard.svg" class="image">
+                                        <span>Date Discontinued</span>&nbsp;&nbsp;
+                                        <input type="date" id="dateDiscontinued" name="dateDiscontinued">
+                                        <input type="time" id="timeDiscontinued" name="timeDiscontinued">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="clipboard.svg" class="image">
+                                        <span>Date Written</span>&nbsp;&nbsp;
+                                        <input type="date" id="dateWritten" name="dateWritten">
+                                        <input type="time" id="timeWritten" name="timeWritten>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div style="padding-top: 5px;">
+
+                                <img src="medication.svg" class="image">
+                                <span>Authorization Details</span>&nbsp;&nbsp;
+
+                                <div class="authorization-details-content">
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="one.svg" class="image">
+                                        <span>numberOfRepeatsAllowed</span>&nbsp;&nbsp;
+                                        <input type="text" name="nora" id="nora" placeholder=">=0">
+                                    </div>
+
+                                    <div style="padding-top: 5px;">
+                                        <img src="clipboard.svg" class="image">
+                                        <span>validityPeriod</span>&nbsp;&nbsp;
+                                        <input type="date" id="validityPeriod" name="validityPeriod">
+                                        <input type="time" id="validityPeriodTime" name="validityPeriod">
+                                    </div>
+
+                                </div>
+
+                                <div style="padding-top: 5px;">
+
+                                    <img src="medication.svg" class="image">
+                                    <span>Dispense Directions</span>&nbsp;&nbsp;
+
+                                    <div class="dispense-directions-content">
+
+                                        <div style="padding-top: 5px;">
+                                            <img src="t.svg" class="image">
+                                            <span>Dispense Instructions</span><span
+                                                style="color: #C0C0C0;font-weight: bold;">[0..*]</span>&nbsp;&nbsp;
+                                            <input type="text" name="dispenseInstructions" id="dispenseInstructions">
+                                        </div>
+
+                                        <div style="padding-top: 5px;">
+                                            <img src="medication.svg" class="image">
+                                            <span>Dispense Amount</span>
+
+                                            <div class="dispense-directions-content">
+
+                                                <div style="padding-top: 5px;">
+                                                    <img src="t.svg" class="image">
+                                                    <span>Amount Description</span>&nbsp;&nbsp;
+                                                    <input type="text" name="amountDescription" id="amountDescription">
+                                                </div>
+
+                                                <div style="padding-top: 5px;">
+                                                    <img src="q.svg" class="image">
+                                                    <span>Amount</span>&nbsp;&nbsp;
+                                                    <input type="text" name="amountindispense" id="amountindispense"
+                                                        placeholder=">=0">
+                                                </div>
+
+                                                <div style="padding-top: 5px;">
+                                                    <img src="t.svg" class="image">
+                                                    <span>Units</span>&nbsp;&nbsp;
+                                                    <input type="text" name="dispenseUnits"
+                                                        id="dispenseInstructions">
+                                                </div>
+
+                                                <div style="padding-top: 5px;">
+                                                    <img src="hourglass.svg" class="image">
+                                                    <span>Duration of Supply</span>&nbsp;&nbsp;
+                                                    <input type="text" name="dos" id="dos"
+                                                        placeholder=">=POD  Y M W D S">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div style="padding-top: 5px;">
+                                    <img src="t.svg" class="image">
+                                    <span>Comment</span>&nbsp;&nbsp;
+                                    <input type="text" name="comment" id="comment">
+                                </div>
+
+                                <div style="padding-top: 5px;">
+                                    <img src="id.svg" class="image">
+                                    <span>identifier</span>&nbsp;&nbsp;
+                                    <input type="text" name="identifier" id="identifier">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="Button">
+                                <center><input type="submit" class="btn btn-dark mt-4 mb-4"></center>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            
+        </div>
+
+
+    </form>
+</body>
+
+</html>
