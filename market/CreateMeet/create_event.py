@@ -7,8 +7,6 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from market.models import Patient,AdminUser, immunisation, past_history_of_illness
-from market.forms import AdminEditImmunisation, RegisterForm, LoginForm,PurchaseItemForm,SellItemForm,AdminLoginForm, AdminAddPatientForm
 from market import db
 from market.CreateMeet.zoomlink import createMeeting
 
