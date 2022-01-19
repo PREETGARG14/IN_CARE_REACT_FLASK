@@ -1,100 +1,133 @@
-import React,{useState} from 'react'
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box'
-import { Avatar, Typography ,TextField,Grid,Button} from '@mui/material';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import Axios from 'axios'
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert'
-
-
+import React, { useState } from "react";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import { Avatar, Typography, TextField, Grid, Button } from "@mui/material";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import Axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+const validationSchema = yup.object({
+  immunisation_item: yup.string().required("Enter Immunisation Item"),
+  route: yup.string().required("Enter route"),
+  target_site: yup.string().required("Enter target site"),
+  sequence_no: yup.number().required("Enter sequence no."),
+});
 
-const Immunisation = ({userId}) => {
+const Immunisation = ({ userId }) => {
   const [open, setOpen] = useState(false);
-  const [immunisationItem,setImmunisationItem]=useState();
-  const [route,setRoute]=useState();
-  const [targetsite,setTargetSite]=useState();
-  const [seqnumber,setSeqnumber]=useState();
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        let data={
-          "immunisation_item":immunisationItem,
-          "route":route,
-          "target_site":targetsite,
-          "sequence_no":seqnumber
-        }
-        Axios.post(`http://127.0.0.1:5000/api/admin/immunisation/${userId}`,data).then((res=>{
-          setOpen(true)
-        })).catch((err)=>{
-          console.log(err)
-        })
+  const handleSubmit = (data) => {
+    Axios.post(`http://127.0.0.1:5000/api/admin/immunisation/${userId}`, data)
+      .then((res) => {
+        setOpen(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
     }
+    setOpen(false);
+  };
 
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      setOpen(false);
-    };
+  const formik = useFormik({
+    initialValues: {
+      immunisation_item: "",
+      route: "",
+      target_site: "",
+      sequence_no: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: handleSubmit,
+  });
 
-    return (
-        <Container component='main' maxWidth='xs'>
-        <Box
-          sx={{
-            marginTop: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LocalHospitalIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Immunisation Statement
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 ,flexDirection:'row'}}>
-              <TextField
+  return (
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LocalHospitalIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Immunisation Statement
+        </Typography>
+        <Box sx={{ mt: 1 }}>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
               margin="normal"
-              required
               fullWidth
               label="Immunisation item"
-              onChange={(e)=>setImmunisationItem(e.target.value)}
+              id="immunisation_item"
+              name="immunisation_item"
+              value={formik.values.immunisation_item}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.immunisation_item &&
+                Boolean(formik.errors.immunisation_item)
+              }
+              helperText={
+                formik.touched.immunisation_item &&
+                formik.errors.immunisation_item
+              }
             />
             <TextField
               margin="normal"
-              required
               fullWidth
-              id="Route"
+              id="route"
+              name="route"
               label="Route"
-              name="Route"
-              onChange={(e)=>setRoute(e.target.value)}
+              value={formik.values.route}
+              onChange={formik.handleChange}
+              error={formik.touched.route && Boolean(formik.errors.route)}
+              helperText={formik.touched.route && formik.errors.route}
             />
             <TextField
               margin="normal"
-              required
               fullWidth
               id="target_site"
               label="Target site"
               name="target_site"
-              onChange={(e)=>setTargetSite(e.target.value)}
+              value={formik.values.target_site}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.target_site && Boolean(formik.errors.target_site)
+              }
+              helperText={
+                formik.touched.target_site && formik.errors.target_site
+              }
             />
             <TextField
               margin="normal"
-              required
+              type="number"
               fullWidth
-              id="sequence_number"
+              id="sequence_no"
               label="Sequence number"
-              name="sequence_number"
-              onChange={(e)=>setSeqnumber(e.target.value)}
-            />        
+              name="sequence_no"
+              value={formik.values.sequence_no}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.sequence_no && Boolean(formik.errors.sequence_no)
+              }
+              helperText={
+                formik.touched.sequence_no && formik.errors.sequence_no
+              }
+            />
             <Button
               type="submit"
               fullWidth
@@ -102,17 +135,22 @@ const Immunisation = ({userId}) => {
               sx={{ mt: 3, mb: 2 }}
               onClick={handleSubmit}
             >
-                Prescribe 
+              Prescribe
             </Button>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
                 submitted
-             </Alert>
+              </Alert>
             </Snackbar>
-          </Box>
+          </form>
         </Box>
-        </Container>
-    )
-}
+      </Box>
+    </Container>
+  );
+};
 
-export default Immunisation
+export default Immunisation;

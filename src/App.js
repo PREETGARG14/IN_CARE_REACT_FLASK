@@ -17,6 +17,7 @@ import UserDetailCard from "./components/UserDetailCard";
 import Showprescriptions from "./components/Showprescriptions";
 import ShowImmunisation from "./components/ShowImmunisation";
 import ShowPastProblem from "./components/ShowPastProblem";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
