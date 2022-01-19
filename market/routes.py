@@ -5,7 +5,6 @@ from market import app
 from flask import render_template, redirect, url_for,request , jsonify
 from market.CreateMeet.create_event import createEvent
 from market.models import Patients,Doctor,Prescription,past_history_of_illness, immunisation
-from market.forms import RegisterForm, LoginForm,AdminLoginForm
 from market import db
 from flask_login import login_user,logout_user,login_required,current_user
 from market.processor import chatbot_response
@@ -455,5 +454,3 @@ def indexone():
 	    "eventLink":eventlink
     		}
     return result,200
-
-
