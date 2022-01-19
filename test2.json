@@ -1,0 +1,295 @@
+{
+    "info": {
+        "_postman_id": "20691a44-ad87-4f7e-ab0e-61bbb20d196c",
+        "name": "IN_CARE_REACT_FLASK",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "chatbotResponse",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/chatbot"
+            },
+            "response": []
+        },
+        {
+            "name": "details",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/admin/{{page_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "doctor",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/doctor2"
+            },
+            "response": []
+        },
+        {
+            "name": "immunisation page",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/immunisation/{{page_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "index",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/index"
+            },
+            "response": []
+        },
+        {
+            "name": "indexone",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/schedule"
+            },
+            "response": []
+        },
+        {
+            "name": "login",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/login2"
+            },
+            "response": []
+        },
+        {
+            "name": "page",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/logout"
+            },
+            "response": []
+        },
+        {
+            "name": "patient page",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/past/{{page_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "prescription",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/prescribe3/{{pid}}"
+            },
+            "response": []
+        },
+        {
+            "name": "register",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/register2"
+            },
+            "response": []
+        },
+        {
+            "name": "testin",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/users"
+            },
+            "response": []
+        },
+        {
+            "name": "chatbotResponse",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/chatbot"
+            },
+            "response": []
+        },
+        {
+            "name": "doctor",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/doctor2"
+            },
+            "response": []
+        },
+        {
+            "name": "immunisation page",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/immunisation/{{page_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "index",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/index"
+            },
+            "response": []
+        },
+        {
+            "name": "indexone",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/schedule"
+            },
+            "response": []
+        },
+        {
+            "name": "login",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/login2"
+            },
+            "response": []
+        },
+        {
+            "name": "patient page",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/past/{{page_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "prescription",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/prescribe2/{{user_id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "register",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/register2"
+            },
+            "response": []
+        },
+        {
+            "name": "testin",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": []
+                },
+                "url": "127.0.0.1:5000/api/admin/users"
+            },
+            "response": []
+        }
+    ]
+}
