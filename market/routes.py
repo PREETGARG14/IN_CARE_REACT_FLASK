@@ -42,47 +42,76 @@ def logout_page():
     return redirect(url_for("home_page"))
 
 
-# Rest API
-@app.route("/api/login2", methods=['GET','POST'])
+@app.route("/api/login2", methods=['POST'])
 def login():
     username=request.json['username']
     password=request.json['password']
     if username is None:
-        return Response("Enter username", status=401, mimetype='application/json')
+        result={
+        "status":"unsuccessful",
+        "message":"Enter username"
+        }
+        return result,401
 
     if password is None:
-        return Response("Enter Password", status=401, mimetype='application/json')
+        result={
+        "status":"unsuccessful",
+        "message":"Enter Password"
+        }
+        return result,401
     
     attempted_user = Patients.query.filter_by(username=username).first()
-    if attempted_user and attempted_user.check_password_correction(attempted_password=password):
+    if attempted_user and attempted_user.password_hash==password:
         login_user(attempted_user)
         session['logged_in'] = True
-        return Response("Login Successful", status=200, mimetype='application/json')
+        result={
+        "status":"successful",
+        "username":username,
+        "message":"Login Successful"
+        }
+        return result,200
     else:
-        return Response("Invalid Credentials", status=401, mimetype='application/json')
-    
+        result={
+        "status":"unsuccessful",
+        "message":"Invalid Credentials"
+        }
+        return result,401
+        
     
 @app.route('/api/register2', methods=['POST'])
 def register():
     username=request.json['username']
     attempted_user = Patients.query.filter_by(username=username).first()
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-
+    email_address=request.json['email_address']
     if(not re.fullmatch(regex, request.json['email_address'])):
-        return Response("Invalid Email", status=422, mimetype='application/json')
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"Invalid Email"
+        }
+        return result,422
     if attempted_user is not None:
-        return Response("User already exists", status=409, mimetype='application/json')
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"User already exists"
+        }     
+        return result,409
 
     else:
         password=request.json['password']
         fullname=request.json['fullname']
-        email_address=request.json['email_address']
         user_to_create = Patients(fullname,email_address,password,username)
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
-        return Response("User Registered", status=200, mimetype='application/json')
-    
+        result={
+            "status":"successful",
+            "username":username
+            }
+        return result,201
+
 @app.route('/api/doctor2', methods=['GET', 'POST'])
 def doctor():
     email_address=request.json['email_address']
@@ -96,22 +125,32 @@ def doctor():
     
     else:
         password=request.json['password']
-        if attempted_doctor.check_password_correction(attempted_password=password):
+        if attempted_doctor.password_hash==password:
             login_user(attempted_doctor)
             session['doctor logged in']=True
-            return Response("Login Successful", status=200, mimetype='application/json')
+            result={
+                "email_address":email_address,
+                "status":"successful",
+            }
+            return result,200
         else:
-            return Response("Invalid Password", status=401, mimetype='application/json')
-
+            result={
+                "status":"Invalid Password",
+            }
+            return result,401
+            
 
 
 @app.route("/api/prescribe2/<int:user_id>", methods=["POST"])
 @login_required
 def add_prescription(user_id):
-    
+
     if session['logged_in'] == False:
+        result={
+                "status":"Invalid Password",
+            }
         return Response("Unauthorized", status=401, mimetype='application/json')
-    elif request.json['pi'] is not None:
+    else:
         prescriptionID=request.json['pi']
         medItem=request.json['Medication item']
         prepSubstanceName=request.json['Name']
@@ -188,8 +227,10 @@ def add_prescription(user_id):
         prescription=Prescription(prescriptionID=prescriptionID,medItem=medItem,prepSubstanceName=prepSubstanceName,prepForm=prepForm,prepStrength=prepStrength,prepStrengthUnit=prepStrengthUnit,diluentAmount=diluentAmount,diluentUnit=diluentUnit,ingredientSubstanceName=ingredientSubstanceName,ingredientForm=ingredientForm,ingredientCategory=ingredientCategory,ingredientStrength=ingredientStrength,ingredientStrengthUnit=ingredientStrengthUnit,ingredientDescription=ingredientDescription,ingredientAmount=ingredientAmount,ingredientAmountUnit=ingredientAmountUnit,ingredientRole=ingredientRole,ingredientRole2=ingredientRole2,medDescription=medDescription,medRoute=medRoute,medDosageInstructions=medDosageInstructions,doseAmount=doseAmount,doseAmountLower=doseAmountLower,doseAmountUpper=doseAmountUpper,doseNamedTimeEvent2=doseNamedTimeEvent2,doseUnit=doseUnit,doseTimingFreq=doseTimingFreq,doseTimingFreqUnit=doseTimingFreqUnit,doseTimingFreqLower=doseTimingFreqLower,doseTimingFreqLowerUnit=doseTimingFreqLowerUnit,doseTimingFreqUpper=doseTimingFreqUpper,doseTimingFreqUpperUnit=doseTimingFreqUpperUnit,doseTimingInterval=doseTimingInterval,doseSpecificTime=doseSpecificTime,doseNamedTimeEvent=doseNamedTimeEvent,doseExactTimingCritical=doseExactTimingCritical,doseAsRequired=doseAsRequired,doseAsRequiredCriterion=doseAsRequiredCriterion,infusionAdminRateQ=infusionAdminRateQ,infusionAdminRateUnit=infusionAdminRateUnit,infusionAdminRateT=infusionAdminRateT,doseAdminDuration=doseAdminDuration,doseDirectionDuration1=doseDirectionDuration1,doseDirectionDuration2=doseDirectionDuration2,directionRepetitionInterval=directionRepetitionInterval,directionSpecificDate=directionSpecificDate,directionSpecificTime=directionSpecificTime,directionSpecificDoW=directionSpecificDoW,directionSpecificDoM=directionSpecificDoM,directionEventName=directionEventName,directionEventStartInterval=directionEventStartInterval,safetyMaxAmount=safetyMaxAmount,safetyMaxAmountUnit=safetyMaxAmountUnit,safetyAllowedPeriod=safetyAllowedPeriod,overrideReason=overrideReason,orderAdditionalInstructions=orderAdditionalInstructions,orderReason=orderReason,courseStatus=courseStatus,courseDiscontinuedDate=courseDiscontinuedDate,courseDiscontinuedTime=courseDiscontinuedTime,courseWrittenDate=courseWrittenDate,courseWrittenTime=courseWrittenTime,authNumberofRepeatsAllowed=authNumberofRepeatsAllowed,authValidityPeriodDate=authValidityPeriodDate,authValidityPeriodTime=authValidityPeriodTime,dispenseInstruction=dispenseInstruction,dispenseAmountDescription=dispenseAmountDescription,dispenseAmount=dispenseAmount,dispenseAmountUnits=dispenseAmountUnits,dispenseDurationofSupply=dispenseDurationofSupply,orderComment=orderComment,orderID=orderID,userID=userID)    
         db.session.add(prescription)
         db.session.commit()
-    else:
-        return Response("Prescription ID not provided", status=401, mimetype='application/json')
+        result={
+                "status":"Prescription added",
+            }
+        return result,200
 
 @app.route('/admin/<int:page_id>' , methods = ['GET'])
 def edit_details(page_id):
@@ -251,6 +292,36 @@ def edit_patient_page(page_id):
                             severity= request.json['severity'],
                             last_updated = request.json['last_updated'],
                             user_id = page_id)
+        if patient_information.problem is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Problem cannot be empty"
+            }
+            return result,411
+        elif patient_information.body_site is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Body_site cannot be empty"
+            }
+            return result,411
+        elif patient_information.dateTime is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Date-Time cannot be empty"
+            }
+            return result,411
+        elif patient_information.severity is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Severity cannot be empty"
+            }
+            return result,411
+        elif patient_information.last_updated is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Last-Updated cannot be empty"
+            }
+            return result,411
         jsondata=request.json
         if "id" in jsondata:
             patient_update = db.session.query(past_history_of_illness).filter_by(id =request.json['id']).first()
@@ -264,7 +335,7 @@ def edit_patient_page(page_id):
                 "status":"successful",
                 "page_id":page_id
             }
-            return Response("Data Added", status=200, mimetype='application/json')
+            return result,200
             # print(product_update.name)
         else:
             db.session.add(patient_information)
@@ -274,13 +345,13 @@ def edit_patient_page(page_id):
                 "status":"successful",
                 "page_id":page_id
             }
-            return Response("Data Added", status=200, mimetype='application/json')
+            return result,200
     
-    else:
+    elif request.method=="GET":
         past_history = past_history_of_illness.query.filter_by(user_id = page_id)
         s = json.dumps([r.as_dict() for r in past_history])
         # , default=alchemyencoder
-        return s
+        return s,200
         
 # def alchemyencoder(obj):
 #     """JSON encoder function for SQLAlchemy special classes."""
@@ -301,6 +372,30 @@ def edit_immunisation_page(page_id):
                             target_site=request.json['target_site'],
                             sequence_no= request.json['sequence_no'],
                             user_id=page_id)
+        if immunisationjson.immunisation_item is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Immunisation Item cannot be empty"
+            }
+            return result,411
+        elif immunisationjson.route is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Route cannot be empty"
+            }
+            return result,411
+        elif immunisationjson.target_site is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Target Site cannot be empty"
+            }
+            return result,411
+        elif immunisationjson.sequence_no is None:
+            result={
+                "status":"unsuccessful",
+                "message":"Sequence Number cannot be empty"
+            }
+            return result,411
         jsondata=request.json
         if "id" in jsondata:
             immunisation_update = db.session.query(immunisation).filter_by(id = request.json['id']).first()
@@ -317,7 +412,7 @@ def edit_immunisation_page(page_id):
                 "immunisation_item":immunisationjson.immunisation_item,
                 "user_id":immunisationjson.user_id
             }
-            return Response("Data Added", status=200, mimetype='application/json')
+            return result,200
             
         else:
             db.session.add(immunisationjson)
@@ -329,9 +424,9 @@ def edit_immunisation_page(page_id):
                 "immunisation_item":immunisationjson.immunisation_item,
                 "user_id":immunisationjson.user_id
             }
-            return jsonify(result)
+            return result,200
         
-    else:
+    elif request.method=="GET":
         pimmune = immunisation.query.filter_by(user_id = page_id)
         s = json.dumps([r.as_dict() for r in pimmune])
         return s
@@ -341,7 +436,7 @@ def edit_immunisation_page(page_id):
 def testin():
     patients=Patients.query
     patientsJson = json.dumps([r.as_dict() for r in patients])
-    return patientsJson
+    return patientsJson,200
 
 @app.route("/api/schedule",methods=['GET','POST'])
 def indexone():
@@ -359,6 +454,6 @@ def indexone():
 	    "status":"sent",
 	    "eventLink":eventlink
     		}
-    return Response("Email Sent", status=200, mimetype='application/json')
+    return result,200
 
 
