@@ -35,9 +35,11 @@ export default function SignUp() {
         email_address:email
     }
       Axios.post('http://127.0.0.1:5000/api/register2',data).then((res)=>{
+        
+        console.log(res)
         history('/login')
       }).
-      catch((err)=>console.log(err))
+      catch((err , res)=>console.log(err , res))
 
   };
 

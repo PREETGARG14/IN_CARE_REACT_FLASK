@@ -1,3 +1,5 @@
+from distutils import errors
+from telnetlib import STATUS
 from flask_mail import Mail, Message
 import re
 from flask import flash, json
@@ -177,6 +179,7 @@ def login():
                 "id":attempted_user.id
                 }
         return jsonify(result)
+    
     else:
         result={
                 "status":"unsuccessful",
@@ -189,19 +192,29 @@ def login():
 def register():
     username=request.json['username']
     attempted_user = Patients.query.filter_by(username=username).first()
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if attempted_user is not None:
         result={
         "status":"unsuccessful",
         "username":username,
-        "message":"The user already exists"
+        "message":"The user already exists",
         }
-        return jsonify(result)
-    
+        print("hey")
+        return jsonify(result),401
+    elif(not re.fullmatch(regex, request.json['email_address'])):
+        result={
+        "status":"unsuccessful",
+        "username":username,
+        "message":"Email ID is not valid",
+        }
+        print("email error")
+        return jsonify(result),401
     else:
         password=request.json['password']
         fullname=request.json['fullname']
         email_address=request.json['email_address']
         user_to_create = Patients(fullname,email_address,password,username)
+
         # age=form.age.data,
         # gender=form.gender.data
 
@@ -214,12 +227,14 @@ def register():
             "status":"successful",
             "username":username
             }
-        return jsonify(result)
+        return jsonify(result),201
     
 @app.route('/api/doctor2', methods=['GET', 'POST'])
 def doctor():
     email_address=request.json['email_address']
     attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+
     if attempted_doctor is None:
         result={
         "status":"unsuccessful",
@@ -227,6 +242,14 @@ def doctor():
         "message":"The doctor does not exist"
         }
         return jsonify(result)
+    elif(not re.fullmatch(regex, request.json['email_address'])):
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"Email ID is not valid",
+        }
+        print("email error")
+        return jsonify(result),401
     
     else:
         password=request.json['password']
