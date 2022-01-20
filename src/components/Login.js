@@ -30,6 +30,8 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
           setUserDetailStatus(true);
           setPatientId(res.data.id);
           history("/userdetailcard");
+          sessionStorage.setItem("token", res.data.access_token);
+          sessionStorage.setItem("patient_id", res.data.id);
         }
       })
       .catch((err) => {
@@ -87,6 +89,7 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+
           <Button
             type="submit"
             fullWidth

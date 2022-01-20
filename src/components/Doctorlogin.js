@@ -102,7 +102,7 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Log In
             </Button>
           </form>
         </Box>

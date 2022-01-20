@@ -22,8 +22,12 @@ import Chatbot from "./components/Chatbot";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState();
-  const [userDetailStatus, setUserDetailStatus] = useState(false);
-  const [patientId, setPatientId] = useState();
+  const [userDetailStatus, setUserDetailStatus] = useState(
+    Boolean(sessionStorage.getItem("patient_id"))
+  );
+  const [patientId, setPatientId] = useState(
+    sessionStorage.getItem("patient_id")
+  );
   return (
     <Router>
       <Header
