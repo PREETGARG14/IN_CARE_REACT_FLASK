@@ -41,6 +41,13 @@ def chatbotResponse():
     return jsonify({"response": response})
 
 
+@app.route('/api/logout')
+def logout_page():
+    logout_user()
+    flash("You have been logged out!", category='info')
+    return redirect(url_for("home_page"))
+
+
 @app.route("/api/login2", methods=['POST'])
 def login():
     username = request.json['username']
