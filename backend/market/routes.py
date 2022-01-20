@@ -41,13 +41,6 @@ def chatbotResponse():
     return jsonify({"response": response})
 
 
-@app.route('/api/logout')
-def logout_page():
-    logout_user()
-    flash("You have been logged out!", category='info')
-    return redirect(url_for("home_page"))
-
-
 @app.route("/api/login2", methods=['POST'])
 def login():
     username = request.json['username']
@@ -84,7 +77,7 @@ def login():
             "message": "Invalid Credentials"
         }
         return jsonify(result), 401
- 
+
 
 
 @app.route('/api/register2', methods=['POST'])
@@ -243,7 +236,7 @@ def get_prescription(pid):
     return s, 200
 
 
- 
+
 @app.route("/api/schedule", methods=['GET', 'POST'])
 def indexone():
     email = request.json["email"]
@@ -261,5 +254,3 @@ def indexone():
         "eventLink": eventlink
     }
     return jsonify(result), 200
-
-    
