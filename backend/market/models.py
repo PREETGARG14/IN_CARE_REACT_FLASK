@@ -35,3 +35,23 @@ class Patients(db.Model, UserMixin,Model):
 
     def check_password_correction(self, attempted_password):
         return (self.password_hash, attempted_password)
+
+class Doctor(db.Model, UserMixin):
+    __tablename__ = 'admin'
+    id = db.Column(db.Integer(), primary_key=True)
+    fullname = db.Column(db.String(length=30), nullable=False, unique=True)
+    email_address = db.Column(db.String(length=50), nullable=False, unique=True)
+    password_hash = db.Column(db.String(length=60), nullable=False)
+    def check_password_correction(self, attempted_password):
+        return (self.password_hash, attempted_password)
+
+class past_history_of_illness(db.Model , UserMixin, Model):
+    __tablename__='past_history'
+    id=db.Column(db.Integer(), primary_key=True)
+    problem = db.Column(db.String(length=30), nullable=False)
+    body_site=db.Column(db.String(length=30), nullable=False)
+    dateTime = db.Column(db.String(), nullable = False)
+    severity = db.Column(db.String(length=30), nullable=False)
+    last_updated=db.Column(db.String(), nullable = False)
+    user_id=db.Column(db.Integer(),db.ForeignKey('patients.id'))
+    user=db.relationship('Patients',backref='past_history')   
