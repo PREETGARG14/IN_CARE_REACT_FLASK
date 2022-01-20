@@ -15,7 +15,7 @@ class Patients(db.Model, UserMixin,Model):
     __tablename__ = 'patients'
     id = db.Column(db.Integer(), primary_key=True)
     fullname = db.Column(db.String(length=30), nullable=False, unique=False)
-    email_address = db.Column(db.String(length=50), nullable=False, unique=True)
+    email_address = db.Column(db.String(length=50), nullable=False, unique=False)
     password_hash = db.Column(db.String(length=600), nullable=False)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
 
