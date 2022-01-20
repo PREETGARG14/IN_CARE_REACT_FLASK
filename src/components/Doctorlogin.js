@@ -32,6 +32,7 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
       .then((res) => {
         if (res.data.status === "successful") {
           setLoggedIn(true);
+          sessionStorage.setItem("doctorlogin", true);
           history("/dashboard");
         }
       })

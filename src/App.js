@@ -20,8 +20,10 @@ import ShowPastProblem from "./components/ShowPastProblem";
 import Chatbot from "./components/Chatbot";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userId, setUserId] = useState();
+  const [loggedIn, setLoggedIn] = useState(
+    false || sessionStorage.getItem("doctorlogin")
+  );
+  const [userId, setUserId] = useState(sessionStorage.getItem("user_id"));
   const [userDetailStatus, setUserDetailStatus] = useState(
     Boolean(sessionStorage.getItem("patient_id"))
   );

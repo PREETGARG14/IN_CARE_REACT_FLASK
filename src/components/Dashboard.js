@@ -73,6 +73,8 @@ const Dashboard = ({ userId, setUserId }) => {
             tooltip: "Show details",
             onClick: (event, rowData) => {
               setUserId(rowData.id);
+              sessionStorage.removeItem("user_id");
+              sessionStorage.setItem("user_id", rowData.id);
               history("/cards");
             },
           },

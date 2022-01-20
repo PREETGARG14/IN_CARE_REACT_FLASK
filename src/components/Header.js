@@ -14,6 +14,8 @@ const Header = ({
     setUserDetailStatus(false);
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("patient_id");
+    sessionStorage.removeItem("user_id");
+    sessionStorage.removeItem("doctorlogin");
     history("/");
   };
   return (
