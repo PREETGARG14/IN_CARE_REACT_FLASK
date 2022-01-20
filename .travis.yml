@@ -1,0 +1,24 @@
+sudo: required
+language: python
+python:
+   - "3.9"
+services:
+   - docker
+
+before_install:
+   - docker build -t stephengrider/docker-react -f Dockerfile.dev .
+
+script:
+   - docker run stephengrider/docker-react python -m pytest
+
+
+deploy:
+  provider: elasticbeanstalk
+  on:
+    branch: main
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
+  region: "us-east-2"
+  app: "incare-flask-react"
+  env: "Incareflaskreact-env"
+  bucket_name:  "elasticbeanstalk-us-east-2-541445664516"
