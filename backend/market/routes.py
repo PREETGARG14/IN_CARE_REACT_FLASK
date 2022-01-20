@@ -127,6 +127,8 @@ def register():
             "username": username
         }
         return jsonify(result), 201
+
+
 @app.route("/api/prescribe2/<int:user_id>", methods=["POST"])
 @login_required
 def add_prescription(user_id):
@@ -242,6 +244,7 @@ def get_prescription(pid):
     s = json.dumps([r.as_dict() for r in prescriptions])
     return s, 200
 
+
 @app.route('/api/admin/past/<int:page_id>', methods=['GET', 'POST'])
 @login_required
 def edit_patient_page(page_id):
@@ -317,11 +320,87 @@ def edit_patient_page(page_id):
         # , default=alchemyencoder
         return s, 200
 
+
+
+# immunisation route
+@app.route('/api/admin/immunisation/<int:page_id>', methods=['GET', 'POST'])
+@login_required
+def edit_immunisation_page(page_id):
+    if request.method == 'POST':
+        immune = immunisation.query.filter_by(user_id=page_id)
+        patient = db.session.query(Patients).filter()
+        immunisationjson = immunisation(immunisation_item=request.json['immunisation_item'],
+                                        route=request.json['route'],
+                                        target_site=request.json['target_site'],
+                                        sequence_no=request.json['sequence_no'],
+                                        user_id=page_id)
+        if immunisationjson.immunisation_item is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Immunisation Item cannot be empty"
+            }
+            return jsonify(result), 411
+        elif immunisationjson.route is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Route cannot be empty"
+            }
+            return jsonify(result), 411
+        elif immunisationjson.target_site is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Target Site cannot be empty"
+            }
+            return jsonify(result), 411
+        elif immunisationjson.sequence_no is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Sequence Number cannot be empty"
+            }
+            return jsonify(result), 411
+        jsondata = request.json
+        if "id" in jsondata:
+            immunisation_update = db.session.query(
+                immunisation).filter_by(id=request.json['id']).first()
+            immunisation_update.immunisation_item = immunisationjson.immunisation_item
+            immunisation_update.route = immunisationjson.route
+            immunisation_update.target_site = immunisationjson.target_site
+            immunisation_update.sequence_no = immunisationjson.sequence_no
+            immunisation_update.user_id = immunisationjson.user_id
+            db.session.commit()
+            # print(product_update.name)
+            result = {
+                "status": "successful",
+                "page_id": page_id,
+                "immunisation_item": immunisationjson.immunisation_item,
+                "user_id": immunisationjson.user_id
+            }
+            return jsonify(result), 200
+
+        else:
+            db.session.add(immunisationjson)
+            db.session.commit()
+            # login_user(user_to_create)
+            result = {
+                "status": "successful",
+                "page_id": page_id,
+                "immunisation_item": immunisationjson.immunisation_item,
+                "user_id": immunisationjson.user_id
+            }
+            return jsonify(result), 200
+
+    elif request.method == "GET":
+        pimmune = immunisation.query.filter_by(user_id=page_id)
+        s = json.dumps([r.as_dict() for r in pimmune])
+        return s
+
+
 @app.route('/api/admin/users', methods=['GET', 'POST'])
 def testin():
     patients = Patients.query
     patientsJson = json.dumps([r.as_dict() for r in patients])
     return patientsJson, 200
+
 
 @app.route("/api/schedule", methods=['GET', 'POST'])
 def indexone():
@@ -340,3 +419,4 @@ def indexone():
         "eventLink": eventlink
     }
     return jsonify(result), 200
+
