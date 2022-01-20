@@ -111,7 +111,8 @@ def login():
             "status": "successful",
             "username": username,
             "message": "Login Successful",
-            "access_token":access_token
+            "access_token":access_token,
+            "id":attempted_user.id
         }
         return jsonify(result), 200
     else:
