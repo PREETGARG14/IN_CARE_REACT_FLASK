@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Alert from "@mui/material/Alert";
 
 const validationSchema = yup.object({
   username: yup.string("Enter your username").required("username is required"),
@@ -21,6 +22,7 @@ const validationSchema = yup.object({
 
 const Login = ({ setUserDetailStatus, setPatientId }) => {
   const history = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (data) => {
     console.log(data);
@@ -35,7 +37,8 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
+        setErrorMessage(err.response.data.message);
       });
   };
 
@@ -89,6 +92,17 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          {errorMessage !== "" ? (
+            <Alert
+              onClose={() => setErrorMessage("")}
+              variant="filled"
+              severity="error"
+            >
+              {errorMessage}
+            </Alert>
+          ) : (
+            ""
+          )}
 
           <Button
             type="submit"

@@ -13,6 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Alert from "@mui/material/Alert";
 
 const theme = createTheme();
 
@@ -35,6 +36,7 @@ const validationSchema = yup.object({
 
 export default function SignUp() {
   const history = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (value) => {
     let data = {
@@ -47,7 +49,7 @@ export default function SignUp() {
       .then((res) => {
         history("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setErrorMessage(err.response.data.message));
   };
 
   const formik = useFormik({
@@ -158,6 +160,17 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
+            {errorMessage !== "" ? (
+              <Alert
+                onClose={() => setErrorMessage("")}
+                variant="filled"
+                severity="error"
+              >
+                {errorMessage}
+              </Alert>
+            ) : (
+              ""
+            )}
             <Button
               type="submit"
               fullWidth

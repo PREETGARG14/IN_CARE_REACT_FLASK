@@ -21,7 +21,7 @@ import Chatbot from "./components/Chatbot";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(
-    false || sessionStorage.getItem("doctorlogin")
+    false || Boolean(sessionStorage.getItem("doctorlogin"))
   );
   const [userId, setUserId] = useState(sessionStorage.getItem("user_id"));
   const [userDetailStatus, setUserDetailStatus] = useState(

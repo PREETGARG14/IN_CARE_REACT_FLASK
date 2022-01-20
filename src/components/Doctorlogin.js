@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Alert from "@mui/material/Alert";
 
 const validationSchema = yup.object({
   email_address: yup
@@ -24,6 +25,7 @@ const validationSchema = yup.object({
 
 const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
   console.log(loggedIn);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useNavigate();
 
   const handleSubmit = (data) => {
@@ -37,7 +39,8 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
+        setErrorMessage(err.response.data.message);
       });
   };
 
@@ -97,6 +100,19 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
+
+            {errorMessage !== "" ? (
+              <Alert
+                onClose={() => setErrorMessage("")}
+                variant="filled"
+                severity="error"
+              >
+                {errorMessage}
+              </Alert>
+            ) : (
+              ""
+            )}
+
             <Button
               type="submit"
               fullWidth
