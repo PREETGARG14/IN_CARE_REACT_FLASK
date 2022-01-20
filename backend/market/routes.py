@@ -242,7 +242,86 @@ def get_prescription(pid):
     s = json.dumps([r.as_dict() for r in prescriptions])
     return s, 200
 
+@app.route('/api/admin/past/<int:page_id>', methods=['GET', 'POST'])
+@login_required
+def edit_patient_page(page_id):
+    if request.method == 'POST':
+        past_history = past_history_of_illness.query.filter_by(user_id=page_id)
+        immune = immunisation.query.filter_by(user_id=page_id)
+        patient = db.session.query(Patients).filter()
+        patient_information = past_history_of_illness(problem=request.json['problem'],
+                                                      body_site=request.json['body_site'],
+                                                      dateTime=request.json['dateTime'],
+                                                      severity=request.json['severity'],
+                                                      last_updated=request.json['last_updated'],
+                                                      user_id=page_id)
+        if patient_information.problem is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Problem cannot be empty"
+            }
+            return jsonify(result), 411
+        elif patient_information.body_site is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Body_site cannot be empty"
+            }
+            return jsonify(result), 411
+        elif patient_information.dateTime is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Date-Time cannot be empty"
+            }
+            return jsonify(result), 411
+        elif patient_information.severity is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Severity cannot be empty"
+            }
+            return jsonify(result), 411
+        elif patient_information.last_updated is None:
+            result = {
+                "status": "unsuccessful",
+                "message": "Last-Updated cannot be empty"
+            }
+            return jsonify(result), 411
+        jsondata = request.json
+        if "id" in jsondata:
+            patient_update = db.session.query(
+                past_history_of_illness).filter_by(id=request.json['id']).first()
+            patient_update.problem = patient_information.problem
+            patient_update.body_site = patient_information.body_site
+            patient_update.dateTime = patient_information.dateTime
+            patient_update.severity = patient_information.severity
+            patient_update.last_updated = patient_information.last_updated
+            db.session.commit()
+            result = {
+                "status": "successful",
+                "page_id": page_id
+            }
+            return jsonify(result), 200
+            # print(product_update.name)
+        else:
+            db.session.add(patient_information)
+            db.session.commit()
+            # login_user(user_to_create)
+            result = {
+                "status": "successful",
+                "page_id": page_id
+            }
+            return jsonify(result), 200
 
+    elif request.method == "GET":
+        past_history = past_history_of_illness.query.filter_by(user_id=page_id)
+        s = json.dumps([r.as_dict() for r in past_history])
+        # , default=alchemyencoder
+        return s, 200
+
+@app.route('/api/admin/users', methods=['GET', 'POST'])
+def testin():
+    patients = Patients.query
+    patientsJson = json.dumps([r.as_dict() for r in patients])
+    return patientsJson, 200
 
 @app.route("/api/schedule", methods=['GET', 'POST'])
 def indexone():
