@@ -85,3 +85,63 @@ def login():
         }
         return jsonify(result), 401
  
+
+
+@app.route('/api/register2', methods=['POST'])
+def register():
+    username = request.json['username']
+    attempted_user = Patients.query.filter_by(username=username).first()
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    regexpass = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+    email_address = request.json['email_address']
+    if(not re.fullmatch(regex, request.json['email_address'])):
+        result = {
+            "status": "unsuccessful",
+            "email_address": email_address,
+            "message": "Invalid Email"
+        }
+        return jsonify(result), 422
+    if attempted_user is not None:
+        result = {
+            "status": "unsuccessful",
+            "email_address": email_address,
+            "message": "User already exists"
+        }
+        return jsonify(result), 409
+    if(not re.fullmatch(regexpass, request.json['password'])):
+        result = {
+            "status": "unsuccessful",
+            "email_address": email_address,
+            "message": "Invalid Password"
+        }
+        return jsonify(result), 422
+    else:
+        password = request.json['password']
+        fullname = request.json['fullname']
+        user_to_create = Patients(fullname, email_address, password, username)
+        db.session.add(user_to_create)
+        db.session.commit()
+        login_user(user_to_create)
+        result = {
+            "status": "successful",
+            "username": username
+        }
+        return jsonify(result), 201
+ 
+@app.route("/api/schedule", methods=['GET', 'POST'])
+def indexone():
+    email = request.json["email"]
+    eventlink = createEvent(email)
+    msg = Message(
+        'Hello',
+        sender=('Sid From InCare', 'siddhukanu3@gmail.com'),
+        recipients=[email]
+    )
+    msg.html = render_template('email.html', eventlink=eventlink)
+    mail.send(msg)
+    flash(f"Meeting link has been sent")
+    result = {
+        "status": "sent",
+        "eventLink": eventlink
+    }
+    return jsonify(result), 200
