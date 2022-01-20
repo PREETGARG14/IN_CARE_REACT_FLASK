@@ -46,7 +46,43 @@ def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
+@app.route('/api/doctor2', methods=['POST'])
+def doctor():
+    email_address=request.json['email_address']
+    attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
+    if(not re.fullmatch(regex, request.json['email_address'])):
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"Invalid Email"
+        }  
+        return jsonify(result),422
+    elif attempted_doctor is None:
+        result={
+        "status":"unsuccessful",
+        "email_address":email_address,
+        "message":"Invalid Credentials"
+        }  
+        return jsonify(result),401
+    
+    else:
+        password=request.json['password']
+        if attempted_doctor.password_hash==password:
+            login_user(attempted_doctor)
+            session['doctor logged in']=True
+            result={
+                "email_address":email_address,
+                "status":"successful",
+            }
+            return jsonify(result),200
+        else:
+            result={
+                "status":"Invalid Password",
+            }
+            return jsonify(result),401
+         
 
 @app.route("/api/login2", methods=['POST'])
 def login():
