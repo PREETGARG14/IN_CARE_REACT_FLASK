@@ -124,6 +124,7 @@ def doctor():
             result={
                 "email_address":email_address,
                 "status":"successful",
+                "id":attempted_doctor.id,
                 "token":access_token
             }
             currentDict['current']=attempted_doctor.id
@@ -139,6 +140,7 @@ def doctor():
 @app.route('/api/logoutDoctor/<int:user_id>',methods=["GET"])
 def Doctorlogout_page(user_id):
     del doctorDict[user_id]
+    del currentDict["current"]
     print(doctorDict)
     result={
         "status":"Logged out"
@@ -205,12 +207,13 @@ def testin():
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
     frontToken = str(request.headers.get('x-access-token'))
-    print("frontToken   ", frontToken)
-    print("pid   ", pid)
-    print("backToken   ", tokenDict[pid])
-
     if request.method == "GET" and tokenDict[pid]!=frontToken:
-        return Response("Invalid Token", status=401, mimetype='application/json')
+        result={
+        "status":"unsuccessful",
+        "message":"Invalid Token"
+        }
+        return jsonify(result), 401
+        
     prescriptions = Prescription.query.filter_by(userID=pid)
     s = json.dumps([r.as_dict() for r in prescriptions])
     return s, 200
