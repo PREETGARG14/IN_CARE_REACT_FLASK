@@ -1,6 +1,7 @@
 from flask_mail import Mail, Message
 import re
 from flask import flash, json, session
+from flask_session import Session
 from market import app
 from flask import render_template, redirect, url_for, request, jsonify
 from market.CreateMeet.create_event import createEvent
@@ -190,7 +191,7 @@ def register():
 @app.route('/api/doctor/users', methods=['GET', 'POST'])
 def testin():
     frontToken = str(request.headers.get('x-access-token'))
-    if session['doctorToken']==frontToken:
+    if session.get('doctorToken')==frontToken:
         patients = Patients.query
         patientsJson = json.dumps([r.as_dict() for r in patients])
         return patientsJson, 200
@@ -204,7 +205,7 @@ def testin():
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session['Token']!=frontToken:
+    if request.method == "GET" and session.get('Token')!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     prescriptions = Prescription.query.filter_by(userID=pid)
     s = json.dumps([r.as_dict() for r in prescriptions])
@@ -216,7 +217,7 @@ def get_prescription(pid):
 @app.route("/api/doctor/prescribe/<int:user_id>", methods=["POST"])
 def add_prescription(user_id,token,doctor_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session['doctorToken']==frontToken:
+    if request.method == 'POST' and session.get('doctorToken')==frontToken:
         prescriptionID = request.json['pi']
         medItem = request.json['Medication item']
         prepSubstanceName = request.json['Name']
@@ -303,7 +304,7 @@ def add_prescription(user_id,token,doctor_id):
 @app.route('/api/doctor/past/<int:page_id>', methods=['POST'])
 def edit_patient_page(page_id,token,doctor_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session['doctorToken']==frontToken:
+    if request.method == 'POST' and session.get('doctorToken')==frontToken:
         past_history = past_history_of_illness.query.filter_by(user_id=page_id)
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
@@ -366,16 +367,16 @@ def edit_patient_page(page_id,token,doctor_id):
             result = {
                 "status": "successful",
                 "page_id": page_id,
-                "token": session['doctorToken']
+                "token": session.get('doctorToken')
             }
-            print(session['doctorToken'])
+            print(session.get('doctorToken'))
             return jsonify(result), 200
         
 # User GET Past History Of Illness
 @app.route("/api/past/<int:page_id>", methods=["GET"])
 def get_past(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session['Token']!=frontToken:
+    if request.method == "GET" and session.get('Token')!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     past_history = past_history_of_illness.query.filter_by(user_id=page_id)
     s = json.dumps([r.as_dict() for r in past_history])
@@ -385,7 +386,7 @@ def get_past(page_id):
 @app.route('/api/doctor/immunisation/<int:page_id>', methods=['POST'])
 def edit_immunisation_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session['doctorToken']==frontToken:
+    if request.method == 'POST' and session.get('doctorToken')==frontToken:
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
         immunisationjson = immunisation(immunisation_item=request.json['immunisation_item'],
@@ -451,7 +452,7 @@ def edit_immunisation_page(page_id):
 @app.route("/api/immunisation/<int:page_id>", methods=["GET"])
 def get_immunisation(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session['Token']!=frontToken:
+    if request.method == "GET" and session.get('Token')!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     pimmune = immunisation.query.filter_by(user_id=page_id)
     s = json.dumps([r.as_dict() for r in pimmune])
