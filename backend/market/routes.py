@@ -386,7 +386,7 @@ def get_past(page_id):
 @app.route('/api/doctor/immunisation/<int:page_id>', methods=['POST'])
 def edit_immunisation_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and doctorDict[page_id]==frontToken:
+    if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
         immunisationjson = immunisation(immunisation_item=request.json['immunisation_item'],
