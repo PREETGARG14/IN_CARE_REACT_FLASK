@@ -7,9 +7,9 @@ from market.CreateMeet.create_event import createEvent
 from market.models import Patients, Doctor, Prescription, past_history_of_illness, immunisation
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
-from market.processor import chatbot_response
+# from market.processor import chatbot_response
 from functools import wraps
-# from processor import chatbot_response
+# from processor import chatbot_response    
 # imports for PyJWT authentication
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -40,6 +40,9 @@ mail = Mail(app)  # instantiate the mail class
 
 #     return jsonify({"response": response})
 
+@app.route('/')
+def home():
+    return "Hello"
 
 @app.route('/api/logout')
 def logout_page():
