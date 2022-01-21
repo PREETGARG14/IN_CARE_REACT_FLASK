@@ -66,33 +66,6 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='container-fluid' style={{ backgroundColor: "#FFA400" }}>
-        <div className="row row2">
-          <div className="col-md-4 meet">
-            <h1>
-              Meet <br />
-              Our<br />
-              Team <br />
-            </h1>
-          </div>
-          <div className="col-md-8 team">
-            <div className='imgcol1'>
-              <img src='preet.png' alt='' className='teamImage' /> &nbsp;&nbsp;
-              <img src='gold.jpg' alt='' className='teamImage' />  &nbsp;&nbsp;
-              <img src='gold.jpg' alt='' className='teamImage' /> &nbsp;&nbsp;
-              <img src='gold.jpg' alt='' className='teamImage' /> <br />
-            </div>
-
-            <div className='imgcol2'>
-              <img src='gold.jpg' alt='' className='teamImage' /> &nbsp;&nbsp;
-              <img src='gold.jpg' alt='' className='teamImage' /> &nbsp;&nbsp;
-              <img src='gold.jpg' alt='' className='teamImage' /> &nbsp;&nbsp;
-            </div>
-
-
-          </div>
-        </div>
-      </div>
 
     </div>
   );

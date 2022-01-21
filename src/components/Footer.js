@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import './footer.css';
 const Footer = () => {
   return (
-    <footer className="p-2 bg-dark text-white text-center position-relative">
+    <footer id='footer' className="p-2 bg-dark text-white text-center position-relative">
       <div className='container-fluid'>
         <div className="row pt-4">
           <div className="col-md-6 text-start ps-5">
@@ -25,9 +25,9 @@ const Footer = () => {
               </div>
               <div className='text-end mt-2  content' style={{ color: "grey" }}>
                 <a href='/'>AboutUs</a> &nbsp;&nbsp; &nbsp;&nbsp;
-                <a href='/'> OurTeam </a> &nbsp;&nbsp; &nbsp;&nbsp;
-                <a href='/'>Doctor</a>  &nbsp;&nbsp; &nbsp;&nbsp;
-                <a href='/'>Patient</a>
+                <a href='https://github.com/PREETGARG14/IN_CARE_REACT_FLASK' target="_blank"> OurTeam </a> &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href='/doctorlogin'>Doctor</a>  &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href='/login'>Patient</a>
               </div>
             </div>
           </div>

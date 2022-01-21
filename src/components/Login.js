@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Alert from "@mui/material/Alert";
-
+import './ul.css';
 const validationSchema = yup.object({
   username: yup.string("Enter your username").required("username is required"),
   password: yup.string("Enter your password").required("Password is required"),
@@ -52,11 +52,12 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
   });
 
   return (
+  <div className="ul">
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          paddingTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -127,6 +128,7 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
         </form>
       </Box>
     </Container>
+    </div>
   );
 };
 

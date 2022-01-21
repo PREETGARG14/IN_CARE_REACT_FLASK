@@ -28,31 +28,33 @@ const ShowPastProblem = ({ patientId }) => {
 
   return (
     <Container>
-      <Typography variant="h3" textAlign="center">
-        Your Past history of Problems
+      <Typography className="mt-5 px-3 py-3" style={{backgroundColor:"#40C1AC"}} textAlign="center">
+        <h2><b>Your Past history of Problems </b></h2>
       </Typography>
       {pastProblems.length === 0 ? (
-        <Typography variant="h2" textAlign="center">
-          No past Problem to show
+        <Typography style={{backgroundColor:"#40C1AC"}} className="mt-5 px-3 py-3" textAlign="center">
+          <h2><b> No past Problem to show </b></h2>
         </Typography>
       ) : (
         ""
       )}
       {pastProblems.map((v, i) => (
-        <Accordion key={v.id}>
+        <Accordion className="my-5" key={v.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography> Problem : {i + 1}</Typography>
+            <Typography style={{color:"red"}}><b> Problem : {i + 1} </b></Typography>
           </AccordionSummary>
           <AccordionDetails>
             {Object.keys(v).map((item, index) => {
               return (
-                <Typography>
-                  {item} : {v[item]}
-                </Typography>
+                <>
+                  <span><b>{item} :</b></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <span>{v[item]}</span>
+                  <hr />
+                </>
               );
             })}
           </AccordionDetails>
