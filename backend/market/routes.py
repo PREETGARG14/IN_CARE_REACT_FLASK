@@ -95,7 +95,8 @@ def doctor():
             # session['doctor logged in']=True
             result={
                 "email_address":email_address,
-                "status":"successful"
+                "status":"successful",
+                "token":access_token
             }
             session['doctor_id']= attempted_doctor.id
             return jsonify(result),200
@@ -313,7 +314,8 @@ def get_prescription(pid):
 @app.route('/api/doctor/past/<int:page_id>', methods=['GET', 'POST'])
 # @login_required
 def edit_patient_page(page_id):
-    if request.method == 'POST' and session['doctorToken']==doctorDict[session['doctor_id']]:
+    frontToken = str(request.headers.get('x-access-token'))
+    if request.method == 'POST' and session['doctorToken']==frontToken:
         past_history = past_history_of_illness.query.filter_by(user_id=page_id)
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
