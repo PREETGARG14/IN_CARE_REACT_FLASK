@@ -26,6 +26,7 @@ jwt = JWTManager(app)
 mail = Mail(app)  # instantiate the mail class
 tokenDict={}
 doctorDict={}
+currentDict={}
 
 #Call for ChatBot Form
 # @app.route('/index', methods=["GET", "POST"])
@@ -99,7 +100,6 @@ def doctor():
     email_address=request.json['email_address']
     attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-
     if(not re.fullmatch(regex, request.json['email_address'])):
         result={
         "status":"unsuccessful",
@@ -126,7 +126,7 @@ def doctor():
                 "status":"successful",
                 "token":access_token
             }
-            session['doctor_id']= attempted_doctor.id
+            currentDict['current']=attempted_doctor.id
             return jsonify(result),200
         else:
             result={
@@ -191,7 +191,7 @@ def register():
 @app.route('/api/doctor/users', methods=['GET', 'POST'])
 def testin():
     frontToken = str(request.headers.get('x-access-token'))
-    if session.get('doctorToken')==frontToken:
+    if doctorDict[currentDict['current']]==frontToken:
         patients = Patients.query
         patientsJson = json.dumps([r.as_dict() for r in patients])
         return patientsJson, 200
@@ -205,7 +205,7 @@ def testin():
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session.get('Token')!=frontToken:
+    if request.method == "GET" and tokenDict[pid]!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     prescriptions = Prescription.query.filter_by(userID=pid)
     s = json.dumps([r.as_dict() for r in prescriptions])
@@ -376,7 +376,7 @@ def edit_patient_page(page_id,token,doctor_id):
 @app.route("/api/past/<int:page_id>", methods=["GET"])
 def get_past(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session.get('Token')!=frontToken:
+    if request.method == "GET" and tokenDict[page_id]!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     past_history = past_history_of_illness.query.filter_by(user_id=page_id)
     s = json.dumps([r.as_dict() for r in past_history])
@@ -386,7 +386,7 @@ def get_past(page_id):
 @app.route('/api/doctor/immunisation/<int:page_id>', methods=['POST'])
 def edit_immunisation_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session.get('doctorToken')==frontToken:
+    if request.method == 'POST' and doctorDict[page_id]==frontToken:
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
         immunisationjson = immunisation(immunisation_item=request.json['immunisation_item'],
@@ -452,7 +452,8 @@ def edit_immunisation_page(page_id):
 @app.route("/api/immunisation/<int:page_id>", methods=["GET"])
 def get_immunisation(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == "GET" and session.get('Token')!=frontToken:
+    print("frontToken---------------------------    ",frontToken)
+    if request.method == "GET" and tokenDict[page_id]!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     pimmune = immunisation.query.filter_by(user_id=page_id)
     s = json.dumps([r.as_dict() for r in pimmune])
