@@ -25,20 +25,20 @@ jwt = JWTManager(app)
 mail = Mail(app)  # instantiate the mail class
 
 
-@app.route('/index', methods=["GET", "POST"])
-def index():
-    return render_template('index.html', **locals())
+# @app.route('/index', methods=["GET", "POST"])
+# def index():
+#     return render_template('index.html', **locals())
 
 
-@app.route('/chatbot', methods=["GET", "POST"])
-def chatbotResponse():
+# @app.route('/chatbot', methods=["GET", "POST"])
+# def chatbotResponse():
 
-    if request.method == 'POST':
-        the_question = request.form['question']
+#     if request.method == 'POST':
+#         the_question = request.form['question']
 
-        response = chatbot_response(the_question)
+#         response = chatbot_response(the_question)
 
-    return jsonify({"response": response})
+#     return jsonify({"response": response})
 
 
 @app.route('/api/logout')
