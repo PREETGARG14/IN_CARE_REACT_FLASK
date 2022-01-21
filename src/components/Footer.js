@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
               <div className='text-end mt-2  content' style={{ color: "grey" }}>
                 <a href='/'>AboutUs</a> &nbsp;&nbsp; &nbsp;&nbsp;
-                <a href='https://github.com/PREETGARG14/IN_CARE_REACT_FLASK' target="_blank"> OurTeam </a> &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href='https://github.com/PREETGARG14/IN_CARE_REACT_FLASK' target="_blank"> Star Us on Github </a> &nbsp;&nbsp; &nbsp;&nbsp;
                 <a href='/doctorlogin'>Doctor</a>  &nbsp;&nbsp; &nbsp;&nbsp;
                 <a href='/login'>Patient</a>
               </div>

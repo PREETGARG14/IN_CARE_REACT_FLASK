@@ -22,6 +22,7 @@
     "jquery": "^3.6.0",
     "material-table": "^1.69.3",
     "nanoid": "^3.1.32",
+    "node": "^17.3.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",
     "react-dom": "^17.0.2",
@@ -34,7 +35,7 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build"
-},
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
