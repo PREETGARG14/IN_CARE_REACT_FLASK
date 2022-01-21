@@ -49,7 +49,7 @@ def logout_page():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
-@app.route('/api/doctor2', methods=['POST'])
+@app.route('/api/doctor', methods=['POST'])
 def doctor():
     email_address=request.json['email_address']
     attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
@@ -87,7 +87,7 @@ def doctor():
             return jsonify(result),401
          
 
-@app.route("/api/login2", methods=['POST'])
+@app.route("/api/login", methods=['POST'])
 def login():
     username = request.json['username']
     password = request.json['password']
@@ -127,7 +127,7 @@ def login():
 
 
 
-@app.route('/api/register2', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
     username = request.json['username']
     attempted_user = Patients.query.filter_by(username=username).first()
@@ -169,7 +169,7 @@ def register():
         return jsonify(result), 201
 
 
-@app.route("/api/prescribe2/<int:user_id>", methods=["POST"])
+@app.route("/api/doctor/prescribe/<int:user_id>", methods=["POST"])
 @login_required
 def add_prescription(user_id):
 
@@ -262,7 +262,7 @@ def add_prescription(user_id):
         return jsonify(result), 200
 
 
-@app.route('/admin/<int:page_id>', methods=['GET'])
+@app.route('/admin/int:page_id>', methods=['GET'])
 def edit_details(page_id):
     if session['doctor logged in'] == False:
         return 401
@@ -276,16 +276,16 @@ def edit_details(page_id):
         return (past+immune), 200
 
 
-@app.route("/api/prescribe3/<int:pid>", methods=["GET"])
+@app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
-    if session['logged in'] == False:
-        return Response("User not logged in", status=401, mimetype='application/json')
+    #if session['logged in'] == False:
+        #return Response("User not logged in", status=401, mimetype='application/json')
     prescriptions = Prescription.query.filter_by(userID=pid)
     s = json.dumps([r.as_dict() for r in prescriptions])
     return s, 200
 
 
-@app.route('/api/admin/past/<int:page_id>', methods=['GET', 'POST'])
+@app.route('/api/doctor/past/<int:page_id>', methods=['GET', 'POST'])
 @login_required
 def edit_patient_page(page_id):
     if request.method == 'POST':
@@ -363,8 +363,8 @@ def edit_patient_page(page_id):
 
 
 # immunisation route
-@app.route('/api/admin/immunisation/<int:page_id>', methods=['GET', 'POST'])
-@login_required
+@app.route('/api/doctor/immunisation/<int:page_id>', methods=['GET', 'POST'])
+# @login_required
 def edit_immunisation_page(page_id):
     if request.method == 'POST':
         immune = immunisation.query.filter_by(user_id=page_id)
@@ -435,7 +435,7 @@ def edit_immunisation_page(page_id):
         return s
 
 
-@app.route('/api/admin/users', methods=['GET', 'POST'])
+@app.route('/api/doctor/users', methods=['GET', 'POST'])
 def testin():
     patients = Patients.query
     patientsJson = json.dumps([r.as_dict() for r in patients])
