@@ -38,9 +38,10 @@ function App() {
         userDetailStatus={userDetailStatus}
         setUserDetailStatus={setUserDetailStatus}
       />
-      <main className="py-3">
+      <main>
         <Routes>
           <Route path="/" exact element={<Homepage />} />
+          <Route path="/card" exact element={<Cards/>} />
           <Route
             path="/login"
             element={
@@ -52,6 +53,7 @@ function App() {
             }
             exact
           />
+          <Route path='/chatbot' exact element={<Chatbot/>}/>
           <Route
             path="/doctorlogin"
             element={

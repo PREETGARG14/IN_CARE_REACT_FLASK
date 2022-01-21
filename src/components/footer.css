@@ -1,0 +1,12 @@
+a{
+    text-decoration: none;
+    color: grey;
+}
+
+a:hover{
+    color: white;
+}
+
+.resources{
+    padding-left: 98px;
+}

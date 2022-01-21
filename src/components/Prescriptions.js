@@ -865,6 +865,7 @@ export default function Prescriptions({ userId }) {
                       />
                       <span>Exact Time Critical</span> &nbsp;&nbsp;
                       <input
+                        style={{height: "15px"}}
                         type="checkbox"
                         name="timeCritical"
                         id="timeCritical"
@@ -887,6 +888,7 @@ export default function Prescriptions({ userId }) {
                       />
                       <span>As required</span> &nbsp;&nbsp;
                       <input
+                        style={{height:"15px"}}
                         type="checkbox"
                         name="asRequired"
                         id="asRequired"
@@ -1162,7 +1164,7 @@ export default function Prescriptions({ userId }) {
                     <span style={({ color: "grey" }, { fontWeight: "bold" })}>
                       [0..*]
                     </span>
-                    &nbsp;& nbsp;
+                    &nbsp;&nbsp;
                     <input
                       type="text"
                       name="specificDayofmonth"
