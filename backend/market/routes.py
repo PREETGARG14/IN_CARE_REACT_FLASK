@@ -7,9 +7,9 @@ from market.CreateMeet.create_event import createEvent
 from market.models import Patients, Doctor, Prescription, past_history_of_illness, immunisation
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
-# from market.processor import chatbot_response
+from market.processor import chatbot_response
 from functools import wraps
-# from processor import chatbot_response    
+# from processor import chatbot_response
 # imports for PyJWT authentication
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -23,7 +23,8 @@ app.config["JWT_SECRET_KEY"] = "gydbybuduubchydbbu46t363vydw3u6y88hbb2"
 jwt = JWTManager(app)
 
 mail = Mail(app)  # instantiate the mail class
-
+tokenDict={}
+doctorDict={}
 
 # @app.route('/index', methods=["GET", "POST"])
 # def index():
@@ -40,15 +41,29 @@ mail = Mail(app)  # instantiate the mail class
 
 #     return jsonify({"response": response})
 
-@app.route('/')
-def home():
-    return "Hello"
 
-@app.route('/api/logout')
-def logout_page():
-    logout_user()
-    flash("You have been logged out!", category='info')
-    return redirect(url_for("home_page"))
+@app.route('/api/logout/<int:user_id>',methods=["GET"])
+def logout_page(user_id):
+    del tokenDict[user_id]
+    print(tokenDict)
+    # logout_user()
+    # flash("You have been logged out!", category='info')
+    result={
+        "status":"Logged out"
+    }
+    return jsonify(result),200
+
+@app.route('/api/logoutDoctor/<int:user_id>',methods=["GET"])
+def logout_page(user_id):
+    del doctorDict[user_id]
+    print(doctorDict)
+    # logout_user()
+    # flash("You have been logged out!", category='info')
+    result={
+        "status":"Logged out"
+    }
+    return jsonify(result),200
+
 @app.route('/api/doctor', methods=['POST'])
 def doctor():
     email_address=request.json['email_address']
@@ -73,16 +88,19 @@ def doctor():
     else:
         password=request.json['password']
         if attempted_doctor.password_hash==password:
-            login_user(attempted_doctor)
-            session['doctor logged in']=True
+            # login_user(attempted_doctor)
+            access_token = create_access_token(identity=email_address)
+            doctorDict[attempted_doctor.id]=access_token
+            # session['doctor logged in']=True
             result={
                 "email_address":email_address,
-                "status":"successful",
+                "status":"successful"
             }
             return jsonify(result),200
         else:
             result={
-                "status":"Invalid Password",
+                "status":"unsuccessful",
+                "message":"Invalid Password"
             }
             return jsonify(result),401
          
@@ -91,14 +109,14 @@ def doctor():
 def login():
     username = request.json['username']
     password = request.json['password']
-    if username is "":
+    if username == "":
         result = {
             "status": "unsuccessful",
             "message": "Enter username"
         }
         return jsonify(result), 401
 
-    if password is "":
+    if password == "":
         result = {
             "status": "unsuccessful",
             "message": "Enter Password"
@@ -107,9 +125,10 @@ def login():
 
     attempted_user = Patients.query.filter_by(username=username).first()
     if attempted_user and attempted_user.password_hash == password:
-        login_user(attempted_user)
-        session['logged_in'] = True
+        # login_user(attempted_user)
+        # session['logged_in'] = True
         access_token = create_access_token(identity=username)
+        tokenDict[attempted_user.id]=access_token
         result = {
             "status": "successful",
             "username": username,
@@ -117,6 +136,7 @@ def login():
             "access_token":access_token,
             "id":attempted_user.id
         }
+        print(tokenDict)
         return jsonify(result), 200
     else:
         result = {
@@ -262,7 +282,7 @@ def add_prescription(user_id):
         return jsonify(result), 200
 
 
-@app.route('/admin/int:page_id>', methods=['GET'])
+@app.route('/doctor/immunisation/<int:page_id>', methods=['GET'])
 def edit_details(page_id):
     if session['doctor logged in'] == False:
         return 401
@@ -278,8 +298,8 @@ def edit_details(page_id):
 
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
-    #if session['logged in'] == False:
-        #return Response("User not logged in", status=401, mimetype='application/json')
+    if session['logged in'] == False:
+        return Response("User not logged in", status=401, mimetype='application/json')
     prescriptions = Prescription.query.filter_by(userID=pid)
     s = json.dumps([r.as_dict() for r in prescriptions])
     return s, 200
@@ -364,7 +384,7 @@ def edit_patient_page(page_id):
 
 # immunisation route
 @app.route('/api/doctor/immunisation/<int:page_id>', methods=['GET', 'POST'])
-# @login_required
+#@login_required
 def edit_immunisation_page(page_id):
     if request.method == 'POST':
         immune = immunisation.query.filter_by(user_id=page_id)
