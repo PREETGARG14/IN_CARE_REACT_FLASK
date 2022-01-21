@@ -54,7 +54,7 @@ def logout_page(user_id):
     return jsonify(result),200
 
 @app.route('/api/logoutDoctor/<int:user_id>',methods=["GET"])
-def logout_page(user_id):
+def Doctorlogout_page(user_id):
     del doctorDict[user_id]
     print(doctorDict)
     # logout_user()
@@ -90,12 +90,14 @@ def doctor():
         if attempted_doctor.password_hash==password:
             # login_user(attempted_doctor)
             access_token = create_access_token(identity=email_address)
+            session['doctorToken']=access_token
             doctorDict[attempted_doctor.id]=access_token
             # session['doctor logged in']=True
             result={
                 "email_address":email_address,
                 "status":"successful"
             }
+            session['doctor_id']= attempted_doctor.id
             return jsonify(result),200
         else:
             result={
@@ -128,6 +130,7 @@ def login():
         # login_user(attempted_user)
         # session['logged_in'] = True
         access_token = create_access_token(identity=username)
+        session['token'] = access_token
         tokenDict[attempted_user.id]=access_token
         result = {
             "status": "successful",
@@ -191,13 +194,15 @@ def register():
 
 @app.route("/api/doctor/prescribe/<int:user_id>", methods=["POST"])
 @login_required
-def add_prescription(user_id):
+def add_prescription(user_id,token,doctor_id):
 
-    if session['logged_in'] == False:
+    
+    if doctorDict[doctor_id]!= token:
         result = {
-            "status": "Invalid Password",
+            "status": "unsuccessful",
+            "message": "Invalid Token"
         }
-        return Response("Unauthorized", status=401, mimetype='application/json')
+        return jsonify(result),401
     else:
         prescriptionID = request.json['pi']
         medItem = request.json['Medication item']
@@ -306,9 +311,9 @@ def get_prescription(pid):
 
 
 @app.route('/api/doctor/past/<int:page_id>', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def edit_patient_page(page_id):
-    if request.method == 'POST':
+    if request.method == 'POST' and session['doctorToken']==doctorDict[session['doctor_id']]:
         past_history = past_history_of_illness.query.filter_by(user_id=page_id)
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
@@ -370,8 +375,10 @@ def edit_patient_page(page_id):
             # login_user(user_to_create)
             result = {
                 "status": "successful",
-                "page_id": page_id
+                "page_id": page_id,
+                "token": session['doctorToken']
             }
+            print(session['doctorToken'])
             return jsonify(result), 200
 
     elif request.method == "GET":
