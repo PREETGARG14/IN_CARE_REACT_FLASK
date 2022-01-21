@@ -205,6 +205,10 @@ def testin():
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
 def get_prescription(pid):
     frontToken = str(request.headers.get('x-access-token'))
+    print("frontToken   ", frontToken)
+    print("pid   ", pid)
+    print("backToken   ", tokenDict[pid])
+
     if request.method == "GET" and tokenDict[pid]!=frontToken:
         return Response("Invalid Token", status=401, mimetype='application/json')
     prescriptions = Prescription.query.filter_by(userID=pid)
@@ -215,9 +219,9 @@ def get_prescription(pid):
 
 # Doctor POST Prescription
 @app.route("/api/doctor/prescribe/<int:user_id>", methods=["POST"])
-def add_prescription(user_id,token,doctor_id):
+def add_prescription(user_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session.get('doctorToken')==frontToken:
+    if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
         prescriptionID = request.json['pi']
         medItem = request.json['Medication item']
         prepSubstanceName = request.json['Name']
@@ -299,12 +303,14 @@ def add_prescription(user_id,token,doctor_id):
             "status": "Prescription added",
         }
         return jsonify(result), 200
+    return jsonify({'status':'unsuccessful',
+                    'message':"Invalid Token"}),401
 
 # Doctor POST Past History Of Illness
 @app.route('/api/doctor/past/<int:page_id>', methods=['POST'])
-def edit_patient_page(page_id,token,doctor_id):
+def edit_patient_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
-    if request.method == 'POST' and session.get('doctorToken')==frontToken:
+    if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
         past_history = past_history_of_illness.query.filter_by(user_id=page_id)
         immune = immunisation.query.filter_by(user_id=page_id)
         patient = db.session.query(Patients).filter()
@@ -371,6 +377,7 @@ def edit_patient_page(page_id,token,doctor_id):
             }
             print(session.get('doctorToken'))
             return jsonify(result), 200
+    return jsonify({"status":"unsuccessful", "message":"Invalid Token"})
         
 # User GET Past History Of Illness
 @app.route("/api/past/<int:page_id>", methods=["GET"])
@@ -477,4 +484,3 @@ def indexone():
         "eventLink": eventlink
     }
     return jsonify(result), 200
-
