@@ -24,7 +24,17 @@ const Immunisation = ({ userId }) => {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (data) => {
-    Axios.post(`http://127.0.0.1:5000/api/admin/immunisation/${userId}`, data)
+    let token = sessionStorage.getItem("token");
+    let config = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    Axios.post(
+      `http://127.0.0.1:5000/api/doctor/immunisation/${userId}`,
+      data,
+      config
+    )
       .then((res) => {
         setOpen(true);
       })

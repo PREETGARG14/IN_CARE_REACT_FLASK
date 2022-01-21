@@ -51,7 +51,13 @@ const Dashboard = ({ userId, setUserId }) => {
   const history = useNavigate();
 
   useEffect(() => {
-    Axios.get("http://127.0.0.1:5000/api/admin/users").then((res) => {
+    let token = sessionStorage.getItem("token");
+    let config = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    Axios.get("http://127.0.0.1:5000/api/doctor/users", config).then((res) => {
       console.log(res.data);
       setUsers(res.data);
     });

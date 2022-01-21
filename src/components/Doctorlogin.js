@@ -30,11 +30,12 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
 
   const handleSubmit = (data) => {
     console.log(data);
-    Axios.post("http://127.0.0.1:5000/api/doctor2", data)
+    Axios.post("http://127.0.0.1:5000/api/doctor", data)
       .then((res) => {
         if (res.data.status === "successful") {
           setLoggedIn(true);
           sessionStorage.setItem("doctorlogin", true);
+          sessionStorage.setItem("token", res.data.token);
           history("/dashboard");
         }
       })

@@ -20,9 +20,16 @@ export default function Prescriptions({ userId }) {
     const newDetails = { ...details, pi: nanoid() };
     e.preventDefault();
     console.log(details);
+    let token = sessionStorage.getItem("token");
+    let config = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
     Axios.post(
-      `http://127.0.0.1:5000/api/prescribe2/${userId}`,
-      newDetails
+      `http://127.0.0.1:5000/api/doctor/prescribe/${userId}`,
+      newDetails,
+      config
     ).then((res) => {
       setOpen(true);
     });
@@ -865,7 +872,7 @@ export default function Prescriptions({ userId }) {
                       />
                       <span>Exact Time Critical</span> &nbsp;&nbsp;
                       <input
-                        style={{height: "15px"}}
+                        style={{ height: "15px" }}
                         type="checkbox"
                         name="timeCritical"
                         id="timeCritical"
@@ -888,7 +895,7 @@ export default function Prescriptions({ userId }) {
                       />
                       <span>As required</span> &nbsp;&nbsp;
                       <input
-                        style={{height:"15px"}}
+                        style={{ height: "15px" }}
                         type="checkbox"
                         name="asRequired"
                         id="asRequired"

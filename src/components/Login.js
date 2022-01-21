@@ -26,7 +26,7 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
 
   const handleSubmit = (data) => {
     console.log(data);
-    Axios.post("http://127.0.0.1:5000/api/login2", data)
+    Axios.post("http://127.0.0.1:5000/api/login", data)
       .then((res) => {
         if (res.data.status === "successful") {
           setUserDetailStatus(true);

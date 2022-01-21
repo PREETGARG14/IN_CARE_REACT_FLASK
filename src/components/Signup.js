@@ -45,7 +45,7 @@ export default function SignUp() {
       fullname: value.firstName + " " + value.lastName,
       email_address: value.email_address,
     };
-    Axios.post("http://127.0.0.1:5000/api/register2", data)
+    Axios.post("http://127.0.0.1:5000/api/register", data)
       .then((res) => {
         history("/login");
       })

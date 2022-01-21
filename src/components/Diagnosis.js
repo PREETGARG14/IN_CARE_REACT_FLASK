@@ -31,7 +31,13 @@ const validationSchema = yup.object({
 const Diagnosis = ({ userId }) => {
   const [open, setOpen] = useState(false);
   const handleSubmit = (data) => {
-    Axios.post(`http://127.0.0.1:5000/api/admin/past/${userId}`, data)
+    let token = sessionStorage.getItem("token");
+    let config = {
+      headers: {
+        "x-access-token": token,
+      },
+    };
+    Axios.post(`http://127.0.0.1:5000/api/doctor/past/${userId}`, data, config)
       .then((res) => {
         console.log(res.data);
         setOpen(true);
