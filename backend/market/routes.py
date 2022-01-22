@@ -1,15 +1,15 @@
+from flask_cors import cross_origin
 from flask_mail import Mail, Message
 import re
 from flask import flash, json, session
 from flask_session import Session
 from market import app
-from flask import render_template, redirect, url_for, request, jsonify
+from flask import render_template, request, jsonify
 from market.CreateMeet.create_event import createEvent
 from market.models import Patients, Doctor, Prescription, past_history_of_illness, immunisation
 from market import db
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user
 #from market.processor import chatbot_response
-from functools import wraps
 # from processor import chatbot_response
 # imports for PyJWT authentication
 from flask_jwt_extended import create_access_token
@@ -17,6 +17,7 @@ from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask import Response
+from flask_cors import cross_origin
 
 
 # Setup the Flask-JWT-Extended extension
@@ -30,11 +31,13 @@ currentDict={}
 
 #Call for ChatBot Form
 # @app.route('/index', methods=["GET", "POST"])
+# @cross_origin()
 # def index():
 #     return render_template('index.html', **locals())
 
 # Chatbot
 # @app.route('/chatbot', methods=["GET", "POST"])
+# @cross_origin()
 # def chatbotResponse():
 
 #     if request.method == 'POST':
@@ -44,8 +47,10 @@ currentDict={}
 
 #     return jsonify({"response": response})
 
+
 # User Login
 @app.route("/api/login", methods=['POST'])
+@cross_origin()
 def login():
     username = request.json['username']
     password = request.json['password']
@@ -86,6 +91,7 @@ def login():
 
 # User Logout
 @app.route('/api/logout/<int:user_id>',methods=["GET"])
+@cross_origin()
 def logout_page(user_id):
     del tokenDict[user_id]
     print(tokenDict)
@@ -96,6 +102,7 @@ def logout_page(user_id):
 
 # Doctor Login
 @app.route('/api/doctor', methods=['POST'])
+@cross_origin()
 def doctor():
     email_address=request.json['email_address']
     attempted_doctor = Doctor.query.filter_by(email_address=email_address).first()
@@ -138,6 +145,7 @@ def doctor():
 
 # Doctor Logout
 @app.route('/api/logoutDoctor/<int:user_id>',methods=["GET"])
+@cross_origin()
 def Doctorlogout_page(user_id):
     del doctorDict[user_id]
     del currentDict["current"]
@@ -149,6 +157,7 @@ def Doctorlogout_page(user_id):
 
 # User Register
 @app.route('/api/register', methods=['POST'])
+@cross_origin()
 def register():
     username = request.json['username']
     attempted_user = Patients.query.filter_by(username=username).first()
@@ -191,6 +200,7 @@ def register():
 
 # Doctor Select User 
 @app.route('/api/doctor/users', methods=['GET', 'POST'])
+@cross_origin()
 def testin():
     frontToken = str(request.headers.get('x-access-token'))
     if doctorDict[currentDict['current']]==frontToken:
@@ -205,6 +215,7 @@ def testin():
 
 # User GET Prescription
 @app.route("/api/prescribe/<int:pid>", methods=["GET"])
+@cross_origin()
 def get_prescription(pid):
     frontToken = str(request.headers.get('x-access-token'))
     if request.method == "GET" and tokenDict[pid]!=frontToken:
@@ -222,6 +233,7 @@ def get_prescription(pid):
 
 # Doctor POST Prescription
 @app.route("/api/doctor/prescribe/<int:user_id>", methods=["POST"])
+@cross_origin()
 def add_prescription(user_id):
     frontToken = str(request.headers.get('x-access-token'))
     if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
@@ -311,6 +323,7 @@ def add_prescription(user_id):
 
 # Doctor POST Past History Of Illness
 @app.route('/api/doctor/past/<int:page_id>', methods=['POST'])
+@cross_origin()
 def edit_patient_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
     if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
@@ -384,6 +397,7 @@ def edit_patient_page(page_id):
         
 # User GET Past History Of Illness
 @app.route("/api/past/<int:page_id>", methods=["GET"])
+@cross_origin()
 def get_past(page_id):
     frontToken = str(request.headers.get('x-access-token'))
     if request.method == "GET" and tokenDict[page_id]!=frontToken:
@@ -394,6 +408,7 @@ def get_past(page_id):
 
 # Doctor POST Immunisation
 @app.route('/api/doctor/immunisation/<int:page_id>', methods=['POST'])
+@cross_origin()
 def edit_immunisation_page(page_id):
     frontToken = str(request.headers.get('x-access-token'))
     if request.method == 'POST' and doctorDict[currentDict['current']]==frontToken:
@@ -460,6 +475,7 @@ def edit_immunisation_page(page_id):
 
 # User GET Immunisation
 @app.route("/api/immunisation/<int:page_id>", methods=["GET"])
+@cross_origin()
 def get_immunisation(page_id):
     frontToken = str(request.headers.get('x-access-token'))
     print("frontToken---------------------------    ",frontToken)
@@ -471,6 +487,7 @@ def get_immunisation(page_id):
 
 # Schedule Meet
 @app.route("/api/schedule", methods=['GET', 'POST'])
+@cross_origin()
 def indexone():
     email = request.json["email"]
     eventlink = createEvent(email)
