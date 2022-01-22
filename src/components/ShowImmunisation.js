@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Axios from "axios";
+import { url } from "../utils/url";
 
 const ShowImmunisation = ({ patientId }) => {
   const [immunisationDetails, setImmunisationDetails] = useState([]);
@@ -19,10 +20,7 @@ const ShowImmunisation = ({ patientId }) => {
         "x-access-token": token,
       },
     };
-    Axios.get(
-      `http://127.0.0.1:5000/api/immunisation/${patientId}`,
-      config
-    ).then((res) => {
+    Axios.get(`${url}/api/immunisation/${patientId}`, config).then((res) => {
       setImmunisationDetails(res.data);
     });
   }, []);

@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Alert from "@mui/material/Alert";
+import { url } from "../utils/url";
 
 const theme = createTheme();
 
@@ -45,7 +46,7 @@ export default function SignUp() {
       fullname: value.firstName + " " + value.lastName,
       email_address: value.email_address,
     };
-    Axios.post("http://127.0.0.1:5000/api/register", data)
+    Axios.post(`${url}/api/register`, data)
       .then((res) => {
         history("/login");
       })

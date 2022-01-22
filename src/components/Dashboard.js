@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { ShowChartOutlined } from "@mui/icons-material";
+import { url } from "../utils/url";
 import { Container } from "@mui/material";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -57,7 +57,7 @@ const Dashboard = ({ userId, setUserId }) => {
         "x-access-token": token,
       },
     };
-    Axios.get("http://127.0.0.1:5000/api/doctor/users", config).then((res) => {
+    Axios.get(`${url}/api/doctor/users`, config).then((res) => {
       console.log(res.data);
       setUsers(res.data);
     });

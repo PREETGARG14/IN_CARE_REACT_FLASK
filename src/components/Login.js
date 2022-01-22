@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Alert from "@mui/material/Alert";
+import { url } from "../utils/url";
 
 const validationSchema = yup.object({
   username: yup.string("Enter your username").required("username is required"),
@@ -26,7 +27,7 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
 
   const handleSubmit = (data) => {
     console.log(data);
-    Axios.post("http://127.0.0.1:5000/api/login", data)
+    Axios.post(`${url}/api/login`, data)
       .then((res) => {
         if (res.data.status === "successful") {
           setUserDetailStatus(true);

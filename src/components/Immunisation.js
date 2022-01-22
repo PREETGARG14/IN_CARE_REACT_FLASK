@@ -8,6 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { url } from "../utils/url";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -30,11 +31,7 @@ const Immunisation = ({ userId }) => {
         "x-access-token": token,
       },
     };
-    Axios.post(
-      `http://127.0.0.1:5000/api/doctor/immunisation/${userId}`,
-      data,
-      config
-    )
+    Axios.post(`${url}/api/doctor/immunisation/${userId}`, data, config)
       .then((res) => {
         setOpen(true);
       })

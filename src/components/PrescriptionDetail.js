@@ -1,46 +1,10 @@
 import Button from "@restart/ui/esm/Button";
 import React, { useState } from "react";
-import { nanoid } from "nanoid";
-import { initialstate } from "../utils/InitialState";
-import Axios from "axios";
-import { Container } from "@mui/material";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import { url } from "../utils/url";
-//import '../bootstrap.min.css';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-export default function Prescriptions({ userId }) {
+export default function Prescriptions({ initialstate }) {
   const [details, setDetails] = useState(initialstate);
-  const [open, setOpen] = useState(false);
+  console.log(details);
 
-  const handleClick = (e) => {
-    const newDetails = { ...details, pi: nanoid() };
-    e.preventDefault();
-    console.log(details);
-    let token = sessionStorage.getItem("token");
-    let config = {
-      headers: {
-        "x-access-token": token,
-      },
-    };
-    Axios.post(
-      `${url}/api/doctor/prescribe/${userId}`,
-      newDetails,
-      config
-    ).then((res) => {
-      setOpen(true);
-    });
-  };
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
   return (
     <form>
       <div className="aboveMainheading pt-2">
@@ -53,7 +17,13 @@ export default function Prescriptions({ userId }) {
           />{" "}
           &nbsp;&nbsp;
           <span>Prescription identifier</span> &nbsp;&nbsp;
-          <input type="text" name="pi" id="pi" disabled={true} />
+          <input
+            type="text"
+            name="pi"
+            id="pi"
+            disabled={true}
+            value={details["prescriptionID"]}
+          />
         </div>
       </div>
       <hr />
@@ -110,9 +80,8 @@ export default function Prescriptions({ userId }) {
                 type="text"
                 id="Medication item"
                 name="Medication item"
-                onChange={(e) => {
-                  setDetails({ ...details, "Medication item": e.target.value });
-                }}
+                disabled
+                value={details["Medication item"]}
               />
             </div>
 
@@ -141,9 +110,8 @@ export default function Prescriptions({ userId }) {
                     type="text"
                     id="Name"
                     name="Name"
-                    onChange={(e) => {
-                      setDetails({ ...details, Name: e.target.value });
-                    }}
+                    disabled
+                    value={details["Name"]}
                   />
                 </div>
 
@@ -163,9 +131,8 @@ export default function Prescriptions({ userId }) {
                     type="text"
                     id="Form"
                     name="Form"
-                    onChange={(e) => {
-                      setDetails({ ...details, Form: e.target.value });
-                    }}
+                    disabled
+                    value={details["Form"]}
                   />
                 </div>
 
@@ -181,9 +148,8 @@ export default function Prescriptions({ userId }) {
                     type="text"
                     id="strength"
                     name="strength"
-                    onChange={(e) => {
-                      setDetails({ ...details, strength: e.target.value });
-                    }}
+                    disabled
+                    value={details["strength"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -191,9 +157,8 @@ export default function Prescriptions({ userId }) {
                     id="strengthUnit"
                     name="strengthUnit"
                     placeholder="Unit"
-                    onChange={(e) => {
-                      setDetails({ ...details, strengthUnit: e.target.value });
-                    }}
+                    disabled
+                    value={details["strengthUnit"]}
                   />
                 </div>
 
@@ -221,9 +186,8 @@ export default function Prescriptions({ userId }) {
                         id="numerator"
                         name="numerator"
                         placeholder=">=0"
-                        onChange={(e) => {
-                          setDetails({ ...details, numerator: e.target.value });
-                        }}
+                        disabled
+                        value={details["numerator"]}
                       />
                       &nbsp;&nbsp;
                       <input
@@ -231,12 +195,8 @@ export default function Prescriptions({ userId }) {
                         id="numeratorUnit"
                         name="numeratorUnit"
                         placeholder="unit"
-                        onChange={(e) => {
-                          setDetails({
-                            ...details,
-                            numeratorUnit: e.target.value,
-                          });
-                        }}
+                        disabled
+                        value={details["numeratorUnit"]}
                       />
                     </div>
                   </div>
@@ -280,12 +240,8 @@ export default function Prescriptions({ userId }) {
                         type="text"
                         id="substanceName"
                         name="substanceName"
-                        onChange={(e) => {
-                          setDetails({
-                            ...details,
-                            substanceName: e.target.value,
-                          });
-                        }}
+                        disabled
+                        value={details["substanceName"]}
                       />
                     </div>
 
@@ -311,6 +267,8 @@ export default function Prescriptions({ userId }) {
                             ingredientForm: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["ingredientForm"]}
                       />
                     </div>
 
@@ -329,6 +287,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, category: e.target.value });
                         }}
+                        disabled
+                        value={details["category"]}
                       />
                     </div>
 
@@ -350,6 +310,8 @@ export default function Prescriptions({ userId }) {
                             ingredientstrength: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["ingredientstrength"]}
                       />
                     </div>
 
@@ -371,6 +333,8 @@ export default function Prescriptions({ userId }) {
                             strengthUnit: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["strengthUnit"]}
                       />
                     </div>
 
@@ -392,6 +356,8 @@ export default function Prescriptions({ userId }) {
                             medicationDescription: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["medicationDescription"]}
                       />
                     </div>
                   </div>
@@ -417,6 +383,8 @@ export default function Prescriptions({ userId }) {
                       "ingredient-amount": e.target.value,
                     });
                   }}
+                  disabled
+                  value={details["ingredient-amount"]}
                 />
                 &nbsp;&nbsp;
                 <input
@@ -430,6 +398,8 @@ export default function Prescriptions({ userId }) {
                       "ingredient-amountUnit": e.target.value,
                     });
                   }}
+                  disabled
+                  value={details["ingredient-amountUnit"]}
                 />
               </div>
 
@@ -454,6 +424,8 @@ export default function Prescriptions({ userId }) {
                   onChange={(e) => {
                     setDetails({ ...details, roleStatus: e.target.value });
                   }}
+                  disabled
+                  value={details["roleStatus"]}
                 >
                   <option value="active">Therauputic</option>
                   <option value="stopped">Electrolyte</option>
@@ -476,6 +448,8 @@ export default function Prescriptions({ userId }) {
                   onChange={(e) => {
                     setDetails({ ...details, role: e.target.value });
                   }}
+                  disabled
+                  value={details["role"]}
                 />
               </div>
             </div>
@@ -496,6 +470,8 @@ export default function Prescriptions({ userId }) {
               onChange={(e) => {
                 setDetails({ ...details, description: e.target.value });
               }}
+              disabled
+              value={details["description"]}
             />
           </div>
           <br />
@@ -520,6 +496,8 @@ export default function Prescriptions({ userId }) {
             onChange={(e) => {
               setDetails({ ...details, route: e.target.value });
             }}
+            disabled
+            value={details["route"]}
           />
         </div>
         <br />
@@ -538,6 +516,8 @@ export default function Prescriptions({ userId }) {
             onChange={(e) => {
               setDetails({ ...details, dosageInstructions: e.target.value });
             }}
+            disabled
+            value={details["dosageInstructions"]}
           />
         </div>
 
@@ -589,6 +569,8 @@ export default function Prescriptions({ userId }) {
                     onChange={(e) => {
                       setDetails({ ...details, doseAmount: e.target.value });
                     }}
+                    disabled
+                    value={details["doseAmount"]}
                   />
                   &nbsp;&nbsp;
                   <span>or</span> &nbsp;&nbsp;
@@ -610,6 +592,8 @@ export default function Prescriptions({ userId }) {
                         doseAmountLower: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["doseAmountLower"]}
                   />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span>Upper:</span>&nbsp;&nbsp;
                   <input
@@ -623,6 +607,8 @@ export default function Prescriptions({ userId }) {
                         doseAmountUpper: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["doesAmountUpper"]}
                   />
                 </div>
 
@@ -641,6 +627,8 @@ export default function Prescriptions({ userId }) {
                     onChange={(e) => {
                       setDetails({ ...details, doseUnit: e.target.value });
                     }}
+                    disabled
+                    value={details["doseUnit"]}
                   />
                 </div>
 
@@ -675,6 +663,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, frequency: e.target.value });
                         }}
+                        disabled
+                        value={details["frequency"]}
                       />
                       &nbsp;&nbsp;
                       <select
@@ -686,6 +676,8 @@ export default function Prescriptions({ userId }) {
                             frequencyUnit: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["frequencyUnit"]}
                       >
                         <option value="active">1/d</option>
                         <option value="stopped">1/min</option>
@@ -712,6 +704,8 @@ export default function Prescriptions({ userId }) {
                             frequencyLower: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["frequencyLower"]}
                       />
                       &nbsp;&nbsp;
                       <select
@@ -723,6 +717,8 @@ export default function Prescriptions({ userId }) {
                             frequencyLowerUnit: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["frequencyLowerUnit"]}
                       >
                         <option value="active">1/d</option>
                         <option value="stopped">1/min</option>
@@ -742,6 +738,8 @@ export default function Prescriptions({ userId }) {
                             frequencyUpper: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["frequencyUpper"]}
                       />
                       &nbsp;&nbsp;
                       <select
@@ -753,6 +751,8 @@ export default function Prescriptions({ userId }) {
                             frequencyUpperUnit: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["frequencyUpperUnit"]}
                       >
                         <option value="active">1/d</option>
                         <option value="stopped">1/min</option>
@@ -776,6 +776,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, interval: e.target.value });
                         }}
+                        disabled
+                        value={details["interval"]}
                       />
                     </div>
 
@@ -804,6 +806,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, st: e.target.value });
                         }}
+                        disabled
+                        value={details["st"]}
                       />{" "}
                       &nbsp;&nbsp;
                       <span> or </span> &nbsp;&nbsp;
@@ -839,6 +843,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, nte: e.target.value });
                         }}
+                        disabled
+                        value={details["nte"]}
                       />{" "}
                       &nbsp;&nbsp;
                       <span>or</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -854,6 +860,8 @@ export default function Prescriptions({ userId }) {
                         onChange={(e) => {
                           setDetails({ ...details, nte2: e.target.value });
                         }}
+                        disabled
+                        value={details["nte2"]}
                       >
                         <option value="active">immediately</option>
                         <option value="stopped">in the morning</option>
@@ -883,6 +891,8 @@ export default function Prescriptions({ userId }) {
                             timeCritical: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["timeCritical"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -906,6 +916,8 @@ export default function Prescriptions({ userId }) {
                             asRequired: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["asRequired"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -928,6 +940,8 @@ export default function Prescriptions({ userId }) {
                             requiredcriterion: e.target.value,
                           });
                         }}
+                        disabled
+                        value={details["requiredcriterion"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -954,6 +968,8 @@ export default function Prescriptions({ userId }) {
                       onChange={(e) => {
                         setDetails({ ...details, iar: e.target.value });
                       }}
+                      disabled
+                      value={details["iar"]}
                     />
                     &nbsp;&nbsp;
                     <select
@@ -962,6 +978,8 @@ export default function Prescriptions({ userId }) {
                       onChange={(e) => {
                         setDetails({ ...details, iarUnit: e.target.value });
                       }}
+                      disabled
+                      value={details["iarUnit"]}
                     >
                       <option value="active">1/d</option>
                       <option value="stopped">1/min</option>
@@ -984,6 +1002,8 @@ export default function Prescriptions({ userId }) {
                       onChange={(e) => {
                         setDetails({ ...details, iar1: e.target.value });
                       }}
+                      disabled
+                      value={details["iar1"]}
                     />
                   </div>
                   <div style={{ paddingTop: "5px" }}>
@@ -1011,6 +1031,8 @@ export default function Prescriptions({ userId }) {
                           administration: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["administration"]}
                     />
                   </div>
                 </div>
@@ -1038,6 +1060,8 @@ export default function Prescriptions({ userId }) {
                       directionDuration: e.target.value,
                     });
                   }}
+                  disabled
+                  value={details["directionDuration"]}
                 >
                   <option value="active">Indefinate</option>
                   <option value="stopped">Indefinate does not continue</option>
@@ -1061,6 +1085,8 @@ export default function Prescriptions({ userId }) {
                       directionDuration2: e.target.value,
                     });
                   }}
+                  disabled
+                  value={details["directionDuration2"]}
                 />
               </div>
               <div style={{ paddingTop: "5px" }}>
@@ -1094,6 +1120,8 @@ export default function Prescriptions({ userId }) {
                           repetitionInterval: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["repetitionInterval"]}
                     />
                   </div>
 
@@ -1120,6 +1148,8 @@ export default function Prescriptions({ userId }) {
                           specificDate: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["specificDate"]}
                     />
                     &nbsp;&nbsp;
                     <input
@@ -1131,6 +1161,8 @@ export default function Prescriptions({ userId }) {
                           specificTime: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["spcificTime"]}
                     />
                   </div>
 
@@ -1158,6 +1190,8 @@ export default function Prescriptions({ userId }) {
                           specificDayofweek: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["specificDayofweek"]}
                     />
                   </div>
 
@@ -1184,6 +1218,8 @@ export default function Prescriptions({ userId }) {
                           specificdayofmonth: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["specificdayofmonth"]}
                     />
                   </div>
 
@@ -1214,6 +1250,8 @@ export default function Prescriptions({ userId }) {
                               eventName: e.target.value,
                             });
                           }}
+                          disabled
+                          value={details["eventName"]}
                         />
                       </div>
 
@@ -1236,6 +1274,8 @@ export default function Prescriptions({ userId }) {
                               eventStartInterval: e.target.value,
                             });
                           }}
+                          disabled
+                          value={details["eventStartInterval"]}
                         />
                       </div>
                     </div>
@@ -1286,6 +1326,8 @@ export default function Prescriptions({ userId }) {
                           maximumAmount: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["maximumAmount"]}
                     />
                   </div>
 
@@ -1307,6 +1349,8 @@ export default function Prescriptions({ userId }) {
                           maximumAmountDoseUnit: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["maximumAmountDoseUnit"]}
                     />
                   </div>
 
@@ -1329,6 +1373,8 @@ export default function Prescriptions({ userId }) {
                           allowedPeriod: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["allowedPeriod"]}
                     />
                   </div>
                 </div>
@@ -1351,6 +1397,8 @@ export default function Prescriptions({ userId }) {
                         overrideReason: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["overrideReason"]}
                   />
                 </div>
               </div>
@@ -1374,6 +1422,8 @@ export default function Prescriptions({ userId }) {
                     additionalInstructions: e.target.value,
                   });
                 }}
+                disabled
+                value={details["additionalInstructions"]}
               />
             </div>
 
@@ -1392,6 +1442,8 @@ export default function Prescriptions({ userId }) {
                 onChange={(e) => {
                   setDetails({ ...details, reason: e.target.value });
                 }}
+                disabled
+                value={details["reason"]}
               />
             </div>
 
@@ -1451,6 +1503,8 @@ export default function Prescriptions({ userId }) {
                         dateDiscontinued: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["dateDiscontinued"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1463,6 +1517,8 @@ export default function Prescriptions({ userId }) {
                         timeDiscontinued: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["timeDiscontinued"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1482,6 +1538,8 @@ export default function Prescriptions({ userId }) {
                     onChange={(e) => {
                       setDetails({ ...details, dateWritten: e.target.value });
                     }}
+                    disabled
+                    value={details["dateWritten"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1491,6 +1549,8 @@ export default function Prescriptions({ userId }) {
                     onChange={(e) => {
                       setDetails({ ...details, timeWritten: e.target.value });
                     }}
+                    disabled
+                    value={details["timeWritten"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1525,6 +1585,8 @@ export default function Prescriptions({ userId }) {
                     onChange={(e) => {
                       setDetails({ ...details, nora: e.target.value });
                     }}
+                    disabled
+                    value={details["nora"]}
                   />
                 </div>
 
@@ -1546,6 +1608,8 @@ export default function Prescriptions({ userId }) {
                         validityPeriod: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["validityPeriod"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1558,6 +1622,8 @@ export default function Prescriptions({ userId }) {
                         validityPeriodTime: e.target.value,
                       });
                     }}
+                    disabled
+                    value={details["validityPeriodTime"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1597,6 +1663,8 @@ export default function Prescriptions({ userId }) {
                           dispenseInstructions: e.target.value,
                         });
                       }}
+                      disabled
+                      value={details["dispenseInstructions"]}
                     />
                   </div>
 
@@ -1628,6 +1696,8 @@ export default function Prescriptions({ userId }) {
                               amountDescription: e.target.value,
                             });
                           }}
+                          disabled
+                          value={details["amountDescription"]}
                         />
                       </div>
 
@@ -1650,6 +1720,8 @@ export default function Prescriptions({ userId }) {
                               amountindispense: e.target.value,
                             });
                           }}
+                          disabled
+                          value={details["amountindispense"]}
                         />
                       </div>
 
@@ -1671,6 +1743,8 @@ export default function Prescriptions({ userId }) {
                               dispenseUnits: e.target.value,
                             });
                           }}
+                          disabled
+                          value={details["dispenseUnits"]}
                         />
                       </div>
 
@@ -1690,6 +1764,8 @@ export default function Prescriptions({ userId }) {
                           onChange={(e) => {
                             setDetails({ ...details, dos: e.target.value });
                           }}
+                          disabled
+                          value={details["dos"]}
                         />
                       </div>
                     </div>
@@ -1711,6 +1787,8 @@ export default function Prescriptions({ userId }) {
                   onChange={(e) => {
                     setDetails({ ...details, comment: e.target.value });
                   }}
+                  disabled
+                  value={details["comment"]}
                 />
               </div>
               <div style={{ paddingTop: "5px" }}>
@@ -1728,33 +1806,11 @@ export default function Prescriptions({ userId }) {
                   onChange={(e) => {
                     setDetails({ ...details, identifier: e.target.value });
                   }}
+                  disabled
+                  value={details["identifier"]}
                 />
               </div>
               <hr />
-              <div className="Button">
-                <center>
-                  <Button
-                    type="button"
-                    className="btn btn-dark mt-4 mb-4"
-                    onClick={handleClick}
-                  >
-                    Submit
-                  </Button>
-                </center>
-              </div>
-              <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity="success"
-                  sx={{ width: "100%" }}
-                >
-                  submitted
-                </Alert>
-              </Snackbar>
             </div>
           </div>
         </div>

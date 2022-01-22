@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Axios from "axios";
-
+import { url } from "../utils/url";
+import PrescriptionDetail from "./PrescriptionDetail";
 const Showprescriptions = ({ patientId }) => {
   const [prescriptionDetails, setPrescriptionDetails] = useState([]);
 
@@ -19,11 +20,9 @@ const Showprescriptions = ({ patientId }) => {
         "x-access-token": token,
       },
     };
-    Axios.get(`http://127.0.0.1:5000/api/prescribe/${patientId}`, config).then(
-      (res) => {
-        setPrescriptionDetails(res.data);
-      }
-    );
+    Axios.get(`${url}/api/prescribe/${patientId}`, config).then((res) => {
+      setPrescriptionDetails(res.data);
+    });
   }, []);
 
   return (
@@ -48,13 +47,7 @@ const Showprescriptions = ({ patientId }) => {
             <Typography> Prescription : {i + 1}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {Object.keys(v).map((item, index) => {
-              return (
-                <Typography>
-                  {item} : {v[item]}
-                </Typography>
-              );
-            })}
+            <PrescriptionDetail initialstate={v} />{" "}
           </AccordionDetails>
         </Accordion>
       ))}

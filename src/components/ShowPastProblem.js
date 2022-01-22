@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Axios from "axios";
+import { url } from "../utils/url";
 
 const ShowPastProblem = ({ patientId }) => {
   const [pastProblems, setPastProblems] = useState([]);
@@ -19,11 +20,9 @@ const ShowPastProblem = ({ patientId }) => {
         "x-access-token": token,
       },
     };
-    Axios.get(`http://127.0.0.1:5000/api/past/${patientId}`, config).then(
-      (res) => {
-        setPastProblems(res.data);
-      }
-    );
+    Axios.get(`${url}/api/past/${patientId}`, config).then((res) => {
+      setPastProblems(res.data);
+    });
   }, []);
 
   return (

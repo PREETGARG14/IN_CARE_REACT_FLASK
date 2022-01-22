@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { url } from "../utils/url";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Axios from "axios";
 import Snackbar from "@mui/material/Snackbar";
@@ -37,7 +38,7 @@ const Diagnosis = ({ userId }) => {
         "x-access-token": token,
       },
     };
-    Axios.post(`http://127.0.0.1:5000/api/doctor/past/${userId}`, data, config)
+    Axios.post(`${url}/api/doctor/past/${userId}`, data, config)
       .then((res) => {
         console.log(res.data);
         setOpen(true);

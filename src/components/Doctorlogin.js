@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { url } from "../utils/url";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -30,7 +30,7 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
 
   const handleSubmit = (data) => {
     console.log(data);
-    Axios.post("http://127.0.0.1:5000/api/doctor", data)
+    Axios.post(`${url}/api/doctor`, data)
       .then((res) => {
         if (res.data.status === "successful") {
           setLoggedIn(true);
