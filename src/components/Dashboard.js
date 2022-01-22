@@ -63,7 +63,7 @@ const Dashboard = ({ userId, setUserId }) => {
     });
   }, []);
   return (
-    <Container>
+    <Container className="py-5">
       <MaterialTable
         icons={tableIcons}
         title="All Patients"

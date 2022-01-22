@@ -38,7 +38,7 @@ function App() {
         userDetailStatus={userDetailStatus}
         setUserDetailStatus={setUserDetailStatus}
       />
-      <main>
+      <main className="my-0">
         <Routes>
           <Route path="/" exact element={<Homepage />} />
           <Route path="/card" exact element={<Cards/>} />

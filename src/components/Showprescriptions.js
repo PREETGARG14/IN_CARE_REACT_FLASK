@@ -10,6 +10,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Axios from "axios";
 import { url } from "../utils/url";
 import PrescriptionDetail from "./PrescriptionDetail";
+import "./sp.css";
+
 const Showprescriptions = ({ patientId }) => {
   const [prescriptionDetails, setPrescriptionDetails] = useState([]);
 
@@ -27,24 +29,38 @@ const Showprescriptions = ({ patientId }) => {
 
   return (
     <Container>
-      <Typography variant="h3" textAlign="center">
-        Your Prescription Details
+      <Typography
+        textAlign="center"
+        className="mt-5 px-3 py-3"
+        style={{ backgroundColor: "#40C1AC" }}
+      >
+        <h2>
+          <b>Your Prescription Details </b>
+        </h2>
       </Typography>
       {prescriptionDetails.length === 0 ? (
-        <Typography variant="h2" textAlign="center">
-          No Prescriptions to show
+        <Typography
+          textAlign="center"
+          className="mt-5 px-3 py-3"
+          style={{ backgroundColor: "#40C1AC" }}
+        >
+          <h2>
+            <b>No Prescriptions to show </b>
+          </h2>
         </Typography>
       ) : (
         ""
       )}
       {prescriptionDetails.map((v, i) => (
-        <Accordion key={v.prescriptionID}>
+        <Accordion className="my-5 accordian" key={v.prescriptionID}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography> Prescription : {i + 1}</Typography>
+            <Typography style={{ color: "red" }}>
+              <b> Prescription : {i + 1} </b>
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <PrescriptionDetail initialstate={v} />{" "}

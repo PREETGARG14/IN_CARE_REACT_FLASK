@@ -30,10 +30,10 @@ const Header = ({
               <Nav.Link href='/home'>
                 <i className='fas fa-shopping-cart'></i> About Us
               </Nav.Link>
-              <Nav.Link href='/home '>
-                <i className='fas fa-shopping-cart'></i> Our Team
+              <Nav.Link href='https://github.com/PREETGARG14/IN_CARE_REACT_FLASK' target="_blank">
+                <i className='fas fa-shopping-cart'></i>Star Us on Github
               </Nav.Link>
-              <Nav.Link href='/home '>
+              <Nav.Link href='#footer'>
                 <i className='fas fa-shopping-cart'></i> Contact Us
               </Nav.Link>
             </Nav>

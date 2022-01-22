@@ -27,31 +27,33 @@ const ShowImmunisation = ({ patientId }) => {
 
   return (
     <Container>
-      <Typography variant="h3" textAlign="center">
-        Your Immunisation Details
+      <Typography className="mt-5 px-3 py-3" style={{ backgroundColor: "#40C1AC" }} textAlign="center">
+        <h2><b>Your Immunisation Details</b></h2>
       </Typography>
       {immunisationDetails.length === 0 ? (
-        <Typography variant="h2" textAlign="center">
-          No Immunisation Details to show
+        <Typography className="mt-5 px-3 py-3" style={{ backgroundColor: "#40C1AC" }} textAlign="center">
+          <h2><b>No Immunisation Details to show </b></h2>
         </Typography>
       ) : (
         ""
       )}
       {immunisationDetails.map((v, i) => (
-        <Accordion key={v.id}>
+        <Accordion className="my-5" key={v.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography> Immunisation : {i + 1}</Typography>
+            <Typography style={{ color: "red" }}><b> Immunisation : {i + 1} </b></Typography>
           </AccordionSummary>
           <AccordionDetails>
             {Object.keys(v).map((item, index) => {
               return (
-                <Typography>
-                  {item} : {v[item]}
-                </Typography>
+                <>
+                  <span><b>{item} :</b></span> &nbsp;&nbsp;
+                  <span>{v[item]}</span>
+                  <hr />
+                </>
               );
             })}
           </AccordionDetails>

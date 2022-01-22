@@ -16,6 +16,7 @@ import * as yup from "yup";
 import Alert from "@mui/material/Alert";
 import { url } from "../utils/url";
 
+import "./ul.css";
 const validationSchema = yup.object({
   username: yup.string("Enter your username").required("username is required"),
   password: yup.string("Enter your password").required("Password is required"),
@@ -53,81 +54,83 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
   });
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log in as a Patient
-        </Typography>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            margin="normal"
-            fullWidth
-            id="username"
-            label="User name"
-            name="username"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          {errorMessage !== "" ? (
-            <Alert
-              onClose={() => setErrorMessage("")}
-              variant="filled"
-              severity="error"
-            >
-              {errorMessage}
-            </Alert>
-          ) : (
-            ""
-          )}
+    <div className="ul">
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            paddingTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log in as a Patient
+          </Typography>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              margin="normal"
+              fullWidth
+              id="username"
+              label="User name"
+              name="username"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            {errorMessage !== "" ? (
+              <Alert
+                onClose={() => setErrorMessage("")}
+                variant="filled"
+                severity="error"
+              >
+                {errorMessage}
+              </Alert>
+            ) : (
+              ""
+            )}
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Log In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
-    </Container>
+          </form>
+        </Box>
+      </Container>
+    </div>
   );
 };
 
