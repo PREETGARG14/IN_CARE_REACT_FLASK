@@ -27,12 +27,24 @@ const ShowImmunisation = ({ patientId }) => {
 
   return (
     <Container>
-      <Typography className="mt-5 px-3 py-3" style={{ backgroundColor: "#40C1AC" }} textAlign="center">
-        <h2><b>Your Immunisation Details</b></h2>
+      <Typography
+        className="mt-5 px-3 py-3"
+        style={{ backgroundColor: "#40C1AC" }}
+        textAlign="center"
+      >
+        <h2>
+          <b>Your Immunisation Details</b>
+        </h2>
       </Typography>
       {immunisationDetails.length === 0 ? (
-        <Typography className="mt-5 px-3 py-3" style={{ backgroundColor: "#40C1AC" }} textAlign="center">
-          <h2><b>No Immunisation Details to show </b></h2>
+        <Typography
+          className="mt-5 px-3 py-3"
+          style={{ backgroundColor: "#40C1AC" }}
+          textAlign="center"
+        >
+          <h2>
+            <b>No Immunisation Details to show </b>
+          </h2>
         </Typography>
       ) : (
         ""
@@ -44,18 +56,35 @@ const ShowImmunisation = ({ patientId }) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography style={{ color: "red" }}><b> Immunisation : {i + 1} </b></Typography>
+            <Typography style={{ color: "red" }}>
+              <b> Immunisation : {i + 1} </b>
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {Object.keys(v).map((item, index) => {
-              return (
-                <>
-                  <span><b>{item} :</b></span> &nbsp;&nbsp;
-                  <span>{v[item]}</span>
-                  <hr />
-                </>
-              );
-            })}
+            <span>
+              <b>Immunisation Item :</b>
+            </span>{" "}
+            &nbsp;&nbsp;
+            <span>{v.immunisation_item}</span>
+            <hr />
+            <span>
+              <b>Route :</b>
+            </span>{" "}
+            &nbsp;&nbsp;
+            <span>{v.route}</span>
+            <hr />
+            <span>
+              <b>Target Site :</b>
+            </span>{" "}
+            &nbsp;&nbsp;
+            <span>{v.target_site}</span>
+            <hr />
+            <span>
+              <b>Sequence No :</b>
+            </span>{" "}
+            &nbsp;&nbsp;
+            <span>{v.sequence_no}</span>
+            <hr />
           </AccordionDetails>
         </Accordion>
       ))}

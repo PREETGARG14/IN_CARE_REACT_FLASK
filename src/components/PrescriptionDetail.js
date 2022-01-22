@@ -81,7 +81,7 @@ export default function Prescriptions({ initialstate }) {
                 id="Medication item"
                 name="Medication item"
                 disabled
-                value={details["Medication item"]}
+                value={details["medItem"]}
               />
             </div>
 
@@ -111,7 +111,7 @@ export default function Prescriptions({ initialstate }) {
                     id="Name"
                     name="Name"
                     disabled
-                    value={details["Name"]}
+                    value={details["prepSubstanceName"]}
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export default function Prescriptions({ initialstate }) {
                     id="Form"
                     name="Form"
                     disabled
-                    value={details["Form"]}
+                    value={details["prepForm"]}
                   />
                 </div>
 
@@ -149,7 +149,7 @@ export default function Prescriptions({ initialstate }) {
                     id="strength"
                     name="strength"
                     disabled
-                    value={details["strength"]}
+                    value={details[" prepStrength"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -158,7 +158,7 @@ export default function Prescriptions({ initialstate }) {
                     name="strengthUnit"
                     placeholder="Unit"
                     disabled
-                    value={details["strengthUnit"]}
+                    value={details["prepStrengthUnit"]}
                   />
                 </div>
 
@@ -187,7 +187,7 @@ export default function Prescriptions({ initialstate }) {
                         name="numerator"
                         placeholder=">=0"
                         disabled
-                        value={details["numerator"]}
+                        value={details[" diluentAmount"]}
                       />
                       &nbsp;&nbsp;
                       <input
@@ -196,7 +196,7 @@ export default function Prescriptions({ initialstate }) {
                         name="numeratorUnit"
                         placeholder="unit"
                         disabled
-                        value={details["numeratorUnit"]}
+                        value={details["diluentUnit"]}
                       />
                     </div>
                   </div>
@@ -241,7 +241,7 @@ export default function Prescriptions({ initialstate }) {
                         id="substanceName"
                         name="substanceName"
                         disabled
-                        value={details["substanceName"]}
+                        value={details["ingredientSubstanceName"]}
                       />
                     </div>
 
@@ -288,7 +288,7 @@ export default function Prescriptions({ initialstate }) {
                           setDetails({ ...details, category: e.target.value });
                         }}
                         disabled
-                        value={details["category"]}
+                        value={details["ingredientCategory"]}
                       />
                     </div>
 
@@ -311,7 +311,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["ingredientstrength"]}
+                        value={details["ingredientStrength"]}
                       />
                     </div>
 
@@ -334,7 +334,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["strengthUnit"]}
+                        value={details["ingredientStrengthUnit"]}
                       />
                     </div>
 
@@ -357,7 +357,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["medicationDescription"]}
+                        value={details["ingredientDescription"]}
                       />
                     </div>
                   </div>
@@ -384,7 +384,7 @@ export default function Prescriptions({ initialstate }) {
                     });
                   }}
                   disabled
-                  value={details["ingredient-amount"]}
+                  value={details["ingredientAmount"]}
                 />
                 &nbsp;&nbsp;
                 <input
@@ -399,7 +399,7 @@ export default function Prescriptions({ initialstate }) {
                     });
                   }}
                   disabled
-                  value={details["ingredient-amountUnit"]}
+                  value={details["ingredientAmountUnit"]}
                 />
               </div>
 
@@ -425,7 +425,7 @@ export default function Prescriptions({ initialstate }) {
                     setDetails({ ...details, roleStatus: e.target.value });
                   }}
                   disabled
-                  value={details["roleStatus"]}
+                  value={details["ingredientRole"]}
                 >
                   <option value="active">Therauputic</option>
                   <option value="stopped">Electrolyte</option>
@@ -449,7 +449,7 @@ export default function Prescriptions({ initialstate }) {
                     setDetails({ ...details, role: e.target.value });
                   }}
                   disabled
-                  value={details["role"]}
+                  value={details["ingredientRole2"]}
                 />
               </div>
             </div>
@@ -471,7 +471,7 @@ export default function Prescriptions({ initialstate }) {
                 setDetails({ ...details, description: e.target.value });
               }}
               disabled
-              value={details["description"]}
+              value={details["medDescription"]}
             />
           </div>
           <br />
@@ -497,7 +497,7 @@ export default function Prescriptions({ initialstate }) {
               setDetails({ ...details, route: e.target.value });
             }}
             disabled
-            value={details["route"]}
+            value={details["medRoute"]}
           />
         </div>
         <br />
@@ -517,7 +517,7 @@ export default function Prescriptions({ initialstate }) {
               setDetails({ ...details, dosageInstructions: e.target.value });
             }}
             disabled
-            value={details["dosageInstructions"]}
+            value={details["medDosageInstructions"]}
           />
         </div>
 
@@ -807,7 +807,7 @@ export default function Prescriptions({ initialstate }) {
                           setDetails({ ...details, st: e.target.value });
                         }}
                         disabled
-                        value={details["st"]}
+                        value={details["doseSpecificTime"]}
                       />{" "}
                       &nbsp;&nbsp;
                       <span> or </span> &nbsp;&nbsp;
@@ -844,7 +844,7 @@ export default function Prescriptions({ initialstate }) {
                           setDetails({ ...details, nte: e.target.value });
                         }}
                         disabled
-                        value={details["nte"]}
+                        value={details["doseNamedTimeEvent"]}
                       />{" "}
                       &nbsp;&nbsp;
                       <span>or</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -861,7 +861,7 @@ export default function Prescriptions({ initialstate }) {
                           setDetails({ ...details, nte2: e.target.value });
                         }}
                         disabled
-                        value={details["nte2"]}
+                        value={details["doseNamedTimeEvent2"]}
                       >
                         <option value="active">immediately</option>
                         <option value="stopped">in the morning</option>
@@ -892,7 +892,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["timeCritical"]}
+                        value={details["doseExactTimingCritical"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -917,7 +917,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["asRequired"]}
+                        value={details["doseAsRequired"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -941,7 +941,7 @@ export default function Prescriptions({ initialstate }) {
                           });
                         }}
                         disabled
-                        value={details["requiredcriterion"]}
+                        value={details["doseAsRequiredCriterion"]}
                       />{" "}
                       &nbsp;&nbsp;
                     </div>
@@ -969,7 +969,7 @@ export default function Prescriptions({ initialstate }) {
                         setDetails({ ...details, iar: e.target.value });
                       }}
                       disabled
-                      value={details["iar"]}
+                      value={details["infusionAdminRateQ"]}
                     />
                     &nbsp;&nbsp;
                     <select
@@ -979,7 +979,7 @@ export default function Prescriptions({ initialstate }) {
                         setDetails({ ...details, iarUnit: e.target.value });
                       }}
                       disabled
-                      value={details["iarUnit"]}
+                      value={details["infusionAdminRateUnit"]}
                     >
                       <option value="active">1/d</option>
                       <option value="stopped">1/min</option>
@@ -1003,7 +1003,7 @@ export default function Prescriptions({ initialstate }) {
                         setDetails({ ...details, iar1: e.target.value });
                       }}
                       disabled
-                      value={details["iar1"]}
+                      value={details["infusionAdminRateT"]}
                     />
                   </div>
                   <div style={{ paddingTop: "5px" }}>
@@ -1032,7 +1032,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["administration"]}
+                      value={details["doseAdminDuration"]}
                     />
                   </div>
                 </div>
@@ -1061,7 +1061,7 @@ export default function Prescriptions({ initialstate }) {
                     });
                   }}
                   disabled
-                  value={details["directionDuration"]}
+                  value={details["doseDirectionDuration1"]}
                 >
                   <option value="active">Indefinate</option>
                   <option value="stopped">Indefinate does not continue</option>
@@ -1086,7 +1086,7 @@ export default function Prescriptions({ initialstate }) {
                     });
                   }}
                   disabled
-                  value={details["directionDuration2"]}
+                  value={details["doseDirectionDuration2"]}
                 />
               </div>
               <div style={{ paddingTop: "5px" }}>
@@ -1121,7 +1121,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["repetitionInterval"]}
+                      value={details["directionRepetitionInterval"]}
                     />
                   </div>
 
@@ -1149,7 +1149,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["specificDate"]}
+                      value={details["directionSpecificDate"]}
                     />
                     &nbsp;&nbsp;
                     <input
@@ -1162,7 +1162,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["spcificTime"]}
+                      value={details["directionSpecificTime"]}
                     />
                   </div>
 
@@ -1191,7 +1191,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["specificDayofweek"]}
+                      value={details["directionSpecificDoW"]}
                     />
                   </div>
 
@@ -1219,7 +1219,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["specificdayofmonth"]}
+                      value={details["directionSpecificDoM"]}
                     />
                   </div>
 
@@ -1251,7 +1251,7 @@ export default function Prescriptions({ initialstate }) {
                             });
                           }}
                           disabled
-                          value={details["eventName"]}
+                          value={details["directionEventName"]}
                         />
                       </div>
 
@@ -1275,7 +1275,7 @@ export default function Prescriptions({ initialstate }) {
                             });
                           }}
                           disabled
-                          value={details["eventStartInterval"]}
+                          value={details["directionEventStartInterval"]}
                         />
                       </div>
                     </div>
@@ -1327,7 +1327,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["maximumAmount"]}
+                      value={details["safetyMaxAmount"]}
                     />
                   </div>
 
@@ -1350,7 +1350,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["maximumAmountDoseUnit"]}
+                      value={details["safetyMaxAmountUnit"]}
                     />
                   </div>
 
@@ -1374,7 +1374,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["allowedPeriod"]}
+                      value={details["safetyAllowedPeriod"]}
                     />
                   </div>
                 </div>
@@ -1423,7 +1423,7 @@ export default function Prescriptions({ initialstate }) {
                   });
                 }}
                 disabled
-                value={details["additionalInstructions"]}
+                value={details["orderAdditionalInstructions"]}
               />
             </div>
 
@@ -1443,7 +1443,7 @@ export default function Prescriptions({ initialstate }) {
                   setDetails({ ...details, reason: e.target.value });
                 }}
                 disabled
-                value={details["reason"]}
+                value={details["orderReason"]}
               />
             </div>
 
@@ -1477,7 +1477,11 @@ export default function Prescriptions({ initialstate }) {
                     className="images"
                   />
                   <label for="status">Status</label> &nbsp;&nbsp;
-                  <select name="status" id="status">
+                  <select
+                    name="status"
+                    id="status"
+                    value={details["courseStatus"]}
+                  >
                     <option value="active">Active</option>
                     <option value="stopped">Stopped</option>
                     <option value="neverActive">Never Active</option>
@@ -1504,7 +1508,7 @@ export default function Prescriptions({ initialstate }) {
                       });
                     }}
                     disabled
-                    value={details["dateDiscontinued"]}
+                    value={details["courseDiscontinuedDate"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1518,7 +1522,7 @@ export default function Prescriptions({ initialstate }) {
                       });
                     }}
                     disabled
-                    value={details["timeDiscontinued"]}
+                    value={details["courseDiscontinuedTime"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1539,7 +1543,7 @@ export default function Prescriptions({ initialstate }) {
                       setDetails({ ...details, dateWritten: e.target.value });
                     }}
                     disabled
-                    value={details["dateWritten"]}
+                    value={details["courseWrittenDate"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1550,7 +1554,7 @@ export default function Prescriptions({ initialstate }) {
                       setDetails({ ...details, timeWritten: e.target.value });
                     }}
                     disabled
-                    value={details["timeWritten"]}
+                    value={details["courseWrittenTime"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1586,7 +1590,7 @@ export default function Prescriptions({ initialstate }) {
                       setDetails({ ...details, nora: e.target.value });
                     }}
                     disabled
-                    value={details["nora"]}
+                    value={details["authNumberofRepeatsAllowed"]}
                   />
                 </div>
 
@@ -1609,7 +1613,7 @@ export default function Prescriptions({ initialstate }) {
                       });
                     }}
                     disabled
-                    value={details["validityPeriod"]}
+                    value={details["authValidityPeriodDate"]}
                   />
                   &nbsp;&nbsp;
                   <input
@@ -1623,7 +1627,7 @@ export default function Prescriptions({ initialstate }) {
                       });
                     }}
                     disabled
-                    value={details["validityPeriodTime"]}
+                    value={details["authValidityPeriodTime"]}
                   />
                   &nbsp;&nbsp;
                 </div>
@@ -1664,7 +1668,7 @@ export default function Prescriptions({ initialstate }) {
                         });
                       }}
                       disabled
-                      value={details["dispenseInstructions"]}
+                      value={details["dispenseInstruction"]}
                     />
                   </div>
 
@@ -1697,7 +1701,7 @@ export default function Prescriptions({ initialstate }) {
                             });
                           }}
                           disabled
-                          value={details["amountDescription"]}
+                          value={details["dispenseAmountDescription"]}
                         />
                       </div>
 
@@ -1721,7 +1725,7 @@ export default function Prescriptions({ initialstate }) {
                             });
                           }}
                           disabled
-                          value={details["amountindispense"]}
+                          value={details["dispenseAmount"]}
                         />
                       </div>
 
@@ -1744,7 +1748,7 @@ export default function Prescriptions({ initialstate }) {
                             });
                           }}
                           disabled
-                          value={details["dispenseUnits"]}
+                          value={details["dispenseAmountUnits"]}
                         />
                       </div>
 
@@ -1765,7 +1769,7 @@ export default function Prescriptions({ initialstate }) {
                             setDetails({ ...details, dos: e.target.value });
                           }}
                           disabled
-                          value={details["dos"]}
+                          value={details["dispenseDurationofSupply"]}
                         />
                       </div>
                     </div>
@@ -1788,7 +1792,7 @@ export default function Prescriptions({ initialstate }) {
                     setDetails({ ...details, comment: e.target.value });
                   }}
                   disabled
-                  value={details["comment"]}
+                  value={details["orderComment"]}
                 />
               </div>
               <div style={{ paddingTop: "5px" }}>
@@ -1807,7 +1811,7 @@ export default function Prescriptions({ initialstate }) {
                     setDetails({ ...details, identifier: e.target.value });
                   }}
                   disabled
-                  value={details["identifier"]}
+                  value={details["orderID"]}
                 />
               </div>
               <hr />
