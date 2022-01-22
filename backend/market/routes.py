@@ -503,4 +503,5 @@ def indexone():
         "status": "sent",
         "eventLink": eventlink
     }
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return jsonify(result), 200
