@@ -26,7 +26,7 @@ const Footer = () => {
                 <h5>Resources</h5>
               </div>
               <div className="text-end mt-2  content" style={{ color: "grey" }}>
-                <a href="/">About Us</a> &nbsp;&nbsp; &nbsp;&nbsp;
+                <a href="#aboutus">About Us</a> &nbsp;&nbsp; &nbsp;&nbsp;
                 <a
                   href="https://github.com/PREETGARG14/IN_CARE_REACT_FLASK"
                   target="_blank"
@@ -52,7 +52,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="col-md-6 text-end px-5" style={{ color: "grey" }}>
+          <div className="col-md-6 text-end px-5" style={{ color: "grey"}}>
             <a href="/">Privacy Policy</a> &nbsp;&nbsp; &nbsp;&nbsp;
             <a href="/">Terms of Use </a> &nbsp;&nbsp; &nbsp;&nbsp;
             <a href="/">Cookies</a>

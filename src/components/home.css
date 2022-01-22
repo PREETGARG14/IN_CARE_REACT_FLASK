@@ -2,8 +2,11 @@ body{
   background-color: #f4f4f4;
   overflow-x: hidden;
 }
-
-
+/* 
+#aiButton
+{
+  z-index: 100;
+} */
 
 .fs-24 {
   font-size: 1.5rem !important;

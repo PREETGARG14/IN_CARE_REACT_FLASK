@@ -27,7 +27,7 @@ const Header = ({
           <Navbar.Collapse id='basic-navbar-nav'>
 
             <Nav className='ml-auto'>
-              <Nav.Link href='/home'>
+              <Nav.Link href='#aboutus'>
                 <i className='fas fa-shopping-cart'></i> About Us
               </Nav.Link>
               <Nav.Link href='https://github.com/PREETGARG14/IN_CARE_REACT_FLASK' target="_blank">
