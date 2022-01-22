@@ -1,4 +1,19 @@
-.ul{
-    background-image: url('./ul.jpg');
-    background-size: 100%;
+.ul {
+  background: url("ul.jpg");
+  background-size: 100%;
+  text-align: right !important;
+}
+.ul:hover {
+  color: black !important;
+}
+
+link {
+  color: "black" !important;
+}
+
+.signup {
+  color: #0645ad !important;
+}
+.signup:hover {
+  color: black !important;
 }

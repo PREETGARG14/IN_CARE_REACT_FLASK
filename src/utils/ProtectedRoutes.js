@@ -1,9 +1,9 @@
-import React from 'react'
-import {Navigate} from 'react-router-dom'
+import React from "react";
+import { Navigate } from "react-router-dom";
 
-function ProtectedRoutes({ children,auth }) {
-  console.log(auth)
-  return auth ? children : <Navigate to="/doctorlogin" />;
+function ProtectedRoutes({ children, auth }) {
+  console.log(auth);
+  return auth ? children : <Navigate to="/" />;
 }
 
-export default ProtectedRoutes
+export default ProtectedRoutes;

@@ -21,10 +21,7 @@ const Cards = ({ userId, setUserID }) => {
   };
   return (
     <div style={{ backgroundImage: "url(/1.png)" }}>
-      <div className="container-fluid py-5">
-        <div className="text-center">
-          <h1>Welcome!</h1>
-        </div>
+      <div className="container-fluid py-5 hs">
         <div className="d-flex justify-content-center ps-5">
           <div className="col-8 pt-5">
             <div className="row row-cols-1 row-cols-md-3 g-4">
