@@ -1,0 +1,42 @@
+body {
+  overflow-x: hidden;
+  /* background-color: yellow; */
+}
+.hs {
+  background-image: url("hs.jpg");
+  background-size: 100%;
+}
+.card {
+  box-shadow: -1px 15px 30px -10px rgb(0, 0, 0);
+  height: 250px;
+}
+
+h6 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color: black !important;
+}
+
+.card-wr-bg:hover {
+  background-color: #f4dd97;
+  cursor: pointer;
+  transition: all 1s ease;
+  transform: scale(1.04);
+  overflow-x: hidden;
+}
+
+.card-s-bg:hover {
+  background-color: #8bdfb8;
+  cursor: pointer;
+  transition: all 1s ease;
+  transform: scale(1.04);
+}
+
+.card-d-bg:hover {
+  background-color: #f07a85;
+  cursor: pointer;
+  transition: all 1s ease;
+  transform: scale(1.04);
+  text-decoration: none;
+  color: black;
+}
