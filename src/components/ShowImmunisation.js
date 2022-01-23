@@ -29,23 +29,22 @@ const ShowImmunisation = ({ patientId }) => {
     <Container>
       <Typography
         className="mt-5 px-3 py-3"
-        style={{ backgroundColor: "#40C1AC" }}
         textAlign="center"
       >
-        <h2>
+        <h3>
           <b>Your Immunisation Details</b>
-        </h2>
+        </h3>
       </Typography>
       {immunisationDetails.length === 0 ? (
-        <Typography
+       <>
+         <Typography
           className="mt-5 px-3 py-3"
-          style={{ backgroundColor: "#40C1AC" }}
-          textAlign="center"
         >
-          <h2>
-            <b>No Immunisation Details to show </b>
-          </h2>
+          <center><img src="no-record.png" alt="" style={{height:"200px"}} /></center>
         </Typography>
+         <div className="py-5"></div>
+         <div className="py-5"></div>
+       </>
       ) : (
         ""
       )}
@@ -88,6 +87,9 @@ const ShowImmunisation = ({ patientId }) => {
           </AccordionDetails>
         </Accordion>
       ))}
+    
+         <div className="py-5"></div>
+         <div className="py-5"></div>
     </Container>
   );
 };

@@ -67,7 +67,10 @@ const Cards = ({ userId, setUserID }) => {
             </div>
           </div>
         </div>
+        <div className="py-5"></div>
+        <div className="py-5"></div>
       </div>
+
     </div>
   );
 };

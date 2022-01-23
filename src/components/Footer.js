@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
 
           <div className="col-md-6 pe-5">
-            <div className="mt-2">
+            <div className="text-end mt-2">
               <div className="resources">
                 <h5>Resources</h5>
               </div>

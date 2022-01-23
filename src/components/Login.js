@@ -123,6 +123,8 @@ const Login = ({ setUserDetailStatus, setPatientId, setPatientName }) => {
           </form>
         </Box>
       </Container>
+      <div className="py-5"></div>
+      <div className="py-5"></div>
     </div>
   );
 };

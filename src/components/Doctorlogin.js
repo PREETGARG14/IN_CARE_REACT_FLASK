@@ -134,6 +134,8 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
           </Box>
         </Box>
       </Container>
+      <div className="py-5"></div>
+      <div className="py-5"></div>
     </div>
   );
 };
