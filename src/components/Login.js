@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -27,7 +26,6 @@ const Login = ({ setUserDetailStatus, setPatientId, setPatientName }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (data) => {
-    console.log(data);
     Axios.post(`${url}/api/login`, data)
       .then((res) => {
         if (res.data.status === "successful") {
@@ -41,7 +39,6 @@ const Login = ({ setUserDetailStatus, setPatientId, setPatientName }) => {
         }
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         setErrorMessage(err.response.data.message);
       });
   };

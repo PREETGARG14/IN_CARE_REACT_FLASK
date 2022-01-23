@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { nanoid } from "nanoid";
 import { initialstate } from "../utils/InitialState";
 import Axios from "axios";
-import { Container } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { url } from "../utils/url";
@@ -20,7 +19,6 @@ export default function Prescriptions({ userId }) {
   const handleClick = (e) => {
     const newDetails = { ...details, pi: nanoid() };
     e.preventDefault();
-    console.log(details);
     let token = sessionStorage.getItem("token");
     let config = {
       headers: {
@@ -43,33 +41,31 @@ export default function Prescriptions({ userId }) {
   };
 
   const presInput = {
-    width:"250px",
-    height:"30px",
-    marginLeft:"10px",
-    marginTop:"7px"
-   };
+    width: "250px",
+    height: "30px",
+    marginLeft: "10px",
+    marginTop: "7px",
+  };
 
-   const presCheckbox = {
-    height:"15px",
-    marginLeft:"10px",
-    marginTop:"7px",
-    width: "15px"
-   };
+  const presCheckbox = {
+    height: "15px",
+    marginLeft: "10px",
+    marginTop: "7px",
+    width: "15px",
+  };
 
-   const spanPres={
-     paddingLeft:"0px",
-     paddingTop:"10px"
-   };
+  const spanPres = {
+    paddingLeft: "0px",
+    paddingTop: "10px",
+  };
 
-   const spanNum={
-     paddingLeft:"0px",
-     paddingRight:"0px",
-     marginLeft:"0px",
-     color:"grey",
-     fontWeight:"bold"
-
-   };
-
+  const spanNum = {
+    paddingLeft: "0px",
+    paddingRight: "0px",
+    marginLeft: "0px",
+    color: "grey",
+    fontWeight: "bold",
+  };
 
   return (
     <form>
@@ -83,7 +79,13 @@ export default function Prescriptions({ userId }) {
           />{" "}
           &nbsp;&nbsp;
           <span style={spanPres}>Prescription identifier</span> &nbsp;
-          <input style={presInput} type="text" name="pi" id="pi" disabled={true} />
+          <input
+            style={presInput}
+            type="text"
+            name="pi"
+            id="pi"
+            disabled={true}
+          />
         </div>
       </div>
       <hr />
@@ -91,8 +93,8 @@ export default function Prescriptions({ userId }) {
         className="mainHeading pt-1 ps-1"
         style={
           ({ fontFamily: "Arial" },
-            { fontSize: "14px" },
-            { fontWeight: "bold" })
+          { fontSize: "14px" },
+          { fontWeight: "bold" })
         }
       >
         <div style={{ backgroundColor: "#E0E0E0" }}>
@@ -103,15 +105,10 @@ export default function Prescriptions({ userId }) {
             src="arrow.svg"
           />
           <span style={spanPres}> Medication order </span>
-          <span style={spanNum}>
-            [0..*]
-          </span>
+          <span style={spanNum}>[0..*]</span>
         </div>
 
-        <div
-          className="innerHeading"
-          style={{ paddingLeft: "15px" }}
-        >
+        <div className="innerHeading" style={{ paddingLeft: "15px" }}>
           <img
             style={{ height: "20px" }}
             alt=""
@@ -119,9 +116,7 @@ export default function Prescriptions({ userId }) {
             src="aty.svg"
           />
           <span style={spanPres}> Order </span>
-          <span style={spanNum}>
-            [0..*]
-          </span>
+          <span style={spanNum}>[0..*]</span>
 
           <div className="content" style={{ paddingLeft: "15px" }}>
             <div>
@@ -132,11 +127,10 @@ export default function Prescriptions({ userId }) {
                 src="item.svg"
               />
               <span style={spanPres}> Medication Item</span>{" "}
-              <span style={spanNum}>
-                [1..1]
-              </span>
+              <span style={spanNum}>[1..1]</span>
               &nbsp;&nbsp;
-              <input style={presInput}
+              <input
+                style={presInput}
                 type="text"
                 id="Medication item"
                 name="Medication item"
@@ -167,7 +161,8 @@ export default function Prescriptions({ userId }) {
                     src="item.svg"
                   />
                   <span style={spanPres}>Substance Name </span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     id="Name"
                     name="Name"
@@ -185,11 +180,10 @@ export default function Prescriptions({ userId }) {
                     src="item.svg"
                   />
                   <span style={spanPres}> Form </span>{" "}
-                  <span style={spanNum}>
-                    [0..*]
-                  </span>
+                  <span style={spanNum}>[0..*]</span>
                   &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     id="Form"
                     name="Form"
@@ -207,7 +201,8 @@ export default function Prescriptions({ userId }) {
                     src="q.svg"
                   />
                   <span style={spanPres}> Strength </span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     id="strength"
                     name="strength"
@@ -216,7 +211,8 @@ export default function Prescriptions({ userId }) {
                     }}
                   />
                   &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     id="strengthUnit"
                     name="strengthUnit"
@@ -246,7 +242,8 @@ export default function Prescriptions({ userId }) {
                       />
                       <span style={spanPres}>Diluent Amount</span>
                       &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="numerator"
                         name="numerator"
@@ -256,7 +253,8 @@ export default function Prescriptions({ userId }) {
                         }}
                       />
                       &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="numeratorUnit"
                         name="numeratorUnit"
@@ -280,9 +278,7 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span style={spanPres}>Ingredient </span>
-                  <span style={spanNum}>
-                    [0..*]
-                  </span>
+                  <span style={spanNum}>[0..*]</span>
                   &nbsp;&nbsp;
                   <div
                     className="ingredient-content"
@@ -306,7 +302,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}> Substance name</span>&nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="substanceName"
                         name="substanceName"
@@ -326,12 +323,10 @@ export default function Prescriptions({ userId }) {
                         src="t.svg"
                         className="images"
                       />
-                      <span>Form</span>{" "}
-                      <span style={spanNum}>
-                        [0..*]
-                      </span>
+                      <span>Form</span> <span style={spanNum}>[0..*]</span>
                       &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="ingredientForm"
                         name="ingredientForm"
@@ -352,7 +347,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Category</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="category"
                         name="category"
@@ -370,7 +366,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Strength</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="ingredientstrength"
                         name="ingredientStrength"
@@ -391,7 +388,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Strength Unit</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="strengthUnit"
                         name="ingredientStrengthUnit"
@@ -412,7 +410,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Description</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         id="medicationDescription"
                         name="medicationDescription"
@@ -436,7 +435,8 @@ export default function Prescriptions({ userId }) {
                   className="images"
                 />
                 <span style={spanPres}>Ingredient Amount</span> &nbsp;&nbsp;
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   id="ingredient-amount"
                   name="ingredient-amount"
@@ -449,7 +449,8 @@ export default function Prescriptions({ userId }) {
                   }}
                 />
                 &nbsp;&nbsp;
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   id="ingredient-amountUnit"
                   name="ingredient-amountUnit"
@@ -492,14 +493,16 @@ export default function Prescriptions({ userId }) {
                   <option value="completed">Diluent</option>
                   <option value="completed">Coloring</option>
                   <option value="completed">Influent</option>
-                </select> &nbsp;&nbsp;
+                </select>{" "}
+                &nbsp;&nbsp;
                 <img
                   style={{ height: "20px" }}
                   alt=""
                   src="t.svg"
                   className="images"
                 />
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   id="role"
                   name="role"
@@ -520,7 +523,8 @@ export default function Prescriptions({ userId }) {
               className="images"
             />
             <span style={spanPres}>Description</span> &nbsp;&nbsp;
-            <input style={presInput}
+            <input
+              style={presInput}
               type="text"
               id="description"
               name="description"
@@ -540,11 +544,9 @@ export default function Prescriptions({ userId }) {
             className="images"
           />
           <span style={spanPres}>Route</span>
-          <span style={spanNum}>
-            [0..*]
-          </span>{" "}
-          &nbsp;&nbsp;
-          <input style={presInput}
+          <span style={spanNum}>[0..*]</span> &nbsp;&nbsp;
+          <input
+            style={presInput}
             type="text"
             id="route"
             name="route"
@@ -562,7 +564,8 @@ export default function Prescriptions({ userId }) {
             className="images"
           />
           <span style={spanPres}>dosageInstructions</span> &nbsp;&nbsp;
-          <input style={presInput}
+          <input
+            style={presInput}
             type="text"
             id="dosageInstructions"
             name="dosageInstructions"
@@ -580,10 +583,7 @@ export default function Prescriptions({ userId }) {
             className="images"
           />
           <span style={spanPres}>Dose Direction</span>
-          <span style={spanNum}>
-            [0..*]
-          </span>{" "}
-          &nbsp;&nbsp;
+          <span style={spanNum}>[0..*]</span> &nbsp;&nbsp;
           <div className="dose-content" style={{ paddingLeft: "15px" }}>
             <div style={{ paddingTop: "5px" }}>
               <img
@@ -593,9 +593,7 @@ export default function Prescriptions({ userId }) {
                 className="images"
               />
               <span style={spanPres}>Dose Pattern</span>
-              <span style={spanNum}>
-                [0..*]
-              </span>
+              <span style={spanNum}>[0..*]</span>
               &nbsp;&nbsp;
               <div className="dose-content">
                 <div style={{ paddingTop: "5px" }}>
@@ -612,7 +610,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                     src="q.svg"
                   />
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     name="doseAmount"
                     id="doseAmount"
@@ -630,7 +629,8 @@ export default function Prescriptions({ userId }) {
                     src="lower.svg"
                   />
                   <span>Lower:</span>
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     name="doseAmountLower"
                     id="doseAmountLower"
@@ -643,7 +643,8 @@ export default function Prescriptions({ userId }) {
                     }}
                   />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span>Upper:</span>&nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     name="doseAmountUpper"
                     id="doseAmountUpper"
@@ -665,7 +666,8 @@ export default function Prescriptions({ userId }) {
                     src="t.svg"
                   />
                   <span style={spanPres}>Dose Unit</span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     name="doseUnit"
                     id="doseUnit"
@@ -698,7 +700,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                         src="q.svg"
                       />
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         name="frequency"
                         id="frequency"
@@ -733,7 +736,8 @@ export default function Prescriptions({ userId }) {
                         src="lower.svg"
                       />
                       <span>Lower:</span>
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         name="frequencyLower"
                         id="frequencyLower"
@@ -764,7 +768,8 @@ export default function Prescriptions({ userId }) {
                       </select>
                       &nbsp;&nbsp;
                       <span>Upper:</span>
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         name="frequencyUpper"
                         id="frequencyUpper"
@@ -778,7 +783,6 @@ export default function Prescriptions({ userId }) {
                       />
                       &nbsp;&nbsp;
                       <select
-
                         style={{ height: "30px" }}
                         name="frequencyUpperUnit"
                         id="status"
@@ -804,7 +808,8 @@ export default function Prescriptions({ userId }) {
                         src="hourglass.svg"
                       />
                       <span style={spanPres}>Interval</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         name="interval"
                         id="interval"
@@ -822,9 +827,7 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Specific Time</span>
-                      <span style={spanNum}>
-                        [0..*]
-                      </span>
+                      <span style={spanNum}>[0..*]</span>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <img
                         style={{ height: "20px" }}
@@ -832,7 +835,8 @@ export default function Prescriptions({ userId }) {
                         src="clock.svg"
                         className="images"
                       />
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="time"
                         name="st"
                         id="st"
@@ -859,15 +863,15 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>Named Time Event</span>
-                      <span style={spanNum}>[0..*]</span>{" "}
-                      &nbsp;&nbsp;
+                      <span style={spanNum}>[0..*]</span> &nbsp;&nbsp;
                       <img
                         style={{ height: "20px" }}
                         alt=""
                         src="t.svg"
                         className="images"
                       />
-                      <input style={presInput}
+                      <input
+                        style={presInput}
                         type="text"
                         name="nte"
                         id="nte"
@@ -884,7 +888,6 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <select
-
                         style={{ height: "30px" }}
                         name="nte2"
                         id="status"
@@ -908,9 +911,10 @@ export default function Prescriptions({ userId }) {
                         src="tick.svg"
                         className="images"
                       />
-                      <span style={spanPres}>Exact Time Critical</span> &nbsp;&nbsp;
-                      <input style={presCheckbox}
-
+                      <span style={spanPres}>Exact Time Critical</span>{" "}
+                      &nbsp;&nbsp;
+                      <input
+                        style={presCheckbox}
                         type="checkbox"
                         name="timeCritical"
                         id="timeCritical"
@@ -932,8 +936,8 @@ export default function Prescriptions({ userId }) {
                         className="images"
                       />
                       <span style={spanPres}>As required</span> &nbsp;&nbsp;
-                      <input style={presCheckbox}
-
+                      <input
+                        style={presCheckbox}
                         type="checkbox"
                         name="asRequired"
                         id="asRequired"
@@ -954,8 +958,10 @@ export default function Prescriptions({ userId }) {
                         src="t.svg"
                         className="images"
                       />
-                      <span style={spanPres}>As required criterion</span> &nbsp;&nbsp;
-                      <input style={presInput}
+                      <span style={spanPres}>As required criterion</span>{" "}
+                      &nbsp;&nbsp;
+                      <input
+                        style={presInput}
                         type="text"
                         name="requiredCriterion"
                         id="requiredCriterion"
@@ -976,14 +982,16 @@ export default function Prescriptions({ userId }) {
                       className="images"
                       src="category.svg"
                     />
-                    <span style={spanPres}>Infusion administration rate</span> &nbsp;&nbsp;
+                    <span style={spanPres}>Infusion administration rate</span>{" "}
+                    &nbsp;&nbsp;
                     <img
                       style={{ height: "20px" }}
                       alt=""
                       src="q.svg"
                       className="images"
                     />
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       name="iar"
                       id="iar"
@@ -1015,7 +1023,8 @@ export default function Prescriptions({ userId }) {
                       src="t.svg"
                     />
                     &nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       name="iar1"
                       id="iar1"
@@ -1031,14 +1040,16 @@ export default function Prescriptions({ userId }) {
                       className="images"
                       src="hourglass.svg"
                     />
-                    <span style={spanPres}>Dose administration duration</span> &nbsp;&nbsp;
+                    <span style={spanPres}>Dose administration duration</span>{" "}
+                    &nbsp;&nbsp;
                     <img
                       style={{ height: "20px" }}
                       alt=""
                       className="images"
                       src="t.svg"
                     />
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       name="administration"
                       id="administration"
@@ -1089,7 +1100,8 @@ export default function Prescriptions({ userId }) {
                   className="images"
                   src="hourglass.svg"
                 />
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   name="directionDuration2"
                   id="directionDuration"
@@ -1121,8 +1133,10 @@ export default function Prescriptions({ userId }) {
                       className="images"
                       src="hourglass.svg"
                     />
-                    <span style={spanPres}>Repitition Interval</span> &nbsp;&nbsp;
-                    <input style={presInput}
+                    <span style={spanPres}>Repitition Interval</span>{" "}
+                    &nbsp;&nbsp;
+                    <input
+                      style={presInput}
                       type="text"
                       name="repetitionInterval"
                       id="repetitionInterval"
@@ -1144,12 +1158,10 @@ export default function Prescriptions({ userId }) {
                       src="clipboard.svg"
                     />
                     <span style={spanPres}>Specific date</span> &nbsp;&nbsp;
-                    <span style={spanNum}>
-                      {" "}
-                      [0..*]
-                    </span>
+                    <span style={spanNum}> [0..*]</span>
                     &nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="date"
                       name="specificDate"
                       id="specificDate"
@@ -1161,7 +1173,8 @@ export default function Prescriptions({ userId }) {
                       }}
                     />
                     &nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="time"
                       name="specficTime"
                       onChange={(e) => {
@@ -1181,12 +1194,9 @@ export default function Prescriptions({ userId }) {
                       src="one.svg"
                     />
                     <span style={spanPres}>Specific day of week</span>
-                    <span style={spanNum}>
-                      {" "}
-                      [0..*]
-                    </span>{" "}
-                    &nbsp;&nbsp;
-                    <input style={presInput}
+                    <span style={spanNum}> [0..*]</span> &nbsp;&nbsp;
+                    <input
+                      style={presInput}
                       type="text"
                       name="specificDayofweek"
                       id="specificDayofweek"
@@ -1208,11 +1218,10 @@ export default function Prescriptions({ userId }) {
                       src="one.svg"
                     />
                     <span style={spanPres}>Specific day of month</span>
-                    <span style={spanNum}>
-                      [0..*]
-                    </span>
+                    <span style={spanNum}>[0..*]</span>
                     &nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       name="specificDayofmonth"
                       id="specificDayofweek"
@@ -1243,7 +1252,8 @@ export default function Prescriptions({ userId }) {
                           src="t.svg"
                         />
                         <span style={spanPres}>Event Name</span>&nbsp;&nbsp;
-                        <input style={presInput}
+                        <input
+                          style={presInput}
                           type="text"
                           name="eventName"
                           id="eventName"
@@ -1263,8 +1273,10 @@ export default function Prescriptions({ userId }) {
                           className="images"
                           src="hourglass.svg"
                         />
-                        <span style={spanPres}>Start Interval</span> &nbsp;&nbsp;
-                        <input style={presInput}
+                        <span style={spanPres}>Start Interval</span>{" "}
+                        &nbsp;&nbsp;
+                        <input
+                          style={presInput}
                           type="text"
                           name="eventStartInterval"
                           id="specificDayofweek"
@@ -1314,7 +1326,8 @@ export default function Prescriptions({ userId }) {
                       className="images"
                     />
                     <span style={spanPres}>Maximum Amount</span>&nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       id="maximumAmount"
                       name="maximumAmount"
@@ -1335,8 +1348,10 @@ export default function Prescriptions({ userId }) {
                       src="q.svg"
                       className="images"
                     />
-                    <span style={spanPres}>Maximum Amount dose unit</span>&nbsp;&nbsp;
-                    <input style={presInput}
+                    <span style={spanPres}>Maximum Amount dose unit</span>
+                    &nbsp;&nbsp;
+                    <input
+                      style={presInput}
                       type="text"
                       id="maximumAmountDoseUnit"
                       name="maximumAmountDoseUnit"
@@ -1357,7 +1372,8 @@ export default function Prescriptions({ userId }) {
                       className="images"
                     />
                     <span style={spanPres}>Allowed Period</span> &nbsp;&nbsp;
-                    <input style={presInput}
+                    <input
+                      style={presInput}
                       type="text"
                       id="allowedPeriod"
                       name="allowedPeriod"
@@ -1380,7 +1396,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span style={spanPres}>Override reason</span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     id="overrideReason"
                     name="overrideReason"
@@ -1403,7 +1420,8 @@ export default function Prescriptions({ userId }) {
                 className="images"
               />
               <span style={spanPres}>additional Instructions</span> &nbsp;&nbsp;
-              <input style={presInput}
+              <input
+                style={presInput}
                 type="text"
                 id="additionalInstructions"
                 name="additionalInstructions"
@@ -1424,7 +1442,8 @@ export default function Prescriptions({ userId }) {
                 className="images"
               />
               <span style={spanPres}>reason</span> &nbsp;&nbsp;
-              <input style={presInput}
+              <input
+                style={presInput}
                 type="text"
                 id="reason"
                 name="reason"
@@ -1480,7 +1499,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span style={spanPres}>Date Discontinued</span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="date"
                     id="dateDiscontinued"
                     name="dateDiscontinued"
@@ -1492,7 +1512,8 @@ export default function Prescriptions({ userId }) {
                     }}
                   />
                   &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="time"
                     id="timeDiscontinued"
                     name="timeDiscontinued"
@@ -1514,7 +1535,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span style={spanPres}>Date Written</span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="date"
                     id="dateWritten"
                     name="dateWritten"
@@ -1523,7 +1545,8 @@ export default function Prescriptions({ userId }) {
                     }}
                   />
                   &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="time"
                     id="timeWritten"
                     name="timeWritten"
@@ -1556,7 +1579,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span>numberOfRepeatsAllowed</span>&nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="text"
                     name="nora"
                     id="nora"
@@ -1575,7 +1599,8 @@ export default function Prescriptions({ userId }) {
                     className="images"
                   />
                   <span>validityPeriod</span> &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="date"
                     id="validityPeriod"
                     name="validityPeriod"
@@ -1587,7 +1612,8 @@ export default function Prescriptions({ userId }) {
                     }}
                   />
                   &nbsp;&nbsp;
-                  <input style={presInput}
+                  <input
+                    style={presInput}
                     type="time"
                     id="validityPeriodTime"
                     name="validityPeriod"
@@ -1621,12 +1647,9 @@ export default function Prescriptions({ userId }) {
                       className="images"
                     />
                     <span style={spanPres}>Dispense Instructions</span>
-                    <span style={spanNum}>
-                      {" "}
-                      [0..*]
-                    </span>{" "}
-                    &nbsp;&nbsp;
-                    <input style={presInput}
+                    <span style={spanNum}> [0..*]</span> &nbsp;&nbsp;
+                    <input
+                      style={presInput}
                       type="text"
                       name="dispenseInstructions"
                       id="dispenseInstructions"
@@ -1656,8 +1679,10 @@ export default function Prescriptions({ userId }) {
                           src="t.svg"
                           className="images"
                         />
-                        <span style={spanPres}>Amount Description</span>&nbsp;&nbsp;
-                        <input style={presInput}
+                        <span style={spanPres}>Amount Description</span>
+                        &nbsp;&nbsp;
+                        <input
+                          style={presInput}
                           type="text"
                           name="amountDescription"
                           id="amountDescription"
@@ -1678,7 +1703,8 @@ export default function Prescriptions({ userId }) {
                           className="images"
                         />
                         <span style={spanPres}>Amount</span> &nbsp;&nbsp;
-                        <input style={presInput}
+                        <input
+                          style={presInput}
                           type="text"
                           name="amountindispense"
                           id="amountindispense"
@@ -1700,7 +1726,8 @@ export default function Prescriptions({ userId }) {
                           className="images"
                         />
                         <span style={spanPres}>Units</span> &nbsp;&nbsp;
-                        <input style={presInput}
+                        <input
+                          style={presInput}
                           type="text"
                           name="dispenseUnits"
                           id="dispenseInstructions"
@@ -1720,8 +1747,10 @@ export default function Prescriptions({ userId }) {
                           src="hourglass.svg"
                           className="images"
                         />
-                        <span style={spanPres}>Duration of Supply</span> &nbsp;&nbsp;
-                        <input style={presInput}
+                        <span style={spanPres}>Duration of Supply</span>{" "}
+                        &nbsp;&nbsp;
+                        <input
+                          style={presInput}
                           type="text"
                           name="dos"
                           id="dos"
@@ -1743,7 +1772,8 @@ export default function Prescriptions({ userId }) {
                   className="images"
                 />
                 <span style={spanPres}>Comment</span> &nbsp;&nbsp;
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   name="comment"
                   id="comment"
@@ -1761,7 +1791,8 @@ export default function Prescriptions({ userId }) {
                 />
                 &nbsp;
                 <span style={spanPres}>identifier</span> &nbsp;&nbsp;
-                <input style={presInput}
+                <input
+                  style={presInput}
                   type="text"
                   name="identifier"
                   id="identifier"

@@ -58,7 +58,6 @@ const Dashboard = ({ userId, setUserId }) => {
       },
     };
     Axios.get(`${url}/api/doctor/users`, config).then((res) => {
-      console.log(res.data);
       setUsers(res.data);
     });
   }, []);
@@ -90,7 +89,6 @@ const Dashboard = ({ userId, setUserId }) => {
         }}
       />
       <div className="py-5"></div>
-        
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import "./footer.css";
+
 const Footer = () => {
   return (
     <footer
@@ -52,7 +52,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="col-md-6 text-end px-5" style={{ color: "grey"}}>
+          <div className="col-md-6 text-end px-5" style={{ color: "grey" }}>
             <a href="/">Privacy Policy</a> &nbsp;&nbsp; &nbsp;&nbsp;
             <a href="/">Terms of Use </a> &nbsp;&nbsp; &nbsp;&nbsp;
             <a href="/">Cookies</a>

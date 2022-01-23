@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Navbar, Nav, Container, LinkContainer } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 const Header = ({
   loggedIn,

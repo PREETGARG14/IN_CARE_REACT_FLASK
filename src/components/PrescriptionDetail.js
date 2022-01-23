@@ -1,9 +1,7 @@
-import Button from "@restart/ui/esm/Button";
 import React, { useState } from "react";
 
 export default function Prescriptions({ initialstate }) {
   const [details, setDetails] = useState(initialstate);
-  console.log(details);
 
   return (
     <form>

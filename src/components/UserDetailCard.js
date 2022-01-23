@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import "./usd.css";
 
@@ -10,7 +10,6 @@ const UserDetailCard = ({
   patientId,
   patientName,
 }) => {
-  console.log(patientId);
   const history = useNavigate();
   const handlePrescribe = (e) => {
     e.preventDefault();
@@ -24,7 +23,6 @@ const UserDetailCard = ({
     e.preventDefault();
     history("/showpastproblem");
   };
-  console.log(patientName);
   return (
     <div>
       <div className="container-fluid py-5 hs">

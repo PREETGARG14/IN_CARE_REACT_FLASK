@@ -10,14 +10,11 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Alert from "@mui/material/Alert";
 import { url } from "../utils/url";
 import "./ul.css";
-
-const theme = createTheme();
 
 const validationSchema = yup.object({
   username: yup
@@ -202,7 +199,6 @@ export default function SignUp() {
         </Box>
       </Container>
       <div className="py-5"></div>
-      
     </div>
   );
 }

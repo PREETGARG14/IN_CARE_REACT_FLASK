@@ -5,7 +5,6 @@ import "./usd.css";
 import img from "./pres.jpg";
 
 const Cards = ({ userId, setUserID }) => {
-  console.log(userId);
   const history = useNavigate();
   const handlePrescribe = (e) => {
     e.preventDefault();
@@ -70,7 +69,6 @@ const Cards = ({ userId, setUserID }) => {
         <div className="py-5"></div>
         <div className="py-5"></div>
       </div>
-
     </div>
   );
 };

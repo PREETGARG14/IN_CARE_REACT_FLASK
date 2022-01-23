@@ -40,7 +40,6 @@ const Diagnosis = ({ userId }) => {
     };
     Axios.post(`${url}/api/doctor/past/${userId}`, data, config)
       .then((res) => {
-        console.log(res.data);
         setOpen(true);
       })
       .catch((err) => {

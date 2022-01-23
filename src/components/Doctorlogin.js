@@ -5,7 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { url } from "../utils/url";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -25,12 +24,10 @@ const validationSchema = yup.object({
 });
 
 const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
-  console.log(loggedIn);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useNavigate();
 
   const handleSubmit = (data) => {
-    console.log(data);
     Axios.post(`${url}/api/doctor`, data)
       .then((res) => {
         if (res.data.status === "successful") {
@@ -41,7 +38,6 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
         }
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         setErrorMessage(err.response.data.message);
       });
   };
