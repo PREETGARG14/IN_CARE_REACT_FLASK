@@ -1,70 +1,91 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# In care
 
-## Available Scripts
+## What is the use of this Project
 
-In the project directory, you can run:
+1. Patients can create their accounts
+2. Doctor can login to their account and see all Patients Data 
+3. Doctor can give prescription and immunisation to Patients.
+4. Patients can view their prescription,immunisation and past Problems.
+5. Patients can schedule a meeting with Doctor.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Live Application URL
 
-### `npm run build`
+### http://54.145.216.228:3000/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Install Node JS
+Refer to https://nodejs.org/en/ to install nodejs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Install create-react-app
+Install create-react-app npm package globally. This will help to easily run the project and also build the source files easily. Use the following command to install create-react-app
 
-### `npm run eject`
+```bash
+npm install -g create-react-app
+```
+Update Node version
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt install nodejs
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Run Locally
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Clone the project
 
-## Learn More
+```bash
+  git clone https://github.com/PREETGARG14/IN_CARE_REACT_FLASK.git
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Go to the project directory
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+  cd IN_CARE_REACT_FLASK/react_frontend
+```
 
-### Code Splitting
+Install dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+  npm install
+```
 
-### Analyzing the Bundle Size
+Start the server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+  npm run start
+```
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The Application Runs on **localhost:3000**
 
-### Advanced Configuration
+#### HTTP client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**axios** library is used to make HTTP Calls
 
-### Deployment
+## Resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**create-react-app** : The following link has all the commands that can be used with create-react-app
+https://github.com/facebook/create-react-app
 
-### `npm run build` fails to minify
+**ReactJS** : Refer to https://reactjs.org/ to understand the concepts of ReactJS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Material Ui** : Refer to https://mui.com/components/material-icons/ to understand how to use Material Ui
+
+**Bootstrap** : Refer to https://getbootstrap.com/ to understand how Bootstrap works.
+
+**CSS** : Refer to https://www.w3schools.com/react/react_css.asp to understand the concepts of Css.
+## Tech Stack
+
+**Client:** React, React-router-dom , material ui , Bootstrap , Javascript.
+
+**Server:** Flask
+
+
+

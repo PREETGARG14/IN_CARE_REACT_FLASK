@@ -22,8 +22,7 @@ const validationSchema = yup.object({
   sequence_no: yup.number().required("Enter sequence no."),
 });
 
-const Immunisation = ({ userId }) => {
-  const [open, setOpen] = useState(false);
+const Immunisation = ({ userId, open, setOpen }) => {
   const history = useNavigate();
 
   const handleSubmit = (data) => {
@@ -41,13 +40,6 @@ const Immunisation = ({ userId }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
   };
 
   const formik = useFormik({
@@ -147,15 +139,6 @@ const Immunisation = ({ userId }) => {
             >
               Prescribe
             </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                sx={{ width: "100%" }}
-              >
-                submitted
-              </Alert>
-            </Snackbar>
           </form>
         </Box>
       </Box>

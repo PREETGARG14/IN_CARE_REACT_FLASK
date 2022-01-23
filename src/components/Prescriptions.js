@@ -5,18 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { initialstate } from "../utils/InitialState";
 import Axios from "axios";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 import { url } from "../utils/url";
 //import '../bootstrap.min.css';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-export default function Prescriptions({ userId }) {
+export default function Prescriptions({ userId, open, setOpen }) {
   const [details, setDetails] = useState(initialstate);
-  const [open, setOpen] = useState(false);
   const history = useNavigate();
 
   const handleClick = (e) => {
@@ -36,12 +29,6 @@ export default function Prescriptions({ userId }) {
       setOpen(true);
       history("/dashboard");
     });
-  };
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
   };
 
   const presInput = {
@@ -1817,7 +1804,7 @@ export default function Prescriptions({ userId }) {
                   </Button>
                 </center>
               </div>
-              <Snackbar
+              {/* <Snackbar
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
@@ -1829,7 +1816,7 @@ export default function Prescriptions({ userId }) {
                 >
                   submitted
                 </Alert>
-              </Snackbar>
+              </Snackbar> */}
             </div>
           </div>
         </div>

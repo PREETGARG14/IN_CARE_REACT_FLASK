@@ -33,6 +33,7 @@ function App() {
   const [patientName, setPatientName] = useState(
     sessionStorage.getItem("username")
   );
+  const [open, setOpen] = useState(false);
   return (
     <Router>
       <Header
@@ -71,7 +72,12 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoutes auth={loggedIn}>
-                <Dashboard userId={userId} setUserId={setUserId} />
+                <Dashboard
+                  userId={userId}
+                  setUserId={setUserId}
+                  open={open}
+                  setOpen={setOpen}
+                />
               </ProtectedRoutes>
             }
           />
@@ -79,7 +85,7 @@ function App() {
             path="/immunisation"
             element={
               <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
-                <Immunisation userId={userId} />
+                <Immunisation userId={userId} open={open} setOpen={setOpen} />
               </ProtectedRoutes>
             }
           />
@@ -87,7 +93,7 @@ function App() {
             path="/diagnosis"
             element={
               <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
-                <Diagnosis userId={userId} />
+                <Diagnosis userId={userId} open={open} setOpen={setOpen} />
               </ProtectedRoutes>
             }
           />
@@ -95,7 +101,7 @@ function App() {
             path="/presciption"
             element={
               <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
-                <Prescriptions userId={userId} />
+                <Prescriptions userId={userId} open={open} setOpen={setOpen} />
               </ProtectedRoutes>
             }
           />

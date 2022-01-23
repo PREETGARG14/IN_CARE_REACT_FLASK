@@ -21,6 +21,12 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import EditIcon from "@mui/icons-material/Edit";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -46,9 +52,16 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const Dashboard = ({ userId, setUserId }) => {
+const Dashboard = ({ userId, setUserId, open, setOpen }) => {
   const [users, setUsers] = useState([]);
   const history = useNavigate();
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   useEffect(() => {
     let token = sessionStorage.getItem("token");
@@ -89,6 +102,11 @@ const Dashboard = ({ userId, setUserId }) => {
         }}
       />
       <div className="py-5"></div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          submitted
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

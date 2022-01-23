@@ -15,14 +15,9 @@ import { useNavigate } from "react-router";
 import { url } from "../utils/url";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Axios from "axios";
-import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 const validationSchema = yup.object({
   problem: yup.string().required("Enter Problem Name"),
@@ -30,8 +25,7 @@ const validationSchema = yup.object({
   severity: yup.string().required("select severity"),
 });
 
-const Diagnosis = ({ userId }) => {
-  const [open, setOpen] = useState(false);
+const Diagnosis = ({ userId, open, setOpen }) => {
   const history = useNavigate();
   const handleSubmit = (data) => {
     let token = sessionStorage.getItem("token");
@@ -48,13 +42,6 @@ const Diagnosis = ({ userId }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
   };
 
   const formik = useFormik({
@@ -162,15 +149,6 @@ const Diagnosis = ({ userId }) => {
             >
               Prescribe
             </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                sx={{ width: "100%" }}
-              >
-                submitted
-              </Alert>
-            </Snackbar>
           </form>
         </Box>
       </Box>
