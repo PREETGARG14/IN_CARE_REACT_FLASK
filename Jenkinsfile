@@ -4,7 +4,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "sudo npm install"
-                sh "sudo npm run build"
+                sh "sudo react-scripts --openssl-legacy-provider build"
             }
         }
         stage("Deploy") {
