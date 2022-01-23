@@ -1,6 +1,7 @@
 from flask_cors import cross_origin
 from flask_mail import Mail, Message
 import re
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash, json, session
 from flask_session import Session
 from market import app
@@ -69,7 +70,7 @@ def login():
         return jsonify(result), 401
 
     attempted_user = Patients.query.filter_by(username=username).first()
-    if attempted_user and attempted_user.password_hash == password:
+    if attempted_user and check_password_hash(attempted_user.password_hash , password):
         access_token = create_access_token(identity=username)
         session['token'] = access_token
         tokenDict[attempted_user.id]=access_token

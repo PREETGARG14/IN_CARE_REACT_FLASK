@@ -1,5 +1,6 @@
 from sqlalchemy.orm import backref
 from market import db,login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_login import UserMixin
 
@@ -22,7 +23,7 @@ class Patients(db.Model, UserMixin,Model):
     def __init__(self,fullname,email_address,password,username):
         self.fullname=fullname
         self.email_address=email_address
-        self.password_hash=password
+        self.password_hash=generate_password_hash(password)
         self.username=username
 
     @property
@@ -34,7 +35,7 @@ class Patients(db.Model, UserMixin,Model):
         self.password_hash = plain_text_password
 
     def check_password_correction(self, attempted_password):
-        return (self.password_hash, attempted_password)
+        return check_password_hash(self.password_hash, attempted_password)
 
 class Doctor(db.Model, UserMixin):
     __tablename__ = 'admin'
