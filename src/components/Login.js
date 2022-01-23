@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -22,7 +22,7 @@ const validationSchema = yup.object({
   password: yup.string("Enter your password").required("Password is required"),
 });
 
-const Login = ({ setUserDetailStatus, setPatientId }) => {
+const Login = ({ setUserDetailStatus, setPatientId, setPatientName }) => {
   const history = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -33,9 +33,11 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
         if (res.data.status === "successful") {
           setUserDetailStatus(true);
           setPatientId(res.data.id);
-          history("/userdetailcard");
+          setPatientName(res.data.username);
+          sessionStorage.setItem("username", res.data.username);
           sessionStorage.setItem("token", res.data.access_token);
           sessionStorage.setItem("patient_id", res.data.id);
+          history("/userdetailcard");
         }
       })
       .catch((err) => {

@@ -1,9 +1,15 @@
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import React from "react";
 import "./usd.css";
 
-const UserDetailCard = ({ userId, setUserID, setPatientId, patientId }) => {
+const UserDetailCard = ({
+  userId,
+  setUserID,
+  setPatientId,
+  patientId,
+  patientName,
+}) => {
   console.log(patientId);
   const history = useNavigate();
   const handlePrescribe = (e) => {
@@ -18,9 +24,13 @@ const UserDetailCard = ({ userId, setUserID, setPatientId, patientId }) => {
     e.preventDefault();
     history("/showpastproblem");
   };
+  console.log(patientName);
   return (
     <div>
       <div className="container-fluid py-5 hs">
+        <div className="text-center">
+          <h1>Welcome {patientName} !</h1>
+        </div>
         <div className="d-flex justify-content-center ps-5">
           <div className="col-8 pt-5">
             <div className="row row-cols-1 row-cols-md-3 g-4">

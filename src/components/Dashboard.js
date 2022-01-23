@@ -20,7 +20,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import PreviewIcon from "@mui/icons-material/Preview";
+import EditIcon from "@mui/icons-material/Edit";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -75,7 +75,7 @@ const Dashboard = ({ userId, setUserId }) => {
         data={users}
         actions={[
           {
-            icon: PreviewIcon,
+            icon: EditIcon,
             tooltip: "Show details",
             onClick: (event, rowData) => {
               setUserId(rowData.id);

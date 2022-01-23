@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Container } from "react-bootstrap";
@@ -18,6 +23,7 @@ import Showprescriptions from "./components/Showprescriptions";
 import ShowImmunisation from "./components/ShowImmunisation";
 import ShowPastProblem from "./components/ShowPastProblem";
 import Chatbot from "./components/Chatbot";
+import PageNotFound from "./utils/PageNotFound";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(
@@ -30,6 +36,9 @@ function App() {
   const [patientId, setPatientId] = useState(
     sessionStorage.getItem("patient_id")
   );
+  const [patientName, setPatientName] = useState(
+    sessionStorage.getItem("username")
+  );
   return (
     <Router>
       <Header
@@ -41,19 +50,21 @@ function App() {
       <main className="my-0">
         <Routes>
           <Route path="/" exact element={<Homepage />} />
-          <Route path="/card" exact element={<Cards/>} />
+          <Route path="/card" exact element={<Cards />} />
           <Route
             path="/login"
             element={
-              <Login
-                setUserDetailStatus={setUserDetailStatus}
-                patientId={patientId}
-                setPatientId={setPatientId}
-              />
+              <ProtectedRoutes auth={!loggedIn && !userDetailStatus}>
+                <Login
+                  setUserDetailStatus={setUserDetailStatus}
+                  patientId={patientId}
+                  setPatientId={setPatientId}
+                  setPatientName={setPatientName}
+                />
+              </ProtectedRoutes>
             }
-            exact
           />
-          <Route path='/chatbot' exact element={<Chatbot/>}/>
+          <Route path="/chatbot" exact element={<Chatbot />} />
           <Route
             path="/doctorlogin"
             element={
@@ -73,7 +84,7 @@ function App() {
           <Route
             path="/immunisation"
             element={
-              <ProtectedRoutes auth={loggedIn}>
+              <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
                 <Immunisation userId={userId} />
               </ProtectedRoutes>
             }
@@ -81,7 +92,7 @@ function App() {
           <Route
             path="/diagnosis"
             element={
-              <ProtectedRoutes auth={loggedIn}>
+              <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
                 <Diagnosis userId={userId} />
               </ProtectedRoutes>
             }
@@ -89,7 +100,7 @@ function App() {
           <Route
             path="/presciption"
             element={
-              <ProtectedRoutes auth={loggedIn}>
+              <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
                 <Prescriptions userId={userId} />
               </ProtectedRoutes>
             }
@@ -97,7 +108,7 @@ function App() {
           <Route
             path="/cards"
             element={
-              <ProtectedRoutes auth={loggedIn}>
+              <ProtectedRoutes auth={loggedIn && Boolean(userId)}>
                 <Cards userId={userId} setUserId={setUserId} />
               </ProtectedRoutes>
             }
@@ -109,6 +120,7 @@ function App() {
                 <UserDetailCard
                   patientId={patientId}
                   setPatientId={setPatientId}
+                  patientName={patientName}
                 />
               </ProtectedRoutes>
             }
@@ -147,6 +159,7 @@ function App() {
             }
           />
           <Route path="/temp" element={<Chatbot />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
       <Footer />

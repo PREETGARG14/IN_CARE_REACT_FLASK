@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Alert from "@mui/material/Alert";
-import './dl.css';
+import "./dl.css";
 
 const validationSchema = yup.object({
   email_address: yup
@@ -34,9 +34,9 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
     Axios.post(`${url}/api/doctor`, data)
       .then((res) => {
         if (res.data.status === "successful") {
-          setLoggedIn(true);
           sessionStorage.setItem("doctorlogin", true);
           sessionStorage.setItem("token", res.data.token);
+          setLoggedIn(true);
           history("/dashboard");
         }
       })
@@ -55,79 +55,85 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
     onSubmit: handleSubmit,
   });
 
+  if (loggedIn) {
+    history("/");
+  }
+
   return (
-  <div className="dl">
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          paddingTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log in as a Doctor
-        </Typography>
-        <Box sx={{ mt: 1 }}>
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              margin="normal"
-              fullWidth
-              id="email"
-              name="email_address"
-              label="Email address"
-              value={formik.values.email_address}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.email_address &&
-                Boolean(formik.errors.email_address)
-              }
-              helperText={
-                formik.touched.email_address && formik.errors.email_address
-              }
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
+    <div className="dl">
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            paddingTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log in as a Doctor
+          </Typography>
+          <Box sx={{ mt: 1 }}>
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="email"
+                name="email_address"
+                label="Email address"
+                value={formik.values.email_address}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.email_address &&
+                  Boolean(formik.errors.email_address)
+                }
+                helperText={
+                  formik.touched.email_address && formik.errors.email_address
+                }
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
+              />
 
-            {errorMessage !== "" ? (
-              <Alert
-                onClose={() => setErrorMessage("")}
-                variant="filled"
-                severity="error"
+              {errorMessage !== "" ? (
+                <Alert
+                  onClose={() => setErrorMessage("")}
+                  variant="filled"
+                  severity="error"
+                >
+                  {errorMessage}
+                </Alert>
+              ) : (
+                ""
+              )}
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                {errorMessage}
-              </Alert>
-            ) : (
-              ""
-            )}
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
-          </form>
+                Log In
+              </Button>
+            </form>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
     </div>
   );
 };
