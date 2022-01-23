@@ -1,5 +1,7 @@
 import Button from "@restart/ui/esm/Button";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { nanoid } from "nanoid";
 import { initialstate } from "../utils/InitialState";
 import Axios from "axios";
@@ -15,6 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function Prescriptions({ userId }) {
   const [details, setDetails] = useState(initialstate);
   const [open, setOpen] = useState(false);
+  const history = useNavigate();
 
   const handleClick = (e) => {
     const newDetails = { ...details, pi: nanoid() };
@@ -31,6 +34,7 @@ export default function Prescriptions({ userId }) {
       config
     ).then((res) => {
       setOpen(true);
+      history("/dashboard");
     });
   };
   const handleClose = (event, reason) => {

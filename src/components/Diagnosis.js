@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useNavigate } from "react-router";
 import { url } from "../utils/url";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Axios from "axios";
@@ -31,6 +32,7 @@ const validationSchema = yup.object({
 
 const Diagnosis = ({ userId }) => {
   const [open, setOpen] = useState(false);
+  const history = useNavigate();
   const handleSubmit = (data) => {
     let token = sessionStorage.getItem("token");
     let config = {
@@ -41,6 +43,7 @@ const Diagnosis = ({ userId }) => {
     Axios.post(`${url}/api/doctor/past/${userId}`, data, config)
       .then((res) => {
         setOpen(true);
+        history("/dashboard");
       })
       .catch((err) => {
         console.log(err);

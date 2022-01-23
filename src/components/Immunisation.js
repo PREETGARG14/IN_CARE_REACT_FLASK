@@ -9,6 +9,7 @@ import MuiAlert from "@mui/material/Alert";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { url } from "../utils/url";
+import { useNavigate } from "react-router";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -23,6 +24,7 @@ const validationSchema = yup.object({
 
 const Immunisation = ({ userId }) => {
   const [open, setOpen] = useState(false);
+  const history = useNavigate();
 
   const handleSubmit = (data) => {
     let token = sessionStorage.getItem("token");
@@ -34,6 +36,7 @@ const Immunisation = ({ userId }) => {
     Axios.post(`${url}/api/doctor/immunisation/${userId}`, data, config)
       .then((res) => {
         setOpen(true);
+        history("/dashboard");
       })
       .catch((err) => {
         console.log(err);
