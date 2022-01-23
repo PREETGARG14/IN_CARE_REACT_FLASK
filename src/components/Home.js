@@ -9,7 +9,7 @@ const Home = () => {
   const [email, setEmail] = useState();
   const handleClick = (e) => {
     e.preventDefault();
-    Axios.post(`${url}/api/schedule`, email).then((res) => {
+    Axios.post(`${url}/api/schedule`,{email}).then((res) => {
       alert("mail send ");
     });
   };
