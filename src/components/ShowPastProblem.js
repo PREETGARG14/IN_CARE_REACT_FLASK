@@ -25,27 +25,27 @@ const ShowPastProblem = ({ patientId }) => {
     });
   }, []);
 
+ 
   return (
     <Container>
       <Typography
         className="mt-5 px-3 py-3"
-        style={{ backgroundColor: "#40C1AC" }}
         textAlign="center"
       >
-        <h2>
+        <h3>
           <b>Your Past history of Problems </b>
-        </h2>
+        </h3>
       </Typography>
       {pastProblems.length === 0 ? (
-        <Typography
-          style={{ backgroundColor: "#40C1AC" }}
-          className="mt-5 px-3 py-3"
-          textAlign="center"
-        >
-          <h2>
-            <b> No past Problem to show </b>
-          </h2>
-        </Typography>
+        <>
+          
+          <Typography className="mt-5 px-3 py-3">
+            
+          </Typography>
+          <center><img src="no-record.png" alt="" style={{height:"200px"}} /></center>
+          <div className="py-5"></div>
+          <div className="py-5"></div>
+        </>
       ) : (
         ""
       )}
@@ -93,6 +93,8 @@ const ShowPastProblem = ({ patientId }) => {
           </AccordionDetails>
         </Accordion>
       ))}
+      <div className="py-5"></div>
+      <div className="py-5"></div>
     </Container>
   );
 };

@@ -67,11 +67,11 @@ export default function SignUp() {
   });
 
   return (
-    <div className="ul">
+    <div className="ul mt-0">
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            marginTop: 2,
+            paddingTop: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -201,6 +201,8 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
+      <div className="py-5"></div>
+      
     </div>
   );
 }

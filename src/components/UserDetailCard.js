@@ -66,6 +66,8 @@ const UserDetailCard = ({ userId, setUserID, setPatientId, patientId }) => {
             </div>
           </div>
         </div>
+        <div className="py-5"></div>
+        <div className="py-5"></div>
       </div>
     </div>
   );

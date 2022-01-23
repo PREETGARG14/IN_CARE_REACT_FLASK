@@ -121,6 +121,9 @@ const Login = ({ setUserDetailStatus, setPatientId }) => {
           </form>
         </Box>
       </Container>
+      <div className="py-5"></div>
+      <div className="py-5"></div>
+
     </div>
   );
 };

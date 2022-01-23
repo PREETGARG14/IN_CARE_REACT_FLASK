@@ -56,78 +56,80 @@ const Doctorlogin = ({ loggedIn, setLoggedIn }) => {
   });
 
   return (
-  <div className="dl">
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          paddingTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log in as a Doctor
-        </Typography>
-        <Box sx={{ mt: 1 }}>
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              margin="normal"
-              fullWidth
-              id="email"
-              name="email_address"
-              label="Email address"
-              value={formik.values.email_address}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.email_address &&
-                Boolean(formik.errors.email_address)
-              }
-              helperText={
-                formik.touched.email_address && formik.errors.email_address
-              }
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
+    <div className="dl">
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            paddingTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log in as a Doctor
+          </Typography>
+          <Box sx={{ mt: 1 }}>
+            <form onSubmit={formik.handleSubmit}>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="email"
+                name="email_address"
+                label="Email address"
+                value={formik.values.email_address}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.email_address &&
+                  Boolean(formik.errors.email_address)
+                }
+                helperText={
+                  formik.touched.email_address && formik.errors.email_address
+                }
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+              />
 
-            {errorMessage !== "" ? (
-              <Alert
-                onClose={() => setErrorMessage("")}
-                variant="filled"
-                severity="error"
+              {errorMessage !== "" ? (
+                <Alert
+                  onClose={() => setErrorMessage("")}
+                  variant="filled"
+                  severity="error"
+                >
+                  {errorMessage}
+                </Alert>
+              ) : (
+                ""
+              )}
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                {errorMessage}
-              </Alert>
-            ) : (
-              ""
-            )}
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
-          </form>
+                Log In
+              </Button>
+            </form>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <div className="py-5"></div>
+      <div className="py-5"></div>
     </div>
   );
 };

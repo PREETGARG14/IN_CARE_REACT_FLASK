@@ -32,22 +32,24 @@ const Showprescriptions = ({ patientId }) => {
       <Typography
         textAlign="center"
         className="mt-5 px-3 py-3"
-        style={{ backgroundColor: "#40C1AC" }}
       >
-        <h2>
+        <h3>
           <b>Your Prescription Details </b>
-        </h2>
+        </h3>
       </Typography>
       {prescriptionDetails.length === 0 ? (
-        <Typography
-          textAlign="center"
-          className="mt-5 px-3 py-3"
-          style={{ backgroundColor: "#40C1AC" }}
-        >
-          <h2>
-            <b>No Prescriptions to show </b>
-          </h2>
-        </Typography>
+        <>
+          <Typography
+            className="mt-5 px-3 py-3"
+          >
+          <center><img src="no-record.png" alt="" style={{height:"200px"}} /></center>
+
+          </Typography>
+          <div className="py-5"></div>
+          <div className="py-5"></div>
+
+        </>
+
       ) : (
         ""
       )}
@@ -67,7 +69,11 @@ const Showprescriptions = ({ patientId }) => {
           </AccordionDetails>
         </Accordion>
       ))}
+        <div className="py-5"></div>
+        <div className="py-5"></div>
+
     </Container>
+    
   );
 };
 
