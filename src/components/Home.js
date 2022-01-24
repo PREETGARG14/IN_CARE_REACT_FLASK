@@ -9,7 +9,7 @@ const Home = () => {
   const [email, setEmail] = useState();
   const handleClick = (e) => {
     e.preventDefault();
-    Axios.post(`${url}/api/schedule`,{email}).then((res) => {
+    Axios.post(`http://localhost:5000/api/schedule`, { email }).then((res) => {
       alert("mail send ");
     });
   };
@@ -90,8 +90,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-          </div>
+    </div>
   );
 };
 
